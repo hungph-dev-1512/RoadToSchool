@@ -1,0 +1,22 @@
+{
+  "name": "RoadToSchool",
+  "description": "",
+  "main": "",
+  "authors": [
+    "hungphamhoang <hungph.dev.ict@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hungph-dev-ict/RoadToSchool",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "RoadToSchool-css": "*",
+    "RoadToSchool-js": "*"
+  }
+}

@@ -11,5 +11,5 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.copyDirectory('resources/assets/RoadToSchool-css', 'public/assets');
+mix.copyDirectory('resources/assets/RoadToSchool-js', 'public/assets');
