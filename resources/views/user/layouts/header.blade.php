@@ -13,10 +13,10 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="lnr lnr-enter"></i> {{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}"><i class="lnr lnr-enter"></i> {{ __('Login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="lnr lnr-user"></i> {{ __('Register') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}"><i class="lnr lnr-user"></i> {{ __('Register') }}</a>
                     </li>
                     <li class="postadd">
                         <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>
