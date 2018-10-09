@@ -37,4 +37,13 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'register_new_acc' => 'Register new account',
+    'your_name' => 'Your name *',
+    'your_email' => 'Email *',
+    'your_password' => 'Password *',
+    'your_password_confirmation' => 'Password confirmation *',
+    'your_phone' => 'Phone number *',
+    'your_birthday' => 'Your birthday',
+    'you_are' => 'You are:',
+    'teacher_student' => 'Teacher or student ?',
+    'agree_terms' => 'I agree to the Terms and Conditions',
 ];
