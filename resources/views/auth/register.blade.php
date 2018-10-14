@@ -51,39 +51,17 @@
                                 </div>
                                 <p>{{ $errors->first('password') }}</p>
                             </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('password_confirmation')) error-input @endif">
+                            <div class="form-group">
+                                <div class="input-icon">
                                     <i class="icon fa fa-unlock-alt"></i>
                                     {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password-confirmation', 'placeholder' => __('titles.your_password_confirmation')]) }}
                                 </div>
-                                <p>{{ $errors->first('password') }}</p>
-                            </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('phone')) error-input @endif">
-                                    <i class="icon fa fa-phone"></i>
-                                    {{ Form::text('phone', null, ['class' => 'form-control', 'id' => 'phone', 'placeholder' => __('titles.your_phone')]) }}
-                                </div>
-                                <p>{{ $errors->first('phone') }}</p>
-                            </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('birthday')) error-input @endif">
-                                    <i class="icon fa fa-birthday-cake"></i>
-                                    {{ Form::text('birthday', null, ['class' => 'form-control', 'id' => 'birthday', 'data-provide' => 'datepicker', 'data-date-format' => 'yy-mm-dd', 'placeholder' => __('titles.your_birthday')]) }}
-                                </div>
-                                <p>{{ $errors->first('birthday') }}</p>
-                            </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('role')) error-input @endif">
-                                    {{ Form::label('role', __('titles.you_are'), ['id' => 'label-role']) }}
-                                    {{ Form::select('role', \App\Models\User::$roles, null, ['class' => 'form-control', 'id' => 'role', 'name' => 'role', 'placeholder' => __('titles.teacher_student')]) }}
-                                </div>
-                            <p>{{ $errors->first('role') }}</p>
                             </div>
                             <div class="checkbox">
                                 {{ Form::checkbox('agree', null, false, ['id' => 'agree', 'onclick' => 'statusCheckboxAgree()', 'style' => 'float: left']) }}
                                 {{ Form::label('agree', __('titles.agree_terms')) }}
                             </div>
-                            {{ Form::submit(__('titles.register'), ['class' => 'btn btn-common log-btn', 'id' => 'submit', 'disabled' => 'true']) }}
+                            {{ Form::submit(__('titles.register'), ['class' => 'btn btn-common log-btn', 'id' => 'submit']) }}
                         {{ Form::close() }}
                     </div>
                 </div>
@@ -96,36 +74,24 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#name').focus(function() {
-                $('#name').parent().removeAttr('style');
+                $('#name').parent().removeClass('error-input');
                 $('#name').parent().next().remove();
             });
             $('#email').focus(function() {
-                $('#email').parent().removeAttr('style');
+                $('#email').parent().removeClass('error-input');
                 $('#email').parent().next().remove();
             });
             $('#password').focus(function() {
-                $('#password').parent().removeAttr('style');
+                $('#password').parent().removeClass('error-input');
                 $('#password').parent().next().remove();
             });
-            $('#password-confirmation').focus(function() {
-                $('#password-confirmation').parent().removeAttr('style');
-                $('#password-confirmation').parent().next().remove();
-            });
-            $('#phone').focus(function() {
-                $('#phone').parent().removeAttr('style');
-                $('#phone').parent().next().remove();
-            });
-            $('#role').focus(function() {
-                $('#role').parent().removeAttr('style');
-                $('#role').parent().next().remove();
-            });
         });
-        function statusCheckboxAgree() {
-            if ($('#agree').is(':checked')) {
-                $('#submit').removeAttr('disabled');
-            } else {
-                $('#submit').attr('disabled', true);
+
+        $('#submit').on('click', function() {
+            if (!$('#agree').is(':checked')) {
+                event.preventDefault();
+                alert("{{ __('messages.accept_terms_conditions') }}");
             }
-        };
+        });
     </script>
 @endsection

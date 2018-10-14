@@ -46,4 +46,5 @@ return [
     'you_are' => 'You are:',
     'teacher_student' => 'Teacher or student ?',
     'agree_terms' => 'I agree to the Terms and Conditions',
+    'error' => 'Error',
 ];

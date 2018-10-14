@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="widget">
-                        <h3 class="block-title">{{ __('about') }}</h3>
+                        <h3 class="block-title">{{ __('titles.about') }}</h3>
                         <div class="textwidget">
                             <p></p>
                         </div>
@@ -12,21 +12,21 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="widget">
-                        <h3 class="block-title">{{ __('links') }}</h3>
+                        <h3 class="block-title">{{ __('titles.links') }}</h3>
                         <ul class="menu">
-                            <li><a href="#">{{ __('home') }}</a></li>
-                            <li><a href="#">{{ __('faq') }}</a></li>
-                            <li><a href="#">{{ __('contact') }}</a></li>
-                            <li><a href="#">{{ __('notifications') }}</a></li>
-                            <li><a href="#">{{ __('categories') }}</a></li>
-                            <li><a href="#">{{ __('full_width') }}</a></li>
-                            <li><a href="#">{{ __('left_side_bar') }}</a></li>
+                            <li><a href="#">{{ __('titles.home') }}</a></li>
+                            <li><a href="#">{{ __('titles.faq') }}</a></li>
+                            <li><a href="#">{{ __('titles.contact') }}</a></li>
+                            <li><a href="#">{{ __('titles.notifications') }}</a></li>
+                            <li><a href="#">{{ __('titles.categories') }}</a></li>
+                            <li><a href="#">{{ __('titles.full_width') }}</a></li>
+                            <li><a href="#">{{ __('titles.left_side_bar') }}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="widget">
-                        <h3 class="block-title">{{ __('lastest_tweets') }}</h3>
+                        <h3 class="block-title">{{ __('titles.lastest_tweets') }}</h3>
                         <div class="twitter-content clearfix">
                             <ul class="twitter-list">
                                 <li class="clearfix">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="widget">
-                        <h3 class="block-title">{{ __('premium_ads') }}</h3>
+                        <h3 class="block-title">{{ __('titles.premium_ads') }}</h3>
                         <ul class="featured-list">
                             <li>
                                 <img alt="" src="{{ asset('assets/img/featured/img1.jpg') }}">
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-info pull-left">
-                        <p> {{ __('copyright') }} <a href="" rel="nofollow">Phạm Hoàng Hưng</a></p>
+                        <p> {{ __('titles.copyright') }} <a href="" rel="nofollow">Phạm Hoàng Hưng</a></p>
                     </div>
                     <div class="bottom-social-icons social-icon pull-right">
                         <a class="facebook" target="_blank" href=""><i class="fa fa-facebook"></i></a>
