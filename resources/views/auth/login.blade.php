@@ -37,13 +37,13 @@
                         {{ Form::open(['method' => 'post', 'class' => 'login-form']) }}
                             @if(!$errors->isEmpty())
                                 @foreach ($errors->all() as $error)
-                                    <p id="error"> {{ __('titles.error:') . ' ' . $error }} </p><br>
+                                    <p id="error"> {{ __('titles.error') . ': ' . $error }} </p><br>
                                 @endforeach
                             @endif
                             <div class="form-group">
                                 <div class="input-icon @if(!$errors->isEmpty()) error-input @endif">
                                     <i class="icon fa fa-envelope"></i>
-                                    {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'sender-email', 'placeholder' => __('titles.email')]) }}
+                                    {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => __('titles.email')]) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -72,8 +72,8 @@
 @section('inline_scripts')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#sender-email').focus(function() {
-                $('#sender-email').parent().removeClass('error-input');
+            $('#email').focus(function() {
+                $('#email').parent().removeClass('error-input');
                 $('#error').remove();
             })
             $('#password').focus(function() {
