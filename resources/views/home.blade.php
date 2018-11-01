@@ -77,27 +77,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Announcements</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Car Pool - Bike Ride</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Charity - Donate - NGO</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Lost - Found</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Tender Notices</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">General Entertainment</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">View all subcategories →</a>
@@ -118,31 +118,31 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Home Electronics</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">LCDs</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Charity - Donate - NGO</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Mobile & Tablets</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">TV & DVDs</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Technical Services</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Others</a>
-                                    <sapn class="category-counter">1</sapn>
+                                    <span class="category-counter">1</span>
                                 </li>
                             </ul>
                         </div>
@@ -160,27 +160,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Cleaning Services</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Educational</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Food Services</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Medical</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Office & Home Removals</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">General Entertainment</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">View all subcategories →</a>
@@ -201,27 +201,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Bags</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Beauty Products</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Jewelry</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Shoes M/F</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Tender Notices</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Others</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                             </ul>
                         </div>
@@ -239,27 +239,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Accounts Jobs</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Cleaning & Washing</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Web design</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Design & Code</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Finance Jobs</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Data Entry</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">View all subcategories →</a>
@@ -280,27 +280,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Android Development</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">20 Days HTML/CSS</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">iOS Development with Swift</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">SEO for rest of us</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Mastering in Java</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Others</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">View all subcategories →</a>
@@ -321,27 +321,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Farms</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Home for rent</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Hotels</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Land for sale</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Offices for rent</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Others</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                             </ul>
                         </div>
@@ -359,27 +359,27 @@
                             <ul>
                                 <li>
                                     <a href="category.html">Cars</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Fancy Cars</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Kids Bikes</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Motor Bikes</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Classic & Modern</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">Kinds</a>
-                                    <sapn class="category-counter">3</sapn>
+                                    <span class="category-counter">3</span>
                                 </li>
                                 <li>
                                     <a href="category.html">View all subcategories →</a>

@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('users', 'User\UserController')->only('show', 'update');
+    // ->middleware('selfaccount');
+});
+
+Route::post('districts', 'User\DistrictController@getAllRecord');
+Route::post('communes', 'User\CommuneController@getAllRecord');
