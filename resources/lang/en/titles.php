@@ -84,4 +84,5 @@ return [
     'choose_province' => 'Your province',
     'choose_district' => 'Your district',
     'choose_commune' => 'Your commune',
+    'categories' => 'Categories',
 ];
