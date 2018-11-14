@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'address' => 'Ha Noi',
             'role' => '0',
-            'avatar' => config('app.image') .'avatar/admin-avatar.jpg',
+            'avatar' => 'images/avatar/admin-avatar.jpg',
             'is_admin' => '1',
         ]);
 
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'address' => 'Ha Noi',
             'role' => '0',
-            'avatar' => config('app.image') .'avatar/admin-avatar.jpg',
+            'avatar' => 'images/avatar/admin-avatar.jpg',
             'is_admin' => '0',
         ]);
 
@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những giáo viên tốt nhất tại BKHN',
             'role' => '0',
-            'avatar' => config('app.image') .'avatar/lam.jpg',
+            'avatar' => 'images/avatar/lam.jpg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -59,7 +59,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những sinh viên giỏi nhất tại BKHN',
             'role' => '1',
-            'avatar' => config('app.image') .'avatar/hung.jpeg',
+            'avatar' => 'images/avatar/hung.jpeg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -73,7 +73,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những sinh viên giỏi nhất tại BKHN',
             'role' => '1',
-            'avatar' => config('app.image') .'avatar/minh.jpeg',
+            'avatar' => 'images/avatar/minh.jpeg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -87,7 +87,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những giáo viên tốt nhất tại BKHN',
             'role' => '0',
-            'avatar' => config('app.image') .'avatar/lam.jpg',
+            'avatar' => 'images/avatar/lam.jpg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -101,7 +101,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những giáo viên tốt nhất tại BKHN',
             'role' => '0',
-            'avatar' => config('app.image') .'avatar/minh.jpg',
+            'avatar' => 'images/avatar/minh.jpg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -115,7 +115,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những sinh viên giỏi nhất tại BKHN',
             'role' => '1',
-            'avatar' => config('app.image') .'avatar/minh.jpeg',
+            'avatar' => 'images/avatar/minh.jpeg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);
@@ -128,7 +128,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ha Noi',
             'personal_info' => 'Một trong những sinh viên giỏi nhất tại BKHN',
             'role' => '1',
-            'avatar' => config('app.image') .'avatar/hung.jpeg',
+            'avatar' => 'images/avatar/hung.jpeg',
             'working_place' => 'BKHN',
             'is_admin' => '0',
         ]);

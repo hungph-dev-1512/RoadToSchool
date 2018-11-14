@@ -47,6 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail
         self::GRADE_3 => 'Grade 3',
     ];
 
+    /**
+     * Get the courses for the teacher teaches.
+     */
+    public function courses()
+    {
+        return $this->hasMany('App\Models\Course');
+    }
+
     public function findUser($id)
     {
         return User::findOrFail($id);
