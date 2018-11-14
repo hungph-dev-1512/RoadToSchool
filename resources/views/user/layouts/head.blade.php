@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/line-icons/line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extras/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extras/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extras/owl.theme.css') }}">
