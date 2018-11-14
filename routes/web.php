@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('users', 'User\UserController')->only('show', 'update');
     // ->middleware('selfaccount');
+    Route::resource('courses', 'User\CourseController');
+    Route::get('courses/{id}/lectures/{lectureId}', 'User\LectureController@show');
 });
 
 Route::post('districts', 'User\DistrictController@getAllRecord');
