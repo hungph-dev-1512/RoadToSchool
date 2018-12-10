@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="widget">
-                        <h3 class="block-title">{{ __('titles.lastest_tweets') }}</h3>
+                        <h3 class="block-title">{{ __('titles.latest_tweets') }}</h3>
                         <div class="twitter-content clearfix">
                             <ul class="twitter-list">
                                 <li class="clearfix">
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-info pull-left">
-                        <p> {{ __('titles.copyright') }} <a href="" rel="nofollow">Phạm Hoàng Hưng</a></p>
+                        <p> {{ __('titles.copyright_p1') }}&copy;{{ __('titles.copyright_p2') }}  <a href="" rel="nofollow">Phạm Hoàng Hưng</a></p>
                     </div>
                     <div class="bottom-social-icons social-icon pull-right">
                         <a class="facebook" target="_blank" href=""><i class="fa fa-facebook"></i></a>

@@ -21,6 +21,11 @@ class Course extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function cart_items()
+    {
+        return $this->hasMany('App\Models\CartItem');
+    }
+
     public function lectures()
     {
         return $this->hasMany('App\Models\Lecture');
