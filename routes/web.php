@@ -22,8 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('users', 'User\UserController')->only('show', 'update');
     // ->middleware('selfaccount');
-    Route::resource('courses', 'User\CourseController');
+    Route::resource('courses', 'User\CourseController')->only('index', 'show');
     Route::get('courses/{id}/lectures/{lectureId}', 'User\LectureController@show');
+    Route::resource('cart_items', 'User\CartItemController')->only('index');
+    Route::get('cart_items/checkout', 'User\CartItemController@getCheckout')->name('cart_items.checkout.get');
+    Route::post('cart_items/checkout', 'User\CartItemController@postCheckout')->name('cart_items.checkout.post');
+    Route::post('cart_items/{action}', 'User\CartItemController@changeStatus');
 });
 
 Route::post('districts', 'User\DistrictController@getAllRecord');

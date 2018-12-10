@@ -12,62 +12,7 @@
     <div id="content">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3 page-sideabr">
-                    <aside>
-                        <div class="inner-box">
-                            <div class="user-panel-sidebar">
-                                <div class="collapse-box">
-                                    <h5 class="collapset-title no-border"> {{ __('titles.profile_info') }} <a aria-expanded="true" class="pull-right" data-toggle="collapse" href="#myclassified"><i class="fa fa-angle-down"></i></a></h5>
-                                    <div aria-expanded="true" id="myclassified" class="panel-collapse collapse in">
-                                        <ul class="acc-list">
-                                            <li class="active">
-                                                <a href="{{ route('home') }}"><i class="fa fa-home"></i> {{ __('titles.home') }} </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="collapse-box">
-                                    <h5 class="collapset-title"> {{ __('titles.course') }} <a aria-expanded="true" class="pull-right" data-toggle="collapse" href=""><i class="fa fa-angle-down"></i> </a></h5>
-                                    <div aria-expanded="true" id="myads" class="panel-collapse collapse in">
-                                        <ul class="acc-list">
-                                            <li>
-                                                <a href="account-myads.html"><i class="fa fa-credit-card"></i>&ensp;&ensp; {{ __('titles.my_course') }} <span class="badge"></span></a>
-                                            </li>
-                                            <li>
-                                                <a href="account-favourite-ads.html"><i class="fa fa-heart-o"></i>&ensp;&ensp; {{ __('titles.favourite_course') }} <span class="badge"></span></a>
-                                            </li>
-                                            <li>
-                                                <a href="account-saved-search.html"><i class="fa fa-star-o"></i>&ensp;&ensp; {{ __('titles.saved_course') }} <span class="badge"></span></a>
-                                            </li>
-                                            <li>
-                                                <a href="account-archived-ads.html"><i class="fa fa-folder-o"></i>&ensp;&ensp; {{ __('titles.uploaded_file') }} <span class="badge"></span></a>
-                                            </li>
-                                            {{-- <li>
-                                                <a href="{{ route('users.notifications', $selectedUser->id) }}"><i class="fa fa-hourglass-o"></i>&ensp;&ensp; {{ __('titles.notification') }} <span class="badge"> {{ ($countUnreadNotifications != 0) ? $countUnreadNotifications : '' }} </span></a>
-                                            </li> --}}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="collapse-box">
-                                    <h5 class="collapset-title"> {{ __('titles.terminate_account') }} <a aria-expanded="true" class="pull-right" data-toggle="collapse" href="#close"><i class="fa fa-angle-down"></i></a></h5>
-                                    <div aria-expanded="true" id="close" class="panel-collapse collapse in">
-                                        <ul class="acc-list">
-                                            <li>
-                                                <a href="account-close.html"><i class="fa fa-close"></i> {{ __('titles.close_account') }} </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inner-box">
-                            <div class="widget-title">
-                                <h4>Advertisement</h4>
-                            </div>
-                            <img src="/assets/img/img1.jpg" alt="">
-                        </div>
-                    </aside>
-                </div>
+                @include('user.partials.user_management_info')
                 <div class="col-sm-9 page-content">
                     <div class="inner-box">
                         <div class="usearadmin">
@@ -229,6 +174,7 @@
                 $('#password-confirmation').parent().removeClass('error-input');
                 $('#password-confirmation').parent().next().remove();
             })
+            $('#personal-page').addClass('active');
         })
 
         function readURL(input) {

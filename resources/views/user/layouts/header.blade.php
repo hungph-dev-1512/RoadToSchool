@@ -26,69 +26,7 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 7 - Items<span class="caret"></span></a>
-                                    <ul class="dropdown-menu dropdown-cart" role="menu">
-                                        <li>
-                                            <span class="item">
-                                              <span class="item-left">
-                                                  <img src="http://lorempixel.com/50/50/" alt="" />
-                                                  <span class="item-info">
-                                                      <span>Item name</span>
-                                                      <span>23$</span>
-                                                  </span>
-                                              </span>
-                                              <span class="item-right">
-                                                  <button class="btn btn-xs btn-danger pull-right">x</button>
-                                              </span>
-                                          </span>
-                                        </li>
-                                        <li>
-                                            <span class="item">
-                                              <span class="item-left">
-                                                  <img src="http://lorempixel.com/50/50/" alt="" />
-                                                  <span class="item-info">
-                                                      <span>Item name</span>
-                                                      <span>23$</span>
-                                                  </span>
-                                              </span>
-                                              <span class="item-right">
-                                                  <button class="btn btn-xs btn-danger pull-right">x</button>
-                                              </span>
-                                          </span>
-                                        </li>
-                                        <li>
-                                            <span class="item">
-                                              <span class="item-left">
-                                                  <img src="http://lorempixel.com/50/50/" alt="" />
-                                                  <span class="item-info">
-                                                      <span>Item name</span>
-                                                      <span>23$</span>
-                                                  </span>
-                                              </span>
-                                              <span class="item-right">
-                                                  <button class="btn btn-xs btn-danger pull-right">x</button>
-                                              </span>
-                                          </span>
-                                        </li>
-                                        <li>
-                                            <span class="item">
-                                              <span class="item-left">
-                                                  <img src="http://lorempixel.com/50/50/" alt="" />
-                                                  <span class="item-info">
-                                                      <span>Item name</span>
-                                                      <span>23$</span>
-                                                  </span>
-                                              </span>
-                                              <span class="item-right">
-                                                  <button class="btn btn-xs btn-danger pull-right">x</button>
-                                              </span>
-                                          </span>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a class="text-center" href="">View Cart</a></li>
-                                    </ul>
-                                </li>
+                                
                                 @guest
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -97,6 +35,53 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                                 @else
+                                <li class="dropdown">
+                                    @php
+                                        $cartItemsQuery = \App\Models\CartItem::where('user_id', Auth::user()->id)->where('cart_item_type', \App\Models\CartItem::IN_CART_TYPE);
+                                        $cartItems = $cartItemsQuery->get();
+                                        $cartItemsCount =count($cartItems);
+                                        $totalOriginPrice = 0;
+                                        $totalPromotionPrice = 0;
+                                        foreach($cartItems as $cartItem) {
+                                            $totalOriginPrice += $cartItem->course->origin_price;
+                                            if(0 != $cartItem->course->promotion_price) {
+                                                $totalPromotionPrice += $cartItem->course->promotion_price;
+                                            } else {
+                                                $totalPromotionPrice += $cartItem->course->origin_price;
+                                            }
+                                        }
+                                    @endphp
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-shopping-cart"></i> Cart <span class="badge"> {{ $cartItemsCount }} </span></a>
+                                    <ul class="dropdown-menu dropdown-cart" role="menu">
+                                        @foreach($cartItems as $cartItem)
+                                            <li>
+                                                <span class="item">
+                                                <span class="item-left">
+                                                    <img src="{{ asset($cartItem->course->course_avatar) }}" alt="" />
+                                                    <span class="item-info">
+                                                        <span><strong> {{$cartItem->course->title}} </strong></span>
+                                                    <span> 
+                                                        @if(isset($cartItem->course->promotion_price))
+                                                            <p><b style="color:red">{{ $cartItem->course->promotion_price }}$ </b><strike> {{ $cartItem->course->origin_price }}$</strike></p>
+                                                        @else
+                                                            <b>{{ $cartItem->course->origin_price }}$</b>
+                                                        @endif
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            </li>
+                                        @endforeach
+                                        <li class="divider"></li>
+                                        <li><h5 class="text-center">
+                                            <p>
+                                                @if(0 != $totalPromotionPrice)
+                                                    <strong>{{ __('titles.total') }}</strong>: <b style="color:red">{{ $totalPromotionPrice }}$ </b><strike> {{ $totalOriginPrice }} $</strike>
+                                                @else
+                                                    <h4>{{ __('titles.total') }}</h4>: <b>{{ $totalOriginPrice }}$</b>
+                                                @endif
+                                            </p></h5><a class="text-center" href="{{ route('cart_items.index') }}"><h4>{{ __('titles.checkout_cart') }}</h4></a></li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
