@@ -34,7 +34,8 @@
                     cartItemId: cartItemId,
                 },
                 success: function(){
-                    $('#cart-item-' + cartItemId).remove();
+                    // $('#cart-item-' + cartItemId).remove();
+                    location.reload();
                 }
             }, "json")
         });
@@ -53,15 +54,16 @@
                     cartItemId: cartItemId,
                 },
                 success: function(data){
-                    var dataParsed = jQuery.parseJSON(data);
-                    var cartItem = dataParsed.cartItem;
-                    var row = $('#cart-item-' + cartItem.id).closest('tr').html();
-                    $('#cart-item-' + cartItem.id).parent().remove();
-                    $('#save-for-later-item-table tbody').append('<tr>'+row+'</tr>');
-                    $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
-                    $('#save-for-later-' + cartItem.id).remove();
-                    $('#move-to-wishlist-' + cartItem.id).attr('id', 'move-to-cart-' + cartItem.id);
-                    $('#move-to-cart-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to cart');
+                    location.reload();
+                    // var dataParsed = jQuery.parseJSON(data);
+                    // var cartItem = dataParsed.cartItem;
+                    // var row = $('#cart-item-' + cartItem.id).closest('tr').html();
+                    // $('#cart-item-' + cartItem.id).parent().remove();
+                    // $('#save-for-later-item-table tbody').append('<tr>'+row+'</tr>');
+                    // $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
+                    // $('#save-for-later-' + cartItem.id).remove();
+                    // $('#move-to-wishlist-' + cartItem.id).attr('id', 'move-to-cart-' + cartItem.id);
+                    // $('#move-to-cart-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to cart');
                 }
             }, "json")
         });
@@ -80,16 +82,17 @@
                     cartItemId: cartItemId,
                 },
                 success: function(data){
-                    var dataParsed = jQuery.parseJSON(data);
-                    var cartItem = dataParsed.cartItem;
-                    console.log(cartItem);
-                    var row = $('#cart-item-' + cartItem.id).closest('tr').html();
-                    $('#cart-item-' + cartItem.id).parent().remove();
-                    $('#move-to-wishlist-item-table tbody').append('<tr>'+row+'</tr>');
-                    $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
-                    $('#save-for-later-' + cartItem.id).remove();
-                    $('#move-to-wishlist-' + cartItem.id).attr('id', 'move-to-cart-' + cartItem.id);
-                    $('#move-to-cart-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to cart');
+                    location.reload();
+                    // var dataParsed = jQuery.parseJSON(data);
+                    // var cartItem = dataParsed.cartItem;
+                    // console.log(cartItem);
+                    // var row = $('#cart-item-' + cartItem.id).closest('tr').html();
+                    // $('#cart-item-' + cartItem.id).parent().remove();
+                    // $('#move-to-wishlist-item-table tbody').append('<tr>'+row+'</tr>');
+                    // $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
+                    // $('#save-for-later-' + cartItem.id).remove();
+                    // $('#move-to-wishlist-' + cartItem.id).attr('id', 'move-to-cart-' + cartItem.id);
+                    // $('#move-to-cart-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to cart');
                 }
             }, "json")
         });
@@ -108,15 +111,16 @@
                     cartItemId: cartItemId,
                 },
                 success: function(data){
-                    var dataParsed = jQuery.parseJSON(data);
-                    var cartItem = dataParsed.cartItem;
-                    var row = $('#cart-item-' + cartItem.id).closest('tr').html();
-                    $('#cart-item-' + cartItem.id).parent().remove();
-                    $('#in-cart-item-table tbody').append('<tr>'+row+'</tr>');
-                    $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
-                    $('#move-to-cart-' + cartItem.id).attr('id', 'move-to-wishlist-' + cartItem.id);
-                    $('#move-to-wishlist-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to wishlist');
-                    $('<p><a class="btn btn-info btn-xs save-for-later" data-id="' + cartItem.id + '" id="save-for-later-' + cartItem.id + '"> <i class="fa fa-share-square-o"></i> Save for later </a></p>').insertBefore('#move-to-wishlist-' + cartItem.id);
+                    location.reload();
+                    // var dataParsed = jQuery.parseJSON(data);
+                    // var cartItem = dataParsed.cartItem;
+                    // var row = $('#cart-item-' + cartItem.id).closest('tr').html();
+                    // $('#cart-item-' + cartItem.id).parent().remove();
+                    // $('#in-cart-item-table tbody').append('<tr>'+row+'</tr>');
+                    // $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
+                    // $('#move-to-cart-' + cartItem.id).attr('id', 'move-to-wishlist-' + cartItem.id);
+                    // $('#move-to-wishlist-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to wishlist');
+                    // $('<p><a class="btn btn-info btn-xs save-for-later" data-id="' + cartItem.id + '" id="save-for-later-' + cartItem.id + '"> <i class="fa fa-share-square-o"></i> Save for later </a></p>').insertBefore('#move-to-wishlist-' + cartItem.id);
                 }
             }, "json")
         });

@@ -15,6 +15,8 @@ class CartItem extends Model
 
     protected $fillable = [
         'cart_item_type',
+        'course_id',
+        'user_id',
     ];
     
     public static $grades = [
@@ -99,5 +101,17 @@ class CartItem extends Model
         }
 
         return $result;
+    }
+
+    public function createNewItem($requestCourseId, $requestCartItemType) {
+        $dataId['course_id'] = $requestCourseId;
+        $dataId['user_id'] = Auth::user()->id;
+        if($requestCartItemType === 'add-to-cart') {
+            $dataId['cart_item_type'] = self::IN_CART_TYPE;
+        } else if($requestCartItemType === 'add-to-wishlist') {
+            $dataId['cart_item_type'] = self::IN_WISHLIST_TYPE;
+        }
+
+        return CartItem::create($dataId);
     }
 }

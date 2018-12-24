@@ -10,7 +10,7 @@
     <div class="overlay">
         <div class="container">
             <div class="main-text">
-                <h1 class="intro-title"> {{ __('titles.slogan_p1') }} <span style="color: #e75400"> {{ __('titles.slogan_p2') }} </span></h1>
+                <h1 class="intro-title"> {{ __('titles.slogan_p1') }} <span style="color: #3498db"> {{ __('titles.slogan_p2') }} </span></h1>
                 <p class="sub-title"> {{ __('titles.slogan_p3') }} </p>
 
                 <div class="row search-bar">
@@ -20,10 +20,12 @@
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select">
                                             <select class="dropdown-product selectpicker" name="product-cat">
-                                                <option value="0"> {{ __('titles.select_category') }} </option>
-                                                {{-- @foreach(\App\Models\Category::all() as $category)
-                                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                                                @endforeach --}}
+                                                <option value="0"> {{ __('titles.select_rate') }} </option>
+                                                @for ($temp=1; $temp<=4; $temp++)
+                                                    <option value="{{ $temp }}">
+                                                        @for ($tempStar=0; $tempStar<$temp; $tempStar++)&#x2606;@endfor {{ __('titles.and_up') }}
+                                                    </option>
+                                                @endfor
                                             </select>
                                         </label>
                                     </div>
@@ -63,42 +65,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Browse Ads from 8 Categories</h3>
+                    <h3 class="section-title">Browse Courses from 8 Categories</h3>
                 </div>
+                @foreach(\App\Models\Category::where('parent_id', 0)->get() as $category)
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="category-box border-1 wow fadeInUpQuick" data-wow-delay="0.3s">
                         <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-users color-1"></i></a>
+                        <a href="category.html"><i class="{{$category->css_classes}}"></i></a>
                         </div>
                         <div class="category-header">
-                            <a href="category.html"><h4>Community</h4></a>
+                            <a href="category.html"><h4> {{ $category->title }} </h4></a>
                         </div>
                         <div class="category-content">
                             <ul>
-                                <li>
-                                    <a href="category.html">Announcements</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Car Pool - Bike Ride</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Lost - Found</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
+                                @foreach(\App\Models\Category::where('parent_id', $category->id)->limit(6)->get() as $subCategory)
+                                    <li>
+                                        <a href="category.html">{{ $subCategory->title }}</a>
+                                        <span class="category-counter"> {{ \App\Models\Course::where('category_id', $subCategory->id)->count() }} </span>
+                                    </li>
+                                @endforeach
                                 <li>
                                     <a href="category.html">View all subcategories →</a>
                                 </li>
@@ -106,288 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-2 wow fadeInUpQuick" data-wow-delay="0.6s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-laptop-phone color-2"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Electronics</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Home Electronics</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">LCDs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Mobile & Tablets</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">TV & DVDs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Technical Services</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">1</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-3 wow fadeInUpQuick" data-wow-delay="0.9s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-cog color-3"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Services</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Cleaning Services</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Educational</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Food Services</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Medical</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Office & Home Removals</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-4 wow fadeInUpQuick" data-wow-delay="1.2s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-cart color-4"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Shopping</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Bags</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Beauty Products</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Jewelry</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Shoes M/F</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-5 wow fadeInUpQuick" data-wow-delay="1.5s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-briefcase color-5"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Jobs</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Accounts Jobs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Cleaning & Washing</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Web design</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Design & Code</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Finance Jobs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Data Entry</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-6 wow fadeInUpQuick" data-wow-delay="1.8s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-graduation-hat color-6"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Training</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Android Development</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">20 Days HTML/CSS</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">iOS Development with Swift</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">SEO for rest of us</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Mastering in Java</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-7 wow fadeInUpQuick" data-wow-delay="2.1s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-apartment color-7"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Real Estate</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Farms</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Home for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Hotels</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Land for sale</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Offices for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-8 wow fadeInUpQuick" data-wow-delay="2.3s">
-                        <div class="icon">
-                            <a href="category.html"><i class="lnr lnr-car color-8"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html"><h4>Vehicles</h4></a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Cars</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Fancy Cars</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Kids Bikes</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Motor Bikes</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Classic & Modern</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Kinds</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -397,104 +101,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                    <h3 class="section-title">Featured Listings</h3>
+                    <h3 class="section-title">Most Seller Course</h3>
                     <div id="new-products" class="owl-carousel">
+                        @foreach(\App\Models\Course::orderBy('seller')->limit(20)->get() as $trendCourse)
                         <div class="item">
                             <div class="product-item">
                                 <div class="carousel-thumb">
-                                    <img src="assets/img/product/img1.jpg" alt="">
+                                <img src="{{ asset($trendCourse->course_avatar) }}" style="height:142px" alt="">
                                     <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
+                                    <a href="{{ route('courses.show', $trendCourse->id) }}"><i class="fa fa-info-circle"></i></a>
                                     </div>
                                 </div>
-                                <a href="ads-details.html" class="item-name">Lorem ipsum dolor sit</a>
-                                <span class="price">$150</span>
+                                <a href="ads-details.html" class="item-name"> {{ $trendCourse->title }} </a>
+                            <span class="price">@if(isset($trendCourse->promotion_price))<b style="color:red">{{ $trendCourse->promotion_price }}$ </b><strike> {{ $trendCourse->origin_price }}$</strike>@else {{ $trendCourse->origin_price }}$@endif</span>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img2.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Sed diam nonummy</a>
-                                <span class="price">$67</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img3.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Feugiat nulla facilisis</a>
-                                <span class="price">$300</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img4.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Lorem ipsum dolor sit</a>
-                                <span class="price">$149</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img5.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Sed diam nonummy</a>
-                                <span class="price">$90</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img6.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Praesent luptatum zzril</a>
-                                <span class="price">$169</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img7.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Lorem ipsum dolor sit</a>
-                                <span class="price">$79</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="assets/img/product/img8.jpg" alt="">
-                                    <div class="overlay">
-                                        <a href="ads-details.html"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="ads-details.html" class="item-name">Sed diam nonummy</a>
-                                <span class="price">$149</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -699,12 +321,12 @@
                 <div class="counting wow fadeInDownQuick" data-wow-delay=".5s">
                     <div class="icon">
                         <span>
-                            <i class="lnr lnr-tag"></i>
+                            <i class="lnr lnr-graduation-hat"></i>
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">12090</h3>
-                        <p>Regular Ads</p>
+                        <h3 class="counter">23453</h3>
+                        <p>Students</p>
                     </div>
                 </div>
             </div>
@@ -716,8 +338,8 @@
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">350</h3>
-                        <p>Locations</p>
+                        <h3 class="counter">4053</h3>
+                        <p>Courses</p>
                     </div>
                 </div>
             </div>
@@ -725,12 +347,12 @@
                 <div class="counting wow fadeInDownQuick" data-wow-delay="1.5s">
                     <div class="icon">
                         <span>
-                            <i class="lnr lnr-users"></i>
+                            <i class="lnr lnr-user"></i>
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">23453</h3>
-                        <p>Reguler Members</p>
+                        <h3 class="counter">350</h3>
+                        <p>Instructors</p>
                     </div>
                 </div>
             </div>
@@ -738,12 +360,12 @@
                 <div class="counting wow fadeInDownQuick" data-wow-delay="2s">
                     <div class="icon">
                         <span>
-                            <i class="lnr lnr-license"></i>
+                            <i class="lnr lnr-film-play"></i>
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">150</h3>
-                        <p>Premium Ads</p>
+                        <h3 class="counter">12090</h3>
+                        <p>Minutes of video</p>
                     </div>
                 </div>
             </div>

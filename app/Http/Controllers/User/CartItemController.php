@@ -68,4 +68,14 @@ class CartItemController extends Controller
 
         return response()->json($result);
     }
+
+    public function createNewItem(Request $requestAjax) {
+        if($this->modelCartItem->where('course_id', $requestAjax->courseId)->where('user_id', Auth::user()->id)->first()) {
+            $result = false;
+        } else {
+            $result = $this->modelCartItem->createNewItem($requestAjax->courseId, $requestAjax->cartItemType);
+        }
+
+        return response()->json($result);
+    }
 }

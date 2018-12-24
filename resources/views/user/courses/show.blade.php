@@ -52,12 +52,14 @@
                                                     <tr>
                                                         <th class="text-center col-xs-1"> Index </th>
                                                         <th class="text-center col-xs-6"> Title </th>
-                                                        <th class="text-center col-xs-2"> Time </th>                                     
-                                                        <th class="text-center col-xs-3">
-                                                            {{-- <a href="#" class="create-modal btn btn-success btn-sm" id="add-lecture">
-                                                                <i class="glyphicon glyphicon-plus"></i>
-                                                            </a> --}}
-                                                        </th>
+                                                        @if($availableCourse)                                  
+                                                            <th class="text-center col-xs-2"> Time </th>   
+                                                            <th class="text-center col-xs-3">
+                                                                {{-- <a href="#" class="create-modal btn btn-success btn-sm" id="add-lecture">
+                                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                                </a> --}}
+                                                            </th>
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -69,23 +71,25 @@
                                                         <td class="col-xs-6">
                                                             <p> {{ $lecture->title }} </p>
                                                         </td>
-                                                        <td class="col-xs-2 text-center">
-                                                            <p> {{ $lecture->duration }} </p>
-                                                        </td>
-                                                        <td class="col-xs-2 text-center">
-                                                            {{-- <a href="{{ url('/courses/' . $id . '/lectures/' . $lecture->id) }}" class="show-modal btn btn-info btn-sm" data-id="">
-                                                                <i class="fa fa-eye"></i>
-                                                            </a>
-                                                            <a href="#" class="edit-modal btn btn-warning btn-sm" data-id="{{ $lecture->id }}" data-title="{{ $lecture->uploaded_file_title }}" data-description="{{ $lecture->uploaded_file_description }}" data-link="{{ $lecture->uploaded_file_link }}">
-                                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                            </a>
-                                                            <a href="#" class="delete-modal btn btn-danger btn-sm" data-id="{{ $lecture->id }}">
-                                                                <i class="glyphicon glyphicon-trash"></i>
-                                                            </a> --}}
-                                                            <a href="{{ url('/courses/' . $selectedCourse->id . '/lectures/' . $lecture->id) }}" class="show-modal btn btn-info btn-sm" data-id="">
-                                                                <i class="fa fa-eye"></i> {{ __('titles.start') }}
-                                                            </a>
-                                                        </td>
+                                                        @if($availableCourse)
+                                                            <td class="col-xs-2 text-center">
+                                                                <p> {{ $lecture->duration }} </p>
+                                                            </td>
+                                                            <td class="col-xs-2 text-center">
+                                                                {{-- <a href="{{ url('/courses/' . $id . '/lectures/' . $lecture->id) }}" class="show-modal btn btn-info btn-sm" data-id="">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                                <a href="#" class="edit-modal btn btn-warning btn-sm" data-id="{{ $lecture->id }}" data-title="{{ $lecture->uploaded_file_title }}" data-description="{{ $lecture->uploaded_file_description }}" data-link="{{ $lecture->uploaded_file_link }}">
+                                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                                </a>
+                                                                <a href="#" class="delete-modal btn btn-danger btn-sm" data-id="{{ $lecture->id }}">
+                                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                                </a> --}}
+                                                                <a href="{{ url('/courses/' . $selectedCourse->id . '/lectures/' . $lecture->id) }}" class="show-modal btn btn-info btn-sm" data-id="">
+                                                                    <i class="fa fa-eye"></i> {{ __('titles.start') }}
+                                                                </a>
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
@@ -99,9 +103,9 @@
                                             </div>
                                             <p class=" no-margin "><strong> {{ __('titles.teacher') }} </strong> {{ $selectedCourse->user->name }} </p>
                                             <p class="no-margin"><strong> {{ __('titles.category') }} </strong> <a href="#"> {{ $selectedCourse->category->title }} </a></p>
-                                            <p class="no-margin"><strong> {{ __('titles.lectures_1') }} </strong> {{ $selectedCourse->lecture_count . __('titles.lectures') }} </p>
-                                            <p class="no-margin"><strong> {{ __('titles.duration') }} </strong> {{ $selectedCourse->time . __('titles.hours')}} </p>
-                                            <p class="no-margin"><strong> {{ __('titles.views') }} </strong> {{ $selectedCourse->views }} </p>
+                                            <p class="no-margin"><strong> {{ __('titles.lectures_1') }} </strong> {{ $selectedCourse->lecture_numbers . ' ' . __('titles.lectures') }} </p>
+                                            <p class="no-margin"><strong> {{ __('titles.duration') }} </strong> {{ $selectedCourse->duration . ' ' . __('titles.minutes')}} </p>
+                                            <p class="no-margin"><strong> {{ __('titles.seller') }} </strong> {{ $selectedCourse->seller }} </p>
                                             <p class="no-margin"><strong> {{ __('titles.like') }} </strong> {{ $selectedCourse->like }} </p><br><br>
                                             <a href="#"> <i class=" fa fa-heart"></i>&ensp; {{ __('titles.like') }} </a></li><br>
                                             <i class="fa fa-share-alt" id="share"></i>&ensp; {{ __('titles.share') }} 
@@ -113,8 +117,10 @@
                                             </div>
                                             </li>
                                             <br>
-                                            <button type="button" class="btn btn-primary btn-active"> {{ __('titles.add_to_cart') }} </button>
-                                            <button type="button" class="btn btn-primary btn-active"> {{ __('titles.buy_now') }} </button>
+                                            @if(!$availableCourse)
+                                                <a class="btn btn-common btn-sm" href="" id="add-to-cart" data-id="{{ $selectedCourse->id }}"><i class=" fa fa-cart-plus"></i><span> {{ __('titles.add_to_cart') }} </span></a>
+                                                <a class="btn btn-common btn-sm" href="" id="buy-now" data-id="{{ $selectedCourse->id }}"><i class=" fa fa-credit-card"></i><span> {{ __('titles.buy_now') }} </span></a>
+                                            @endif
                                         </div>
                                         <div class="inner-box">
                                             <div class="widget-title">
@@ -268,8 +274,21 @@
 
 @section('inline_scripts')
     <script type="text/javascript">
+        @include('user.courses.partials.javascript_common')
         $(document).ready(function() {
-            //TODO
+            $('#add-to-cart').on('click', function(event)
+            {
+                event.preventDefault();
+                var courseId = $(this).data('id');
+                addCourseToCart(courseId, '{{ __('messages.add_to_cart_success') }}', '{{ __('messages.in_cart_already_failed') }}', null, 'add-to-cart');
+            });
+
+            $('#buy-now').on('click', function(event)
+            {
+                event.preventDefault();
+                var courseId = $(this).data('id');
+                addCourseToCart(courseId, '{{ __('messages.add_to_cart_success_redirecting') }}', '{{ __('messages.in_cart_already_failed') }}', event.target.id, 'add-to-cart');
+            });
         });
     </script>
 @endsection

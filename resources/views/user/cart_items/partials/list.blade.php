@@ -51,7 +51,7 @@
                                     <p> <strong> {{ __('titles.instructor') }} </strong>:
                                     <a href="{{ route('users.show', $courseRelatation->course->user->id) }}">{{ $courseRelatation->course->user->name }}</a>
                                     </p>
-                                    <p> <strong> {{ __('titles.views') }} </strong>: {{ $courseRelatation->course->views }} <strong>{{ __('titles.schedule') }} : </strong> {{ $courseRelatation->course->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $courseRelatation->course->duration . __('titles.hours') }} </p>
+                                    <p> <strong> {{ __('titles.seller') }} </strong>: {{ $courseRelatation->course->seller }} <strong>{{ __('titles.schedule') }} : </strong> {{ $courseRelatation->course->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $courseRelatation->course->duration . ' ' . __('titles.minutes') }} </p>
                                 </td>
                                 <td class="price-td">
                                     <strong>
@@ -74,9 +74,13 @@
             </table>
             <div class="col-sm-3">
                 <h3> {{ __('titles.total') }}:</h3>
-                <h2 style="color:red"> {{ $totalPromotionPriceInCart }}$ </h2>
-                <h3><strike> {{ $totalOriginPriceInCart }}$ </strike></h3>
-            <h4> {{ number_format((float)(1 - $totalPromotionPriceInCart/$totalOriginPriceInCart)*100, 2, '.', '') }} % {{ __('titles.off') }}</h4>
+                @if($totalOriginPriceInCart !== $totalPromotionPriceInCart)
+                    <h2 style="color:red"> {{ $totalPromotionPriceInCart }}$ </h2>
+                    <h3><strike> {{ $totalOriginPriceInCart }}$ </strike></h3>
+                    <h4> @if($totalOriginPriceInCart !== 0) {{ number_format((float)(1 - $totalPromotionPriceInCart/$totalOriginPriceInCart)*100, 2, '.', '') }} @else 0 @endif % {{ __('titles.off') }}</h4>
+                @else
+                    <h3>{{ $totalOriginPriceInCart }}$</h3>
+                @endif
             </div>
             <div class="col-sm-5">
                 <div class="col-xs-9 searchpan">

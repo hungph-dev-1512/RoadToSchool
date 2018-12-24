@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('cart_items', 'User\CartItemController')->only('index');
     Route::get('cart_items/checkout', 'User\CartItemController@getCheckout')->name('cart_items.checkout.get');
     Route::post('cart_items/checkout', 'User\CartItemController@postCheckout')->name('cart_items.checkout.post');
+    Route::post('cart_items/create', 'User\CartItemController@createNewItem');
     Route::post('cart_items/{action}', 'User\CartItemController@changeStatus');
 });
 

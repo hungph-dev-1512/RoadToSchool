@@ -25,7 +25,7 @@
                             <div class="col-sm-2 no-padding photobox">
                                 <div class="add-image">
                                     <a href="#"><img src="{{ str_replace('public/', '', asset($selectedCourse->course_avatar)) }}" alt=""></a>
-                                    <span class="photo-count"><i class="fa fa-eye"></i> {{ $selectedCourse->views }} </span>
+                                    <span class="photo-count"><i class="fa fa-eye"></i> {{ $selectedCourse->seller }} </span>
                                 </div>
                             </div>
                             <div class="col-sm-7 add-desc-box">
@@ -36,18 +36,18 @@
                                         <br>
                                         {{ __('titles.rate') }} &emsp;
                                         @for ($temp = 0; $temp < $selectedCourse->course_rate; $temp++)
-                                            <span class="add-type"><i class="icon fa fa-star"></i></span>
+                                        <span class="add-type"><i class="icon fa fa-star"></i></span>
                                         @endfor
                                         <br>
                                         <span class="category"> {{ __('titles.level') . $selectedCourse->level }}  </span> -
-                                        <span class="item-location"><i class="fa fa-map-book"></i> {{ $selectedCourse->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $selectedCourse->duration . __('titles.hours') }} </span>
+                                        <span class="item-location"><i class="fa fa-map-book"></i> {{ $selectedCourse->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $selectedCourse->duration . ' ' . __('titles.hours') }} </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3 text-right price-box">
                                 <h2 class="item-price"> {{ $selectedCourse->teacher_name }} </h2> 
-                                <a class="btn btn-common btn-sm" href="{{ route('courses.show', $selectedCourse->id) }}"><i class="fa fa-info"></i><span> {{ __('titles.detail_course') }} </span></a>
-                                <a class="btn btn-danger btn-sm"> <i class="fa fa-heart"></i> <span> {{ $selectedCourse->like }} </span> </a>
+                                <a class="btn btn-common btn-sm add-to-cart" href="" data-id="{{ $selectedCourse->id }}"><i class=" fa fa-cart-plus"></i><span> {{ __('titles.add_to_cart') }} </span></a>
+                                <a class="btn btn-common btn-sm add-to-wishlist" href="" data-id="{{ $selectedCourse->id }}" title="{{ __('titles.add_to_wishlist') }}"><i class="fa fa-heart"></i></a>
                             </div>
                         </div>
                     @endforeach
@@ -61,7 +61,7 @@
                 <div class="post-promo text-center">
                     <h2> {{ __('titles.create_course_p1') }} </h2>
                     <h5> {{ __('titles.create_course_p2') }} </h5>
-                    <a href="post-ads.html" class="btn btn-post btn-danger"> {{ __('titles.create_course_p3') }} </a>
+                    <a href="post-ads.html" class="btn btn-post btn-danger"  {{ __('titles.create_course_p3') }} </a>
                 </div>
                 @endif
             </div>
@@ -72,8 +72,21 @@
 
 @section('inline_scripts')
     <script type="text/javascript">
+        @include('user.courses.partials.javascript_common')
         $(document).ready(function() {
             $('#switch-now').click();
+            $('.add-to-cart').on('click', function(event)
+            {
+                event.preventDefault();
+                var courseId = $(this).data('id');
+                addCourseToCart(courseId, '{{ __('messages.add_to_cart_success') }}', '{{ __('messages.in_cart_already_failed') }}', null, 'add-to-cart');
+            });
+            $('.add-to-wishlist').on('click', function(event)
+            {
+                event.preventDefault();
+                var courseId = $(this).data('id');
+                addCourseToCart(courseId, '{{ __('messages.add_to_wishlist_success') }}', '{{ __('messages.in_cart_already_failed') }}', null, 'add-to-wishlist');
+            });
         });
     </script>
 @endsection
