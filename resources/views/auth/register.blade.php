@@ -30,38 +30,38 @@
                             {{ __('titles.register') }}
                         </h3>
                         {{ Form::open(['method' => 'post']) }}
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('name')) error-input @endif">
-                                    <i class="icon fa fa-user"></i>
-                                    {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => __('titles.your_name')]) }}
-                                </div>
-                                <p>{{ $errors->first('name') }}</p>
+                        <div class="form-group error-form">
+                            <div class="input-icon @if($errors->has('name')) error-input @endif">
+                                <i class="icon fa fa-user"></i>
+                                {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => __('titles.your_name')]) }}
                             </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('email')) error-input @endif">
-                                    <i class="icon fa fa-envelope"></i>
-                                    {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => __('titles.your_email')]) }}
-                                </div>
-                                <p>{{ $errors->first('email') }}</p>
+                            <p>{{ $errors->first('name') }}</p>
+                        </div>
+                        <div class="form-group error-form">
+                            <div class="input-icon @if($errors->has('email')) error-input @endif">
+                                <i class="icon fa fa-envelope"></i>
+                                {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => __('titles.your_email')]) }}
                             </div>
-                            <div class="form-group error-form">
-                                <div class="input-icon @if($errors->has('password')) error-input @endif">
-                                    <i class="icon fa fa-unlock-alt"></i>
-                                    {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('titles.your_password')]) }}
-                                </div>
-                                <p>{{ $errors->first('password') }}</p>
+                            <p>{{ $errors->first('email') }}</p>
+                        </div>
+                        <div class="form-group error-form">
+                            <div class="input-icon @if($errors->has('password')) error-input @endif">
+                                <i class="icon fa fa-unlock-alt"></i>
+                                {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('titles.your_password')]) }}
                             </div>
-                            <div class="form-group">
-                                <div class="input-icon">
-                                    <i class="icon fa fa-unlock-alt"></i>
-                                    {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password-confirmation', 'placeholder' => __('titles.your_password_confirmation')]) }}
-                                </div>
+                            <p>{{ $errors->first('password') }}</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="icon fa fa-unlock-alt"></i>
+                                {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password-confirmation', 'placeholder' => __('titles.your_password_confirmation')]) }}
                             </div>
-                            <div class="checkbox">
-                                {{ Form::checkbox('agree', null, false, ['id' => 'agree', 'onclick' => 'statusCheckboxAgree()', 'style' => 'float: left']) }}
-                                {{ Form::label('agree', __('titles.agree_terms')) }}
-                            </div>
-                            {{ Form::submit(__('titles.register'), ['class' => 'btn btn-common log-btn', 'id' => 'submit']) }}
+                        </div>
+                        <div class="checkbox">
+                            {{ Form::checkbox('agree', null, false, ['id' => 'agree', 'onclick' => 'statusCheckboxAgree()', 'style' => 'float: left']) }}
+                            {{ Form::label('agree', __('titles.agree_terms')) }}
+                        </div>
+                        {{ Form::submit(__('titles.register'), ['class' => 'btn btn-common log-btn', 'id' => 'submit']) }}
                         {{ Form::close() }}
                     </div>
                 </div>
@@ -72,22 +72,22 @@
 
 @section('inline_scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#name').focus(function() {
+        $(document).ready(function () {
+            $('#name').focus(function () {
                 $('#name').parent().removeClass('error-input');
                 $('#name').parent().next().remove();
             });
-            $('#email').focus(function() {
+            $('#email').focus(function () {
                 $('#email').parent().removeClass('error-input');
                 $('#email').parent().next().remove();
             });
-            $('#password').focus(function() {
+            $('#password').focus(function () {
                 $('#password').parent().removeClass('error-input');
                 $('#password').parent().next().remove();
             });
         });
 
-        $('#submit').on('click', function() {
+        $('#submit').on('click', function () {
             if (!$('#agree').is(':checked')) {
                 event.preventDefault();
                 alert("{{ __('messages.accept_terms_conditions') }}");

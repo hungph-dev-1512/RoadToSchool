@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use App\Models\Category;
+use App\Models\Course;
+use App\Models\CourseUser;
 use Auth;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -15,28 +16,29 @@ class CourseController extends Controller
      */
     protected $modelCourse;
     protected $modelCategory;
+    protected $modelCourseUser;
 
     /**
      * Create a new controller instance.
-     * 
+     *
      * @param Course $course
      * @param Category $category
      * @return void
      */
-    public function __construct(Course $course, Category $category)
+    public function __construct(Course $course, Category $category, CourseUser $courseUser)
     {
         $this->modelCourse = $course;
         $this->modelCategory = $category;
+        $this->modelCourseUser = $courseUser;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $courses = $this->modelCourse->getAllCourse();
-        $categories = $this->modelCategory->getAllCategory();
+        $params = $request->all();
+        $courses = $this->modelCourse->getAllCourse($params);
 
         return view('user.courses.index', compact(
-            'courses',
-            'categories'
+            'courses'
         ));
     }
 
@@ -49,10 +51,12 @@ class CourseController extends Controller
     {
         $selectedCourse = $this->modelCourse->findCourse($id);
         $allLectures = $selectedCourse->lectures;
+        $availableCourse = $this->modelCourseUser->where('course_id', $selectedCourse->id)->where('user_id', Auth::user()->id)->first();
 
         return view('user.courses.show', compact(
             'selectedCourse',
-            'allLectures'
+            'allLectures',
+            'availableCourse'
         ));
     }
 }

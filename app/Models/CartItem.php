@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class CartItem extends Model
 {
-    protected $table = 'cart_items';
-
     const IN_CART_TYPE = 0;
     const IN_LATER_TYPE = 1;
     const IN_WISHLIST_TYPE = 2;
-
-    protected $fillable = [
-        'cart_item_type',
-    ];
-    
     public static $grades = [
         self::IN_CART_TYPE => 'In cart',
         self::IN_LATER_TYPE => 'In later buy',
         self::IN_WISHLIST_TYPE => 'In wishlist',
+    ];
+    protected $table = 'cart_items';
+    protected $fillable = [
+        'cart_item_type',
+        'course_id',
+        'user_id',
     ];
 
     public function course()
@@ -36,7 +35,7 @@ class CartItem extends Model
     public function changeStatusCartItem($cartItemId, $action)
     {
         $selectedCartItem = CartItem::findOrFail($cartItemId);
-        switch($action) {
+        switch ($action) {
             case 'remove':
                 {
                     return $selectedCartItem->delete();
@@ -47,7 +46,7 @@ class CartItem extends Model
                         'cart_item_type' => self::IN_LATER_TYPE,
                     ]);
 
-                    if($result) {
+                    if ($result) {
                         $data['cartItem'] = CartItem::findOrFail($cartItemId);
 
                         return json_encode($data);
@@ -59,7 +58,7 @@ class CartItem extends Model
                         'cart_item_type' => self::IN_WISHLIST_TYPE,
                     ]);
 
-                    if($result) {
+                    if ($result) {
                         $data['cartItem'] = CartItem::findOrFail($cartItemId);
 
                         return json_encode($data);
@@ -67,11 +66,11 @@ class CartItem extends Model
                 }
             case 'move_to_cart':
                 {
-                    $result =  $selectedCartItem->update([
+                    $result = $selectedCartItem->update([
                         'cart_item_type' => self::IN_CART_TYPE,
                     ]);
-                    $result=true;
-                    if($result) {
+                    $result = true;
+                    if ($result) {
                         $data['cartItem'] = CartItem::findOrFail($cartItemId);
 
                         return json_encode($data);
@@ -89,9 +88,9 @@ class CartItem extends Model
         $cartItemsQuery = CartItem::where('user_id', Auth::user()->id)->where('cart_item_type', $type);
         $result['origin_price'] = 0;
         $result['promotion_price'] = 0;
-        foreach($cartItemsQuery->get() as $cartItem) {
+        foreach ($cartItemsQuery->get() as $cartItem) {
             $result['origin_price'] += $cartItem->course->origin_price;
-            if($cartItem->course->promotion_price != 0) {
+            if ($cartItem->course->promotion_price != 0) {
                 $result['promotion_price'] += $cartItem->course->promotion_price;
             } else {
                 $result['promotion_price'] += $cartItem->course->origin_price;
@@ -99,5 +98,18 @@ class CartItem extends Model
         }
 
         return $result;
+    }
+
+    public function createNewItem($requestCourseId, $requestCartItemType)
+    {
+        $dataId['course_id'] = $requestCourseId;
+        $dataId['user_id'] = Auth::user()->id;
+        if ($requestCartItemType === 'add-to-cart') {
+            $dataId['cart_item_type'] = self::IN_CART_TYPE;
+        } else if ($requestCartItemType === 'add-to-wishlist') {
+            $dataId['cart_item_type'] = self::IN_WISHLIST_TYPE;
+        }
+
+        return CartItem::create($dataId);
     }
 }

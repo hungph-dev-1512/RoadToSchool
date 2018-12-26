@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,8 +10,21 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
+    const ROLE_TEACHER = 1;
+    const ROLE_STUDENT = 2;
+    const GRADE_1 = 1;
+    const GRADE_2 = 2;
+    const GRADE_3 = 3;
+    public static $roles = [
+        self::ROLE_TEACHER => 'Teacher',
+        self::ROLE_STUDENT => 'Student',
+    ];
+    public static $grades = [
+        self::GRADE_1 => 'Grade 1',
+        self::GRADE_2 => 'Grade 2',
+        self::GRADE_3 => 'Grade 3',
+    ];
     protected $table = 'users';
-
     protected $fillable = [
         'name',
         'email',
@@ -23,31 +35,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin',
         'grade',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = ['password'];
-
-    const ROLE_TEACHER = 1;
-    const ROLE_STUDENT = 2;
-    
-    public static $roles = [
-        self::ROLE_TEACHER => 'Teacher',
-        self::ROLE_STUDENT => 'Student',
-    ];
-
-    const GRADE_1 = 1;
-    const GRADE_2 = 2;
-    const GRADE_3 = 3;
-    
-    public static $grades = [
-        self::GRADE_1 => 'Grade 1',
-        self::GRADE_2 => 'Grade 2',
-        self::GRADE_3 => 'Grade 3',
-    ];
 
     /**
      * Get the courses for the teacher teaches.

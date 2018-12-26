@@ -35,31 +35,32 @@
                             </span>
                         @endif
                         {{ Form::open(['method' => 'post', 'class' => 'login-form']) }}
-                            @if(!$errors->isEmpty())
-                                @foreach ($errors->all() as $error)
-                                    <p id="error"> {{ __('titles.error') . ': ' . $error }} </p><br>
-                                @endforeach
-                            @endif
-                            <div class="form-group">
-                                <div class="input-icon @if(!$errors->isEmpty()) error-input @endif">
-                                    <i class="icon fa fa-envelope"></i>
-                                    {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => __('titles.email')]) }}
-                                </div>
+                        @if(!$errors->isEmpty())
+                            @foreach ($errors->all() as $error)
+                                <p id="error"> {{ __('titles.error') . ': ' . $error }} </p><br>
+                            @endforeach
+                        @endif
+                        <div class="form-group">
+                            <div class="input-icon @if(!$errors->isEmpty()) error-input @endif">
+                                <i class="icon fa fa-envelope"></i>
+                                {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => __('titles.email')]) }}
                             </div>
-                            <div class="form-group">
-                                <div class="input-icon @if(!$errors->isEmpty()) error-input @endif">
-                                    <i class="icon fa fa-unlock-alt"></i>
-                                    {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('titles.password')]) }}
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon @if(!$errors->isEmpty()) error-input @endif">
+                                <i class="icon fa fa-unlock-alt"></i>
+                                {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('titles.password')]) }}
                             </div>
-                            <div class="checkbox">
-                                {{ Form::checkbox('remember', null, false, ['id' => 'remember']) }}
-                                {{ Form::label('remember', __('titles.remember_me')) }}
-                            </div>
-                            {{ Form::submit(__('titles.login'), ['class' => 'btn btn-common log-btn']) }}
+                        </div>
+                        <div class="checkbox">
+                            {{ Form::checkbox('remember', null, false, ['id' => 'remember']) }}
+                            {{ Form::label('remember', __('titles.remember_me')) }}
+                        </div>
+                        {{ Form::submit(__('titles.login'), ['class' => 'btn btn-common log-btn']) }}
                         {{ Form::close() }}
                         <ul class="form-links">
-                            <li class="pull-left"><a href="{{ route('register') }}"> {{ __('titles.dont_have_account') }} </a></li>
+                            <li class="pull-left"><a
+                                        href="{{ route('register') }}"> {{ __('titles.dont_have_account') }} </a></li>
                             <li class="pull-right"><a href=""> {{ __('titles.forgot_password') }} </a></li>
                         </ul>
                     </div>
@@ -71,12 +72,12 @@
 
 @section('inline_scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#email').focus(function() {
+        $(document).ready(function () {
+            $('#email').focus(function () {
                 $('#email').parent().removeClass('error-input');
                 $('#error').remove();
-            })
-            $('#password').focus(function() {
+            });
+            $('#password').focus(function () {
                 $('#password').parent().removeClass('error-input');
                 $('#error').remove();
             })

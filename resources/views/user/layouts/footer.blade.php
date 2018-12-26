@@ -89,7 +89,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-info pull-left">
-                        <p> {{ __('titles.copyright_p1') }}&copy;{{ __('titles.copyright_p2') }}  <a href="" rel="nofollow">Phạm Hoàng Hưng</a></p>
+                        <p> {{ __('titles.copyright_p1') }}&copy;{{ __('titles.copyright_p2') }} <a href=""
+                                                                                                    rel="nofollow">Phạm
+                                Hoàng Hưng</a></p>
                     </div>
                     <div class="bottom-social-icons social-icon pull-right">
                         <a class="facebook" target="_blank" href=""><i class="fa fa-facebook"></i></a>
@@ -105,11 +107,11 @@
         </div>
     </div>
 </footer>
-    
+
 <a href="#" class="back-to-top">
     <i class="fa fa-angle-up"></i>
 </a>
- <script type="text/javascript" src="{{ asset('assets/js/jquery-min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery-min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/material.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/material-kit.js') }}"></script>
@@ -125,3 +127,4 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery.themepunch.revolution.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.themepunch.tools.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>

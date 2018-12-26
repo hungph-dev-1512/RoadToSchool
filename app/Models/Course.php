@@ -31,9 +31,25 @@ class Course extends Model
         return $this->hasMany('App\Models\Lecture');
     }
 
-    public function getAllCourse()
+    public function getAllCourse($params = array())
     {
-        return Course::paginate(8);
+        $builder = Course::orderBy('updated_at', 'DESC');
+
+        if (isset($params['course_level']) && $params['course_level']) {
+            $builder->where('level', $params['course_level']);
+        }
+        if (isset($params['course_rate']) && $params['course_rate']) {
+            $builder->where('course_rate', '>=', $params['course_rate']);
+        }
+        if (isset($params['keyword']) && $params['keyword']) {
+            $builder->where('title', 'LIKE', '%' . $params['keyword'] . '%');
+        }
+        if (isset($params['category_id']) && $params['category_id']) {
+            $categoryId = Category::where('id', $params['category_id'])->pluck('id');
+            $builder->whereIn('category_id', $categoryId);
+        }
+
+        return $builder->paginate(8);
     }
 
     public function findCourse($id)
