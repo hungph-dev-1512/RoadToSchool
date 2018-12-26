@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Lecture;
 use App\Models\Course;
+use App\Models\Lecture;
 use Embed\Embed;
 
 class LectureController extends Controller

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\CourseUser;
 use Auth;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -20,7 +20,7 @@ class CourseController extends Controller
 
     /**
      * Create a new controller instance.
-     * 
+     *
      * @param Course $course
      * @param Category $category
      * @return void
@@ -32,14 +32,13 @@ class CourseController extends Controller
         $this->modelCourseUser = $courseUser;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $courses = $this->modelCourse->getAllCourse();
-        $categories = $this->modelCategory->getAllCategory();
+        $params = $request->all();
+        $courses = $this->modelCourse->getAllCourse($params);
 
         return view('user.courses.index', compact(
-            'courses',
-            'categories'
+            'courses'
         ));
     }
 

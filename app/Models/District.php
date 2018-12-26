@@ -12,7 +12,7 @@ class District extends Model
     {
         return $this->belongsTo('App\Models\Province');
     }
-    
+
     public function communes()
     {
         return $this->hasMany('App\Models\Commune');

@@ -18,5 +18,8 @@ return [
     'in_cart_already_failed' => 'Your choice are already in your cart.',
     'add_to_cart_success_redirecting' => 'Added to cart successfully. Redirecting to checkout page.',
     'add_to_wishlist_success' => 'Added to wishlist successfully.',
-    'your_cart_is_empty' => 'Your cart is empty.'
+    'your_cart_is_empty' => 'Your cart is empty.',
+    'your_cart_is_empty_keep_shopping' => 'Your cart is empty. Keep shopping to find a course!',
+    'have_not_saved_any_courses_for_later' => 'You haven\'t saved any courses for later.',
+    'haven_not_added_any_courses_to_your_wishlist' => 'You haven\'t added any courses to your wishlist.'
 ];
