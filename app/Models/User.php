@@ -87,4 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $selectedUser->update($data);
     }
+
+    public function getStudentsCount($idInstructor)
+    {
+        $coursesInstructor = Course::where('user_id', $idInstructor)->pluck('id');
+
+        return CourseUser::whereIn('course_id', $coursesInstructor)->count();
+    }
 }

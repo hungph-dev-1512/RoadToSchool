@@ -136,5 +136,9 @@ return [
     'and_up' => 'and up',
     'add_to_wishlist' => 'Add to wishlist',
     'hours' => 'hours',
-    'keep_shopping' => 'Keep shopping'
+    'keep_shopping' => 'Keep shopping',
+    'instructor_information' => 'Instructor Information',
+    'courses_taught_by' => 'Courses taught by',
+    'see_more' => 'See more',
+    'see_details' => 'See details'
 ];
