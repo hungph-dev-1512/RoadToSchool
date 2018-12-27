@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Course;
 
 class UserController extends Controller
 {
@@ -58,5 +59,24 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.show', $id);
+    }
+
+    public function getInstructorInfo($id)
+    {
+        $selectedInstructor = $this->modelUser->findUser($id);
+        $instructorStudentsCount = $this->modelUser->getStudentsCount($id);
+        $instructorCoursesCount = Course::where('user_id', $id)->count();
+        $instructorRating = Course::where('user_id', $id)->avg('course_rate');
+        $bestCoursesInstructor = Course::where('user_id', $id)->orderBy('seller', 'desc')->limit(5)->get();
+        $coursesInstructorCount = Course::where('user_id', $id)->count();
+
+        return view('user.users.instructor_info', compact(
+            'selectedInstructor',
+            'instructorStudentsCount',
+            'instructorCoursesCount',
+            'instructorRating',
+            'bestCoursesInstructor',
+            'coursesInstructorCount'
+        ));
     }
 }

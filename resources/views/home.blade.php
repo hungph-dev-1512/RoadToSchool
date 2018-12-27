@@ -105,7 +105,7 @@
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                         <h3 class="section-title">Most Seller Course</h3>
                         <div id="new-products" class="owl-carousel">
-                            @foreach(\App\Models\Course::orderBy('seller')->limit(20)->get() as $trendCourse)
+                            @foreach(\App\Models\Course::orderBy('seller', 'desc')->limit(20)->get() as $trendCourse)
                                 <div class="item">
                                     <div class="product-item">
                                         <div class="carousel-thumb">

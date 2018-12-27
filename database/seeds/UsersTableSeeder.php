@@ -24,6 +24,9 @@ class UsersTableSeeder extends Seeder
             'role' => '0',
             'avatar' => 'images/avatar/admin-avatar.jpg',
             'is_admin' => '1',
+            'personal_info' => 'Proficient instructor with many years’ experience teaching children between grade levels fourth through 10th. Able to adapt teaching methods to best meet the needs of the specific class. Excellent track record of teaching classrooms that exceed standardized test scores. Professional who brings fun and enthusiasm to the table and can get any classroom in order.',
+            'birthday' => '1996-11-19',
+            'working_place' => 'Hanoi University of Science and Technology 1 Dai Co Viet Road, Ha Noi, Viet Nam Tel: 043 869 2222 - Fax: 043 869 200'
         ]);
 
         User::create([

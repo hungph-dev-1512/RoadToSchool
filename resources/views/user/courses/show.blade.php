@@ -108,7 +108,8 @@
                                 <h4>{{ __('titles.course_detail') }}</h4>
                             </div>
                             <p class=" no-margin ">
-                                <strong> {{ __('titles.teacher') }} </strong> {{ $selectedCourse->user->name }} </p>
+                                <strong> {{ __('titles.teacher') }} </strong><a
+                                        href="{{ route('instructor_info', $selectedCourse->user->id) }}"> {{ $selectedCourse->user->name }} </a></p>
                             <p class="no-margin"><strong> {{ __('titles.category') }} </strong> <a
                                         href="#"> {{ $selectedCourse->category->title }} </a></p>
                             <p class="no-margin">
@@ -120,7 +121,7 @@
                             <p class="no-margin">
                                 <strong> {{ __('titles.seller') }} </strong> {{ $selectedCourse->seller }} </p>
                             <p class="no-margin"><strong> {{ __('titles.like') }} </strong> {{ $selectedCourse->like }}
-                            </p><br><br>
+                            </p><br>
                             <a href="#"> <i class=" fa fa-heart"></i>&ensp; {{ __('titles.like') }} </a></li><br>
                             <i class="fa fa-share-alt" id="share"></i>&ensp; {{ __('titles.share') }}
                             <div class="social-link">
@@ -149,9 +150,12 @@
                                 <h4>{{ __('titles.teacher_info') }}</h4>
                             </div>
                             {{ __('titles.posted_by') }} &ensp; <i class=" fa fa-user"></i> <a
-                                    href="{{ route('users.show', $selectedCourse->user->id) }}"> {{ $selectedCourse->user->name }} </a></li>
+                                    href="{{ route('instructor_info', $selectedCourse->user->id) }}"> {{ $selectedCourse->user->name }} </a></li>
                             <br>
-                            <a href="#"> <i class=" fa fa-phone"></i>&ensp; {{ $selectedCourse->user->phone }} </a></li>
+                            <p><i class=" fa fa-envelope"></i>&ensp; {{ $selectedCourse->user->email }}</p>
+                            <p><i class=" fa fa-phone"></i>&ensp; {{ $selectedCourse->user->phone }}</p><br>
+                            <p><a class="btn btn-common btn-sm" href="{{ route('instructor_info', $selectedCourse->user->id) }}"><i
+                                        class=" fa fa-info"></i><span> {{ __('titles.see_details') }} </span></a>
                         </div>
                         <div class="col-xs-12">
                             <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">

@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('users', 'User\UserController')->only('show', 'update');
     // ->middleware('selfaccount');
+    Route::get('instructor_info/{id}', 'User\UserController@getInstructorInfo')->name('instructor_info');
     Route::resource('courses', 'User\CourseController')->only('index', 'show');
     Route::get('courses/{id}/lectures/{lectureId}', 'User\LectureController@show');
     Route::resource('cart_items', 'User\CartItemController')->only('index');

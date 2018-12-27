@@ -48,6 +48,10 @@ class Course extends Model
             $categoryId = Category::where('id', $params['category_id'])->pluck('id');
             $builder->whereIn('category_id', $categoryId);
         }
+        if (isset($params['user_id']) && $params['user_id']) {
+            $categoryId = Category::where('id', $params['user_id'])->pluck('id');
+            $builder->where('user_id', $params['user_id']);
+        }
 
         return $builder->paginate(8);
     }
