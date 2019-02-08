@@ -24,21 +24,21 @@
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
                                     <div class="input-group-addon search-category-container">
-                                        <label class="styled-select location-select">
-                                            <select class="dropdown-product selectpicker" name="course_level">
-                                                <option value="0"> {{ __('titles.select_level') }} </option>
-                                                @for ($temp=1; $temp<=3; $temp++)
-                                                    <option value="{{ $temp }}">
-                                                        {{ __('titles.level') . $temp }}
+                                        <label class="styled-select">
+                                            <select class="dropdown-product selectpicker" name="filter_option">
+                                                <option value="0"> {{ __('titles.select_filter_option') }} </option>
+                                                @foreach (App\Models\Course::$filter_options as $key =>     $value)
+                                                    <option value="{{ $key }}">
+                                                        {{ $value }}
                                                     </option>
-                                                @endfor
+                                                @endforeach
                                             </select>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
                                     <div class="input-group-addon search-category-container">
-                                        <label class="styled-select">
+                                        <label class="styled-select rate-select">
                                             <select class="dropdown-product selectpicker" name="course_rate">
                                                 <option value="0"> {{ __('titles.select_rate') }} </option>
                                                 @for ($temp=1; $temp<=4; $temp++)
@@ -68,27 +68,27 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="section-title">Browse Courses from 8 Categories</h3>
+                        <h3 class="section-title">Browse Courses from {{ App\Models\Category::where('parent_id', '<>', 0)->count() }} Categories</h3>
                     </div>
                     @foreach(\App\Models\Category::where('parent_id', 0)->get() as $category)
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="category-box border-1 wow fadeInUpQuick" data-wow-delay="0.3s">
                                 <div class="icon">
-                                    <a href="category.html"><i class="{{$category->css_classes}}"></i></a>
+                                    <i class="{{$category->css_classes}}"></i>
                                 </div>
                                 <div class="category-header">
-                                    <a href="category.html"><h4> {{ $category->title }} </h4></a>
+                                    <h4> {{ $category->title }} </h4>
                                 </div>
                                 <div class="category-content">
                                     <ul>
                                         @foreach(\App\Models\Category::where('parent_id', $category->id)->limit(6)->get() as $subCategory)
                                             <li>
-                                                <a href="{{ route('courses.index', ['category_id' => $subCategory->id]) }}">{{ $subCategory->title }}</a>
-                                                <span class="category-counter"> {{ \App\Models\Course::where('category_id', $subCategory->id)->count() }} </span>
+                                                <a href="{{ route('courses.index', ['sub_category_id' => $subCategory->id]) }}">{{ $subCategory->title }}</a>
+                                                <span class="category-counter"> {{ \App\Models\Course::where('is_accepted', 1)->where('category_id', $subCategory->id)->count() }} </span>
                                             </li>
                                         @endforeach
                                         <li>
-                                            <a href="category.html">View all subcategories →</a>
+                                            <a href="{{ route('courses.index', ['category_id' => $category->id]) }}">View all subcategories →</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -105,19 +105,19 @@
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                         <h3 class="section-title">Most Seller Course</h3>
                         <div id="new-products" class="owl-carousel">
-                            @foreach(\App\Models\Course::orderBy('seller', 'desc')->limit(20)->get() as $trendCourse)
+                            @foreach(\App\Models\Course::orderBy('seller', 'desc')->where('is_accepted', 1)->limit(20)->get() as $trendCourse)
                                 <div class="item">
                                     <div class="product-item">
                                         <div class="carousel-thumb">
-                                            <img src="{{ asset($trendCourse->course_avatar) }}" style="height:142px"
+                                            <img src="{{ str_replace('public/', '', asset($trendCourse->course_avatar)) }}" style="height:142px"
                                                  alt="">
                                             <div class="overlay">
                                                 <a href="{{ route('courses.show', $trendCourse->id) }}"><i
                                                             class="fa fa-info-circle"></i></a>
                                             </div>
                                         </div>
-                                        <a href="ads-details.html" class="item-name"> {{ $trendCourse->title }} </a>
-                                        <span class="price">@if(isset($trendCourse->promotion_price))<b
+                                        <a href="{{ route('courses.show', $trendCourse->id) }}" class="item-name"> {{ $trendCourse->title }} </a>
+                                        <span class="price">@if($trendCourse->promotion_price === $trendCourse->origin_price)<b
                                                     style="color:red">{{ $trendCourse->promotion_price }}$ </b><strike> {{ $trendCourse->origin_price }}$</strike>@else {{ $trendCourse->origin_price }}
                                             $@endif</span>
                                     </div>

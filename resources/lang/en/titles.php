@@ -28,7 +28,6 @@ return [
     'slogan_p2' => 'R2S',
     'slogan_p3' => 'In order to create an engaging learning experience, the role of instructor is optional, but the role of learner is essential.',
     'select_rate' => 'Select Rate',
-    'select_rate' => 'Select Rate',
     'keyword' => 'Type Keyword',
     'login_to_account' => 'Login to account',
     'error => ' => 'Error => ',
@@ -132,7 +131,7 @@ return [
     'checkout' => 'Checkout',
     'name' => 'Name',
     'checkout_success' => 'Checkout Successfully',
-    'select_level' => 'Select Level',
+    'select_filter_option' => 'Select Filter Option',
     'and_up' => 'and up',
     'add_to_wishlist' => 'Add to wishlist',
     'hours' => 'hours',
@@ -140,5 +139,6 @@ return [
     'instructor_information' => 'Instructor Information',
     'courses_taught_by' => 'Courses taught by',
     'see_more' => 'See more',
-    'see_details' => 'See details'
+    'see_details' => 'See details',
+    'related_courses' => 'Related Courses'
 ];

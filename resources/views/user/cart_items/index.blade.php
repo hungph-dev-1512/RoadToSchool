@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    {{ Breadcrumbs::render('cart') }}<br>
     <div id="content">
         <div class="container">
             <div class="row">

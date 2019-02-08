@@ -45,7 +45,7 @@
                                 </div>
                                 <br>
                                 <aside class="panel panel-body panel-details">
-                                    <ul style="margin-left: 20px">
+                                    <ul style="margin-left: 5px">
                                         <li>
                                             <p class="no-margin"><strong>Total
                                                     students:</strong> {{ $instructorStudentsCount }} </p>
@@ -92,7 +92,7 @@
                                 <div class="item">
                                     <div class="product-item">
                                         <div class="carousel-thumb">
-                                            <img src="{{ asset($course->course_avatar) }}" style="height:142px"
+                                            <img src="{{ str_replace('public/', '', asset($course->course_avatar)) }}" style="height:142px"
                                                  alt="">
                                             <div class="overlay">
                                                 <a href="{{ route('courses.show', $course->id) }}"><i
@@ -116,6 +116,7 @@
                 </div>
             </div>
         </section>
+    </div>
 @endsection
 
 @section('inline_scripts')

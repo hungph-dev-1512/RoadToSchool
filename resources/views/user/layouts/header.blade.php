@@ -12,21 +12,22 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    {{-- <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ __('titles.categories') }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">
-                                TODO1
-                            </a>
-                            <br>
-                            <a class="dropdown-item" href="">
-                                TODO2
-                            </a>
-                        </div>
-                    </li> --}}
-
+                    {{--
+                    <li class="nav-item dropdown">
+                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                       {{ __('titles.categories') }}
+                       </a>
+                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="">
+                          TODO1
+                          </a>
+                          <br>
+                          <a class="dropdown-item" href="">
+                          TODO2
+                          </a>
+                       </div>
+                    </li>
+                    --}}
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -43,12 +44,12 @@
                                 $totalOriginPrice = 0;
                                 $totalPromotionPrice = 0;
                                 foreach($cartItems as $cartItem) {
-                                    $totalOriginPrice += $cartItem->course->origin_price;
-                                    if(0 != $cartItem->course->promotion_price) {
-                                        $totalPromotionPrice += $cartItem->course->promotion_price;
-                                    } else {
-                                        $totalPromotionPrice += $cartItem->course->origin_price;
-                                    }
+                                $totalOriginPrice += $cartItem->course->origin_price;
+                                if(0 != $cartItem->course->promotion_price) {
+                                $totalPromotionPrice += $cartItem->course->promotion_price;
+                                } else {
+                                $totalPromotionPrice += $cartItem->course->origin_price;
+                                }
                                 }
                             @endphp
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -56,28 +57,36 @@
                                         class="badge"> {{ $cartItemsCount }} </span></a>
                             <ul class="dropdown-menu dropdown-cart" role="menu">
                                 @if($cartItems->isEmpty())
-                                    <li class="text-center"><h4> {{ __('messages.your_cart_is_empty') }}</h4></li>
+                                    <li class="text-center">
+                                        <h4> {{ __('messages.your_cart_is_empty') }}</h4>
+                                    </li>
                                     <li class="divider"></li>
-                                    <li><a class="text-center" href="{{ route('home') }}">
-                                            <h4>{{ __('titles.keep_shopping') }}</h4></a></li>
+                                    <li>
+                                        <a class="text-center" href="{{ route('home') }}">
+                                            <h4>{{ __('titles.keep_shopping') }}</h4>
+                                        </a>
+                                    </li>
                                 @else
                                     @foreach($cartItems as $cartItem)
-                                        <li>
-                                                    <span class="item">
-                                                    <span class="item-left">
-                                                        <img src="{{ asset($cartItem->course->course_avatar) }}"
-                                                             alt=""/>
-                                                        <span class="item-info">
-                                                            <span><strong> {{$cartItem->course->title}} </strong></span>
-                                                        <span> 
-                                                            @if(isset($cartItem->course->promotion_price))
-                                                                <p><b style="color:red">{{ $cartItem->course->promotion_price }}$ </b><strike> {{ $cartItem->course->origin_price }}$</strike></p>
-                                                            @else
-                                                                <b>{{ $cartItem->course->origin_price }}$</b>
-                                                            @endif
-                                                        </span>
-                                                    </span>
+                                        <li class="cart-item-detail" data-id="{{ $cartItem->course->id }}" onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'">
+                                            {{--<a href="{{ route('courses.show', $cartItem->course->id) }}">--}}
+                                                <span class="item">
+                                                <span class="item-left">
+                                                   <img src="{{ str_replace('public/', '', asset($cartItem->course->course_avatar)) }}"
+                                                        alt=""/>
+                                                   <span class="item-info">
+                                                      <span><strong> {{ (strlen($cartItem->course->title) >= 19) ? substr($cartItem->course->title, 0, 15) . '...' : $cartItem->course->title }}  </strong></span>
+                                                      <span>
+                                                         @if(isset($cartItem->course->promotion_price))
+                                                              <p><b style="color:red">{{ $cartItem->course->promotion_price }}$ </b><strike> {{ $cartItem->course->origin_price }}$</strike></p>
+                                                          @else
+                                                              <b>{{ $cartItem->course->origin_price }}$</b>
+                                                          @endif
+                                                      </span>
+                                                   </span>
                                                 </span>
+                                                </span>
+                                            {{--</a>--}}
                                         </li>
                                     @endforeach
                                     <li class="divider"></li>
@@ -89,12 +98,14 @@
                                                             style="color:red">{{ $totalPromotionPrice }}$ </b>
                                                     <strike> {{ $totalOriginPrice }} $</strike>
                                             @else
-                                                <h4>{{ __('titles.total') }}</h4>: <b>{{ $totalOriginPrice }}$</b>
+                                                <h4>{{ __('titles.total') }}</h4>
+                                                : <b>{{ $totalOriginPrice }}$</b>
                                                 @endif
                                                 </p>
                                         </h5>
                                         <a class="text-center" href="{{ route('cart_items.index') }}">
-                                            <h4>{{ __('titles.checkout_cart') }}</h4></a>
+                                            <h4>{{ __('titles.checkout_cart') }}</h4>
+                                        </a>
                                     </li>
                                 @endif
                             </ul>
@@ -104,12 +115,10 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
+                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}" style="display: block;">
                                     {{ __('titles.my_profile') }}
                                 </a>
-                                <br>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -119,9 +128,11 @@
                             </div>
                         </li>
                     @endguest
-                    {{-- <li class="postadd">
-                        <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>
-                    </li> --}}
+                    {{--
+                    <li class="postadd">
+                       <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>
+                    </li>
+                    --}}
                 </ul>
             </div>
         </div>

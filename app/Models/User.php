@@ -15,15 +15,18 @@ class User extends Authenticatable implements MustVerifyEmail
     const GRADE_1 = 1;
     const GRADE_2 = 2;
     const GRADE_3 = 3;
+
     public static $roles = [
         self::ROLE_TEACHER => 'Teacher',
         self::ROLE_STUDENT => 'Student',
     ];
+
     public static $grades = [
         self::GRADE_1 => 'Grade 1',
         self::GRADE_2 => 'Grade 2',
         self::GRADE_3 => 'Grade 3',
     ];
+
     protected $table = 'users';
     protected $fillable = [
         'name',
@@ -90,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getStudentsCount($idInstructor)
     {
-        $coursesInstructor = Course::where('user_id', $idInstructor)->pluck('id');
+        $coursesInstructor = Course::where('is_accepted', 1)->where('user_id', $idInstructor)->pluck('id');
 
         return CourseUser::whereIn('course_id', $coursesInstructor)->count();
     }

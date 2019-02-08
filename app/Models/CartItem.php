@@ -10,7 +10,7 @@ class CartItem extends Model
     const IN_CART_TYPE = 0;
     const IN_LATER_TYPE = 1;
     const IN_WISHLIST_TYPE = 2;
-    public static $grades = [
+    public static $cart_item_types = [
         self::IN_CART_TYPE => 'In cart',
         self::IN_LATER_TYPE => 'In later buy',
         self::IN_WISHLIST_TYPE => 'In wishlist',

@@ -36,9 +36,17 @@ class CourseController extends Controller
     {
         $params = $request->all();
         $courses = $this->modelCourse->getAllCourse($params);
+        if (isset($params['sub_category_id']) && $params['sub_category_id']) {
+            $categoryId = $request->sub_category_id;
+        }
+        if (isset($params['category_id']) && $params['category_id']) {
+            $categoryId = $request->category_id;
+        }
 
         return view('user.courses.index', compact(
-            'courses'
+            'courses',
+            'categoryId',
+            'params'
         ));
     }
 
@@ -51,12 +59,19 @@ class CourseController extends Controller
     {
         $selectedCourse = $this->modelCourse->findCourse($id);
         $allLectures = $selectedCourse->lectures;
-        $availableCourse = $this->modelCourseUser->where('course_id', $selectedCourse->id)->where('user_id', Auth::user()->id)->first();
+        $availableCourse = null;
+        if(Auth::check()) {
+            $availableCourse = $this->modelCourseUser->where('course_id', $selectedCourse->id)->where('user_id', Auth::user()->id)->first();
+        }
+        $mostRelatedCourse = $this->modelCourse->findMostRelatedCourse($id);
+        $relatedCourseCount = $this->modelCourse->findRelatedCourseCount($id);
 
         return view('user.courses.show', compact(
             'selectedCourse',
             'allLectures',
-            'availableCourse'
+            'availableCourse',
+            'mostRelatedCourse',
+            'relatedCourseCount'
         ));
     }
 }
