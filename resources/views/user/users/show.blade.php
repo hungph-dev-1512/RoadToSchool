@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+    {{ Breadcrumbs::render('users_show', $selectedUser) }} <br>
     <div id="content">
         <div class="container">
             <div class="row">
@@ -38,7 +39,7 @@
                                 <div class="panel-collapse collapse in" id="collapseB1">
                                     <div class="panel-body">
                                         @if (empty($errors))
-                                            <p> {{ __('titles.update_info_fail') }} </p>
+                                            <p class="error-input-p-p"> {{ __('titles.update_info_fail') }} </p>
                                         @endif
                                         {{ Form::model($selectedUser, ['route' => ['users.update', $selectedUser->id]]) }}
                                         {{ Form::hidden('role', $selectedUser->role) }}
@@ -48,7 +49,7 @@
                                             <div @if ($errors->has('name')) class="error-input" @endif>
                                                 {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
                                             </div>
-                                            <p> {{ $errors->first('name')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('name')}} </p>
                                         </div>
                                         <div class="form-group">
                                             {{ Form::label('email', __('titles.email'), ['class' => 'control-label']) }}
@@ -62,7 +63,7 @@
                                                 {{ Form::select('district', [], null, ['class' => 'form-control', 'id' => 'district', 'placeholder' => __('titles.choose_district')]) }}
                                                 {{ Form::select('commune', [], null, ['class' => 'form-control', 'id' => 'commune', 'placeholder' => __('titles.choose_commune')]) }}
                                             </div>
-                                            <p> {{ $errors->first('address')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('address')}} </p>
                                         </div>
                                         <div class="form-group">
                                             {{ Form::label('avatar', __('titles.update_avatar'), ['class' => 'control-label']) }}
@@ -84,8 +85,8 @@
                                         <br>
                                         <br>
                                         <div class="form-group">
-                                            {{ Form::label('detail', __('titles.detail'), ['class' => 'control-label']) }}
-                                            {{ Form::textarea('detail', null, ['class' => 'form-control', 'id' => 'detail', 'rows' => 5, 'cols' => 30]) }}
+                                            {{ Form::label('personal_info', __('titles.detail'), ['class' => 'control-label']) }}
+                                            {{ Form::textarea('personal_info', null, ['class' => 'form-control', 'id' => 'personal-info', 'rows' => 5, 'cols' => 30]) }}
                                         </div>
                                         @if ($selectedUser->role == 1)
                                             <div class="form-group">
@@ -98,7 +99,7 @@
                                                     {{ Form::select('district', [], null, ['class' => 'form-control', 'id' => 'district', 'placeholder' => __('titles.choose_district')]) }}
                                                     {{ Form::select('commune', [], null, ['class' => 'form-control', 'id' => 'commune', 'placeholder' => __('titles.choose_commune')]) }}
                                                 </div>
-                                                <p> {{ $errors->first('working_place')}} </p>
+                                                <p class="error-input-p"> {{ $errors->first('working_place')}} </p>
                                             </div>
                                         @endif
                                         <div class="form-group">
@@ -107,7 +108,7 @@
                                                 {{ Form::text('grade', null, ['class' => 'form-control', 'id' => 'grade', 'readonly' => '']) }}
                                             </div>
                                             {{ Form::select('grade', \App\Models\User::$grades, null, ['class' => 'form-control fix-select', 'id' => 'select-grade', 'placeholder' => __('titles.choose_grade')]) }}
-                                            <p> {{ $errors->first('grade')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('grade')}} </p>
                                         </div>
                                         {{ Form::submit(__('titles.update'), ['class' => 'btn btn-common submit', 'name' => 'update_info']) }}
                                         {{ Form::close() }}
@@ -124,7 +125,7 @@
                                 <div aria-expanded="false" class="panel-collapse collapse" id="collapseB2">
                                     <div class="panel-body">
                                         @if (empty($errors))
-                                            <p> __('titles.update_info_fail') </p>
+                                            <p class="error-input-p"> __('titles.update_info_fail') </p>
                                         @endif
                                         {{ Form::model($selectedUser, ['route' => ['users.update', $selectedUser->id]]) }}
                                         <input name="_method" type="hidden" value="PUT">
@@ -133,21 +134,21 @@
                                             <div @if ($errors->has('old_password')) class="error-input" @endif>
                                                 {{ Form::password('old_password', ['class' => 'form-control', 'id' => 'old-password']) }}
                                             </div>
-                                            <p> {{ $errors->first('old_password')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('old_password')}} </p>
                                         </div>
                                         <div class="form-group">
                                             {{ Form::label('new_password', __('titles.new_password'), ['class' => 'control-label']) }}
                                             <div @if ($errors->has('new_password')) class="error-input" @endif>
                                                 {{ Form::password('new_password', ['class' => 'form-control', 'id' => 'new-password']) }}
                                             </div>
-                                            <p> {{ $errors->first('new_password')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('new_password')}} </p>
                                         </div>
                                         <div class="form-group">
                                             {{ Form::label('password_confirmation', __('titles.retype_new_password'), ['class' => 'control-label']) }}
                                             <div>
                                                 {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password-confirmation']) }}
                                             </div>
-                                            <p> {{ $errors->first('password_confirmation')}} </p>
+                                            <p class="error-input-p"> {{ $errors->first('password_confirmation')}} </p>
                                         </div>
                                         {{ Form::submit(__('titles.update_password'), ['class' => 'btn btn-common submit', 'name' => 'update_password']) }}
                                     </div>
@@ -212,7 +213,7 @@
         }
 
         function deleteAvatar() {
-            $('#current-avatar').attr('src', '{{ asset('assets/img/basic_avatar.png') }}');
+            $('#current-avatar').attr('src', '{{ str_replace('public/', '', asset('assets/img/basic_avatar.png')) }}');
             $('#cancel').fadeIn(1000);
             $('#cancel-value').attr('disabled', '');
             $('#delete-value').removeAttr('disabled');

@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+    {{ Breadcrumbs::render('checkout_success') }} <br>
     <section id="content">
         <div class="container">
             <div class="row">

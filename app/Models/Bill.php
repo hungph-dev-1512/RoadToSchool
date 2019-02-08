@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Bill extends Model
 {
@@ -31,7 +32,21 @@ class Bill extends Model
         } else {
             $data['get_ads'] = false;
         }
+        if(\Auth::check()) {
+            $data['user_id'] = Auth::user()->id;
+        }
 
-        return Bill::create($data);
+        $createBillResult = Bill::create($data);
+        if(!$createBillResult) {
+            return false;
+        }
+        $createdBillId = $createBillResult->id;
+        $createBillCourseResult = BillCourse::createNewBillCourse($createdBillId, $data['course_id']);
+
+        if(!$createBillCourseResult) {
+            return false;
+        }
+
+        return $createBillResult;
     }
 }

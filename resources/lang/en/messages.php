@@ -16,6 +16,8 @@ return [
     'back_to_home_p2' => ' to search for other courses.',
     'add_to_cart_success' => 'Your choice added to cart successfully.',
     'in_cart_already_failed' => 'Your choice are already in your cart.',
+    'my_course_already_failed' => 'Your choice are already in your courses.',
+    'my_bill_already_failed' => 'Your choice are already in your bills.',
     'add_to_cart_success_redirecting' => 'Added to cart successfully. Redirecting to checkout page.',
     'add_to_wishlist_success' => 'Added to wishlist successfully.',
     'your_cart_is_empty' => 'Your cart is empty.',

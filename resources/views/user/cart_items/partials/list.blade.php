@@ -48,13 +48,13 @@
                                 </div>
                             </td>
                             <td class="add-img-td">
-                                <a href="ads-details.html">
+                                <a href="{{ route('courses.show', $courseRelation->course->id) }}">
                                     <img class="img-responsive"
-                                         src="{{ asset($courseRelation->course->course_avatar) }}" alt="img">
+                                         src="{{ str_replace('public/', '', asset($courseRelation->course->course_avatar)) }}" alt="img">
                                 </a>
                             </td>
                             <td class="ads-details-td">
-                                <h4><a href="ads-details.html">{{ $courseRelation->course->title }}</a></h4>
+                                <h4><a href="{{ route('courses.show', $courseRelation->course->id) }}">{{ $courseRelation->course->title }}</a></h4>
                                 <p><strong> {{ __('titles.instructor') }} </strong>:
                                     <a href="{{ route('users.show', $courseRelation->course->user->id) }}">{{ $courseRelation->course->user->name }}</a>
                                 </p>
@@ -171,13 +171,13 @@
                                 </div>
                             </td>
                             <td class="add-img-td">
-                                <a href="ads-details.html">
+                                <a href="{{ route('courses.show', $courseRelation->course->id) }}">
                                     <img class="img-responsive"
-                                         src="{{ asset($courseRelation->course->course_avatar) }}" alt="img">
+                                         src="{{ str_replace('public/', '', asset($courseRelation->course->course_avatar)) }}" alt="img">
                                 </a>
                             </td>
                             <td class="ads-details-td">
-                                <h4><a href="ads-details.html">{{ $courseRelation->course->title }}</a></h4>
+                                <h4><a href="{{ route('courses.show', $courseRelation->course->id) }}">{{ $courseRelation->course->title }}</a></h4>
                                 <p><strong> {{ __('titles.instructor') }} </strong>:
                                     <a href="{{ route('users.show', $courseRelation->course->user->id) }}">{{ $courseRelation->course->user->name }}</a>
                                 </p>
@@ -264,13 +264,13 @@
                                     </div>
                                 </td>
                                 <td class="add-img-td">
-                                    <a href="ads-details.html">
+                                    <a href="{{ route('courses.show', $courseRelation->course->id) }}">
                                         <img class="img-responsive"
-                                             src="{{ asset($courseRelation->course->course_avatar) }}" alt="img">
+                                             src="{{ str_replace('public/', '', asset($courseRelation->course->course_avatar)) }}" alt="img">
                                     </a>
                                 </td>
                                 <td class="ads-details-td">
-                                    <h4><a href="ads-details.html">{{ $courseRelation->course->title }}</a></h4>
+                                    <h4><a href="{{ route('courses.show', $courseRelation->course->id) }}">{{ $courseRelation->course->title }}</a></h4>
                                     <p><strong> {{ __('titles.instructor') }} </strong>:
                                         <a href="{{ route('users.show', $courseRelation->course->user->id) }}">{{ $courseRelation->course->user->name }}</a>
                                     </p>

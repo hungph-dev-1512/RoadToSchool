@@ -9,14 +9,19 @@
 @endsection
 
 @section('content')
+    @include('user.courses.partials.search_sidebar')
+    {{ Breadcrumbs::render('courses_index') }}
     <div class="main-container">
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Browse {{ $courses->total() }} Courses</h3>
+                </div>
                 <div class="col-sm-12 page-content">
                     <div class="product-filter">
                         <div class="grid-list-count">
-                            <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
                             <a class="grid switchToList active" id="switch-now" href="#"><i class="fa fa-th-large"></i></a>
+                            <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
                         </div>
                     </div>
                     <div class="adds-wrapper">
@@ -46,6 +51,9 @@
                                             <span class="category"> {{ __('titles.level') . $selectedCourse->level }}  </span>
                                             -
                                             <span class="item-location"><i class="fa fa-map-book"></i> {{ $selectedCourse->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $selectedCourse->duration . ' ' . __('titles.hours') }} </span>
+                                            <h3 class="price">@if($selectedCourse->promotion_price !== $selectedCourse->origin_price)<b
+                                                        style="color:red">{{ $selectedCourse->promotion_price }}$ </b><strike> {{ $selectedCourse->origin_price }}$</strike>@else {{ $selectedCourse->origin_price }}
+                                                $@endif</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -54,8 +62,8 @@
                                     <a class="btn btn-common btn-sm add-to-cart" href=""
                                        data-id="{{ $selectedCourse->id }}"><i
                                                 class=" fa fa-cart-plus"></i><span> {{ __('titles.add_to_cart') }} </span></a>
-                                    <a class="btn btn-common btn-sm add-to-wishlist" href=""
-                                       data-id="{{ $selectedCourse->id }}" title="{{ __('titles.add_to_wishlist') }}"><i
+                                    <a class="btn btn-sm btn-danger add-to-wishlist" href=""
+                                       data-id="{{ $selectedCourse->id }}" title="{{ __('titles.add_to_wishlist') }}" style="height:  26px"><i
                                                 class="fa fa-heart"></i></a>
                                 </div>
                             </div>
@@ -66,34 +74,34 @@
                             <li> {{ $courses->links() }} </li>
                         </ul>
                     </div>
-                    @if (Auth::user()->role == 1)
-                        <div class="post-promo text-center">
-                            <h2> {{ __('titles.create_course_p1') }} </h2>
-                            <h5> {{ __('titles.create_course_p2') }} </h5>
-                            <a href="post-ads.html"
-                               class="btn btn-post btn-danger"  {{ __('titles.create_course_p3') }} </a>
-                        </div>
-                    @endif
+                    {{--@if (Auth::user()->role == 1)--}}
+                        {{--<div class="post-promo text-center">--}}
+                            {{--<h2> {{ __('titles.create_course_p1') }} </h2>--}}
+                            {{--<h5> {{ __('titles.create_course_p2') }} </h5>--}}
+                            {{--<a href="post-ads.html"--}}
+                               {{--class="btn btn-post btn-danger">  {{ __('titles.create_course_p3') }} </a>--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
+@include('user.courses.partials.javascript_common')
 @section('inline_scripts')
     <script type="text/javascript">
-        @include('user.courses.partials.javascript_common')
         $(document).ready(function () {
             $('#switch-now').click();
             $('.add-to-cart').on('click', function (event) {
                 event.preventDefault();
                 var courseId = $(this).data('id');
-                addCourseToCart(courseId, '{{ __('messages.add_to_cart_success') }}', '{{ __('messages.in_cart_already_failed') }}', null, 'add-to-cart');
+                addCourseToCart(courseId, '{{ __('messages.add_to_cart_success') }}', '{{ __('messages.in_cart_already_failed') }}', '{{ __('messages.my_course_already_failed') }}', '{{ __('messages.my_bill_already_failed') }}', null, 'add-to-cart');
             });
             $('.add-to-wishlist').on('click', function (event) {
                 event.preventDefault();
                 var courseId = $(this).data('id');
-                addCourseToCart(courseId, '{{ __('messages.add_to_wishlist_success') }}', '{{ __('messages.in_cart_already_failed') }}', null, 'add-to-wishlist');
+                addCourseToCart(courseId, '{{ __('messages.add_to_wishlist_success') }}', '{{ __('messages.in_cart_already_failed') }}', '{{ __('messages.my_course_already_failed') }}', '{{ __('messages.my_bill_already_failed') }}', null, 'add-to-wishlist');
             });
         });
     </script>
