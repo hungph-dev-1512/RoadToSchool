@@ -46,6 +46,11 @@ class Course extends Model
         return $this->hasMany('App\Models\CartItem');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
     public function lectures()
     {
         return $this->hasMany('App\Models\Lecture');

@@ -23,5 +23,9 @@ return [
     'your_cart_is_empty' => 'Your cart is empty.',
     'your_cart_is_empty_keep_shopping' => 'Your cart is empty. Keep shopping to find a course!',
     'have_not_saved_any_courses_for_later' => 'You haven\'t saved any courses for later.',
-    'haven_not_added_any_courses_to_your_wishlist' => 'You haven\'t added any courses to your wishlist.'
+    'haven_not_added_any_courses_to_your_wishlist' => 'You haven\'t added any courses to your wishlist.',
+    'are_you_sure' => 'Are you sure ?',
+    'change_bill_status' => 'Please choose status you want change',
+    'update_bill_status_success' => 'Update status of changed bill successfully.',
+    'you_are_no_notification' => 'You are no notification'
 ];

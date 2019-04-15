@@ -11,7 +11,7 @@
                 <a class="navbar-brand logo" href="/"><img src="/assets/img/logo.png" alt=""></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" id="top-nav-area">
                     {{--
                     <li class="nav-item dropdown">
                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -36,6 +36,8 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @else
+                        <input type="hidden" value="{{ \Auth::user()->id }}" id="current-user">
+                        {{--Cart--}}
                         <li class="dropdown">
                             @php
                                 $cartItemsQuery = \App\Models\CartItem::where('user_id', Auth::user()->id)->where('cart_item_type', \App\Models\CartItem::IN_CART_TYPE);
@@ -68,9 +70,10 @@
                                     </li>
                                 @else
                                     @foreach($cartItems as $cartItem)
-                                        <li class="cart-item-detail" data-id="{{ $cartItem->course->id }}" onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'">
+                                        <li class="cart-item-detail" style="cursor: pointer;"
+                                            data-id="{{ $cartItem->course->id }}">
                                             {{--<a href="{{ route('courses.show', $cartItem->course->id) }}">--}}
-                                                <span class="item">
+                                            <span class="item">
                                                 <span class="item-left">
                                                    <img src="{{ str_replace('public/', '', asset($cartItem->course->course_avatar)) }}"
                                                         alt=""/>
@@ -110,15 +113,75 @@
                                 @endif
                             </ul>
                         </li>
+                        {{--Notification--}}
+                        @php
+                            $notificationsList = \App\Models\Notification::where('user_id', \Auth::user()->id)->orderBy('created_at', 'desc');
+                            $notifications = $notificationsList->limit(8)->get()
+                        @endphp
+                        <li class="dropdown" id="notification-area">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false"><i class="fa fa-shopping-cart"></i> Notification <span
+                                        class="badge" id="notification-count"> {{ $notificationsList->where('status', 0)->count() }} </span></a>
+                            <ul class="dropdown-menu dropdown-cart" id="notification-list" role="menu" style="width: 350px">
+                                @if($notifications->isEmpty())
+                                    <li class="text-center" id="none-dock">
+                                        <h4> {{ __('messages.you_are_no_notification') }}</h4>
+                                    </li>
+                                @else
+                                    @foreach($notifications as $notification)
+                                        <li class="notification-detail" data-id="{{ $notification->id }}" data-status="{{ $notification->status }}" style="cursor: pointer; {{ $notification->status ? '' : 'background: #CECEF6' }}" data-type="{{ $notification->type }}" data-course="{{ $notification->course_id }}"
+                                            data-comment="{{ $notification->comment_id }}"
+                                            data-parent="{{ $notification->course_id ? \App\Models\Comment::findOrFail($notification->comment_id)->parent_comment : \App\Models\LectureComment::findOrFail($notification->comment_id)->parent_comment }}"
+                                            data-lectureCommentCourseId="{{ $notification->course_id ? 'undefined' : \App\Models\Lecture::findOrFail($notification->lecture_id)->course->id }}"
+                                            data-lectureCommentLectureId="{{ $notification->course_id ? 'undefined' : $notification->lecture_id }}">
+                                            <span class="item">
+                                                <span class="item-left">
+                                                    @if($notification->type == \App\Models\Notification::WELCOME)
+                                                        <img src="/assets/img/logo-short.png"
+                                                             style="height: 45px; width: 45px"
+                                                             alt=""/>
+                                                    @elseif($notification->type == \App\Models\Notification::COMMENT || $notification->type == \App\Models\Notification::LECTURE_COMMENT)
+                                                        <img src="{{ $notification->type == \App\Models\Notification::COMMENT ? str_replace('public/', '', asset(\App\Models\Comment::findOrFail($notification->comment_id)->user->avatar)) : str_replace('public/', '', asset(\App\Models\LectureComment::findOrFail($notification->comment_id)->user->avatar)) }}"
+                                                             style="height: 45px; width: 45px" alt=""/>
+                                                    @endif
+                                                   <span class="item-info">
+                                                      <span> {!! (strlen($notification->content) >= 24) ? substr($notification->content, 0, 30) . '...' : $notification->content !!} </span>
+                                                   <span class="diff-time" id="diff-time-{{ $notification->id }}" data-time="{{ strtotime($notification->created_at) }}">
+                                                         @php
+                                                             $diffTime = \Carbon\Carbon::parse($notification->created_at)->diffForHumans();
+                                                         @endphp
+                                                          {{ $diffTime }}
+                                                      </span>
+                                                   </span>
+                                                </span>
+                                            </span>
+                                        </li>
+                                    @endforeach
+                                    <li class="divider"></li>
+                                    <li class="text-center">
+                                        <a href="{{ route('notifications.index') }}">
+                                            <h4> {{ __('titles.see_all_noti') }} </h4></a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        {{--Account--}}
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}" style="display: block;">
+                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}"
+                                   style="display: block;">
                                     {{ __('titles.my_profile') }}
                                 </a>
+                                @if(Auth::user()->is_admin)
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}"
+                                       style="display: block;">
+                                        {{ __('titles.r2s_admin') }}
+                                    </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

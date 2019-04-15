@@ -14,6 +14,10 @@
                                 <a href="{{ route('users.show', Auth::user()->id) }}"><i
                                             class="fa fa-user"></i> {{ __('titles.personal_page') }} </a>
                             </li>
+                            <li>
+                                <a href="{{ route('notifications.index') }}"><i
+                                            class="fa fa-bell"></i> {{ __('titles.notification') }} </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,17 @@
+{
+  "name": "RoadToSchool-js",
+  "version": "1.0.1",
+  "authors": [
+    "Hung Pham Hoang <hungph.dev.ict@gmail.com>"
+  ],
+  "description": "js for RoadToSchool project",
+  "main": "/",
+  "keywords": [
+    "fonticons"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hungph-dev-ict/RoadToSchool-js.git",
+  "ignore": [
+    "README.md"
+  ]
+}

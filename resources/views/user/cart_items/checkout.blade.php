@@ -30,6 +30,7 @@
                                             <strike>${{ $courseRelation->course->origin_price }} </strike> @else
                                                 ${{ $courseRelation->course->origin_price }} @endif </h3><br>
                                         <input type="hidden" name="course_id[]" value="{{ $courseRelation->course->id }}">
+                                        <input type="hidden" name="price[]" value="{{ $courseRelation->course->promotion_price ?? $courseRelation->course->origin_price }}">
                                     </li>
                                 @endforeach
                             </ul>
@@ -71,6 +72,7 @@
                                         <small>Give me your ads.</small>
                                     </label>
                                 </div>
+                                <input type="hidden" name="total_amount" value="{{ ($totalOriginPriceInCart !== $totalPromotionPriceInCart) ? $totalPromotionPriceInCart : $totalOriginPriceInCart }}">
                             </div>
                             <div class="mb30"></div>
                             <div class="form-group">

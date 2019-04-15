@@ -11,14 +11,16 @@ class BillCourse extends Model
     protected $fillable = [
         'bill_id',
         'course_id',
+        'price'
     ];
 
-    public static function createNewBillCourse($createdBillId, $dataBillCourseIds)
+    public static function createNewBillCourse($createdBillId, $dataBillCourseIds, $dataPrice)
     {
         DB::beginTransaction();
-        foreach ($dataBillCourseIds as $value) {
+        foreach ($dataBillCourseIds as $key => $value) {
             $data['bill_id'] = $createdBillId;
             $data['course_id'] = $value;
+            $data['price'] = $dataPrice[$key];
 
             $result =
                 BillCourse::create($data);;

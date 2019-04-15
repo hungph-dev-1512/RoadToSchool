@@ -12,4 +12,14 @@ class Lecture extends Model
     {
         return $this->belongsTo('App\Models\Course');
     }
+
+    public function discussions()
+    {
+        return $this->hasMany('App\Models\Discussion');
+    }
+
+    public function lecture_comments()
+    {
+        return $this->hasMany('App\Models\LectureComment');
+    }
 }

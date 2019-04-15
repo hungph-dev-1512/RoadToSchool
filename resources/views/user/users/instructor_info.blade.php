@@ -107,7 +107,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        @if($coursesInstructorCount > 5)
+                        @if($instructorCoursesCount > 5)
                         <a class="btn btn-search btn-block" href="{{ route('courses.index', ['user_id' => $selectedInstructor->id]) }}"
                            style="width: max-content;margin: 0 auto" ;><strong
                                     style="color: #3498db">{{ __('titles.see_more') }}</strong></a>

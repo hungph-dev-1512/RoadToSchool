@@ -65,7 +65,7 @@ class UsersTableSeeder extends Seeder
             'working_place' => 'Hanoi University of Science and Technology 1 Dai Co Viet Road, Ha Noi, Viet Nam Tel: 043 869 2222 - Fax: 043 869 200'
         ]);
 
-        for ($temp = 12; $temp <= 99; $temp++) {
+        for ($temp = 12; $temp <= 30; $temp++) {
             User::create([
                 'name' => $faker->name,
                 'email' => 'instructor' . $temp . '@gmail.com',
@@ -95,7 +95,7 @@ class UsersTableSeeder extends Seeder
             'working_place' => 'Hanoi University of Science and Technology 1 Dai Co Viet Road, Ha Noi, Viet Nam Tel: 043 869 2222 - Fax: 043 869 200'
         ]);
 
-        for ($temp = 1001; $temp <= 9999; $temp++) {
+        for ($temp = 31; $temp <= 100; $temp++) {
             User::create([
                 'name' => $faker->name,
                 'email' => 'student' . $temp . '@gmail.com',

@@ -56,15 +56,6 @@
                     },
                     success: function (data) {
                         location.reload();
-                        // var dataParsed = jQuery.parseJSON(data);
-                        // var cartItem = dataParsed.cartItem;
-                        // var row = $('#cart-item-' + cartItem.id).closest('tr').html();
-                        // $('#cart-item-' + cartItem.id).parent().remove();
-                        // $('#save-for-later-item-table tbody').append('<tr>'+row+'</tr>');
-                        // $('#checkbox-' + cartItem.id).parent().attr('id', 'cart-item-' + cartItem.id);
-                        // $('#save-for-later-' + cartItem.id).remove();
-                        // $('#move-to-wishlist-' + cartItem.id).attr('id', 'move-to-cart-' + cartItem.id);
-                        // $('#move-to-cart-' + cartItem.id).html('<i class="fa fa-chevron-circle-down"></i> Move to cart');
                     }
                 }, "json")
             });

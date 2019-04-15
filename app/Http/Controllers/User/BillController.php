@@ -14,6 +14,7 @@ class BillController extends Controller
      * The user model instance.
      */
     protected $modelBill;
+    protected $cartItem;
 
     /**
      * Create a new controller instance.
@@ -21,9 +22,10 @@ class BillController extends Controller
      * @param  User $users
      * @return void
      */
-    public function __construct(Bill $bill)
+    public function __construct(Bill $bill, CartItem $cartItem)
     {
         $this->modelBill = $bill;
+        $this->modelCartItem = $cartItem;
     }
 
     public function getCheckout()
@@ -32,9 +34,14 @@ class BillController extends Controller
         if($courseRelations->isEmpty()) {
             abort(404);  //404 page
         }
+        $totalPriceInCart = $this->modelCartItem->getTotalOriginPriceFollowType(CartItem::IN_CART_TYPE);
+        $totalOriginPriceInCart = $totalPriceInCart['origin_price'];
+        $totalPromotionPriceInCart = $totalPriceInCart['promotion_price'];
 
         return view('user.cart_items.checkout', compact(
-            'courseRelations'
+            'courseRelations',
+            'totalOriginPriceInCart',
+            'totalPromotionPriceInCart'
         ));
     }
 
