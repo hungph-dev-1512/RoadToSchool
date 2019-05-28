@@ -29,7 +29,7 @@ class GetDiscussionFromPusherEvent implements ShouldBroadcast
      */
     public function __construct($content, $userDiscussionId, $createdDiscussionId)
     {
-        $this->content  = $content;
+        $this->content = $content;
         $this->userAvatar = str_replace('public/', '', asset(\App\Models\User::findOrFail($userDiscussionId)->avatar));
         $this->userName = \App\Models\User::findOrFail($userDiscussionId)->name;
         $this->createdDiscussionId = $createdDiscussionId;

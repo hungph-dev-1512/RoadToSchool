@@ -28,8 +28,8 @@
                     <div aria-expanded="true" id="myads" class="panel-collapse collapse in">
                         <ul class="acc-list">
                             <li>
-                                <a href="account-myads.html"><i
-                                            class="fa fa-credit-card"></i>&ensp;&ensp; {{ __('titles.my_course') }}
+                                <a href="{{ route('courses.my_course', \Auth::user()->id) }}"><i
+                                            class="fa fa-book"></i>&ensp;&ensp; {{ __('titles.my_course') }}
                                     <span class="badge"></span></a>
                             </li>
                             {{-- <li>
@@ -46,17 +46,17 @@
                         <ul class="acc-list">
                             <li id="my-cart">
                                 <a href="{{ route('cart_items.index') }}"><i class="fa fa-shopping-cart"></i>&ensp;&ensp; {{ __('titles.my_cart') }}
-                                    <span class="badge">19</span></a>
+                                    <span class="badge">{{ \App\Models\CartItem::where('user_id', \Auth::user()->id)->where('cart_item_type', 0)->get()->count() }}</span></a>
                             </li>
                             <li>
                                 <a href="#saved-for-later"><i
                                             class="fa fa-star-o"></i>&ensp;&ensp; {{ __('titles.saved_for_later') }}
-                                    <span class="badge">19</span></a>
+                                    <span class="badge">{{ \App\Models\CartItem::where('user_id', \Auth::user()->id)->where('cart_item_type', 1)->get()->count() }}</span></a>
                             </li>
                             <li>
                                 <a href="#wishlist"><i
                                             class="fa fa-heart-o"></i>&ensp;&ensp; {{ __('titles.wishlist') }} <span
-                                            class="badge">19</span></a>
+                                            class="badge">{{ \App\Models\CartItem::where('user_id', \Auth::user()->id)->where('cart_item_type', 2)->get()->count() }}</span></a>
                             </li>
                         </ul>
                     </div>

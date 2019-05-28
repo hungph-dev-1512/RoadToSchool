@@ -21,7 +21,7 @@
                         // settings
                         type: 'danger'
                     });
-                } else if(response === 10001) {
+                } else if (response === 10001) {
                     $.notify({
                         // options
                         message: fail_message_my_course_already
@@ -29,7 +29,7 @@
                         // settings
                         type: 'danger'
                     });
-                } else if(response === 10002) {
+                } else if (response === 10002) {
                     $.notify({
                         // options
                         message: fail_message_my_bill_already

@@ -10,9 +10,9 @@
             <div class="modal-body">{{ __('messages.are_you_sure') }}</div>
             <div class="modal-footer">
                 {{ Form::open(['method' => 'delete', 'id' => 'form-delete']) }}
-                    {{ csrf_field() }}
-                    {{ Form::button(__('titles.cancel'), ['class' => 'btn btn-gradient-warning', 'data-dismiss' => 'modal']) }}
-                    {{ Form::submit(__('titles.confirm'), ['class' => 'btn btn-gradient-success', 'id' => 'del-btn']) }}
+                {{ csrf_field() }}
+                {{ Form::button(__('titles.cancel'), ['class' => 'btn btn-gradient-warning', 'data-dismiss' => 'modal']) }}
+                {{ Form::submit(__('titles.confirm'), ['class' => 'btn btn-gradient-success', 'id' => 'del-btn']) }}
                 {{ Form::close() }}
             </div>
         </div>

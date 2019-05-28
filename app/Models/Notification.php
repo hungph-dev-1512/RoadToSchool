@@ -45,8 +45,8 @@ class Notification extends Model
     public function createCommentNotification($courseOrLectureId, $userIdList, $comment, $type)
     {
         DB::beginTransaction();
-        if($type == self::COMMENT) {
-            foreach($userIdList as $userId) {
+        if ($type == self::COMMENT) {
+            foreach ($userIdList as $userId) {
                 $result =
                     Notification::create([
                         'type' => self::COMMENT,
@@ -62,7 +62,7 @@ class Notification extends Model
                 }
             }
         } elseif ($type == self::LECTURE_COMMENT) {
-            foreach($userIdList as $userId) {
+            foreach ($userIdList as $userId) {
                 $result =
                     Notification::create([
                         'type' => self::LECTURE_COMMENT,
@@ -82,5 +82,14 @@ class Notification extends Model
         DB::commit();
 
         return true;
+    }
+
+    public static function createWelcomeNotification($userId)
+    {
+        $data['type'] = self::WELCOME;
+        $data['content'] = 'Welcome to Road To School';
+        $data['status'] = 0;
+        $data['user_id'] = $userId;
+        return Notification::create($data);
     }
 }

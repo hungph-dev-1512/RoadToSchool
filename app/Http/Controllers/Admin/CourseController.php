@@ -21,4 +21,12 @@ class CourseController extends Controller
 
         return view('admin.courses.index', compact('courses'));
     }
+
+    public function acceptCourse(Request $request, $courseId)
+    {
+        $selectedCourse = $this->modelCourse->findOrFail($courseId);
+        $selectedCourse->update(['is_accepted' => 1]);
+
+        return json_encode($selectedCourse);
+    }
 }

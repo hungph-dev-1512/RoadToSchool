@@ -29,6 +29,12 @@ Breadcrumbs::for('cart', function ($trail) {
     $trail->push("My cart", route('cart_items.index'));
 });
 
+// Home > My Course
+Breadcrumbs::for('my_course', function ($trail, $userId) {
+    $trail->parent('home');
+    $trail->push("My course", route('courses.my_course', $userId));
+});
+
 // Home > My Profile
 Breadcrumbs::for('users_show', function ($trail, $user) {
     $trail->parent('home');

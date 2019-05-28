@@ -6,6 +6,39 @@
 
 @section('inline_styles')
     <link rel="stylesheet" href="{{ asset('assets/css/custom/users_show.css') }}">
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+            background-color: #3498db;
+        }
+
+        .btn-file:hover {
+            background: #48acef;
+        }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            /*background: white;*/
+            cursor: inherit;
+            display: block;
+        }
+
+        #current-img, #img-upload {
+            width: 50px;
+            height: 50px;
+            margin-left: 20px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -18,7 +51,7 @@
                     <div class="inner-box">
                         <div class="usearadmin">
                             <h3><img class="userimg"
-                                     src="{{ str_replace('public/', '', asset($selectedUser->avatar)) }}"
+                                     src="{{ str_replace(' ', '', str_replace('public/', '', asset($selectedUser->avatar))) }}"
                                      alt="">{{ $selectedUser->name }}</h3>
                         </div>
                     </div>
@@ -41,11 +74,11 @@
                                         @if (empty($errors))
                                             <p class="error-input-p-p"> {{ __('titles.update_info_fail') }} </p>
                                         @endif
-                                        {{ Form::model($selectedUser, ['route' => ['users.update', $selectedUser->id]]) }}
+                                        {{ Form::model($selectedUser, ['route' => ['users.update', $selectedUser->id], 'enctype' => 'multipart/form-data']) }}
                                         {{ Form::hidden('role', $selectedUser->role) }}
                                         <input name="_method" type="hidden" value="PUT">
                                         <div class="form-group">
-                                            {{ Form::label('name', __('titles.name'), ['class' => 'control-label']) }}
+                                            {{ Form::label('name', __('titles.name') . ' *', ['class' => 'control-label']) }}
                                             <div @if ($errors->has('name')) class="error-input" @endif>
                                                 {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
                                             </div>
@@ -56,7 +89,7 @@
                                             {{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email', 'readonly']) }}
                                         </div>
                                         <div class="form-group">
-                                            {{ Form::label('address', __('titles.address'), ['class' => 'control-label']) }}
+                                            {{ Form::label('address', __('titles.address') . ' *', ['class' => 'control-label']) }}
                                             {{ Form::text('address', null, ['class' => 'form-control', 'id' => 'address', 'readonly']) }}
                                             <div class="form-inline">
                                                 {{ Form::select('province', $selectProvince, null, ['class' => 'form-control', 'id' => 'province', 'placeholder' => __('titles.choose_province')]) }}
@@ -65,32 +98,51 @@
                                             </div>
                                             <p class="error-input-p"> {{ $errors->first('address')}} </p>
                                         </div>
+                                        {{--                                        <div class="form-group">--}}
+                                        {{--                                            {{ Form::label('avatar', __('titles.update_avatar'), ['class' => 'control-label']) }}--}}
+                                        {{--                                            <br>--}}
+                                        {{--                                            {{ Form::file('avatar', ['id' => 'avatar', 'onchange' => 'readURL(this)']) }}--}}
+                                        {{--                                            <input type="file" id="avatar" class="form-control" name="pic" accept="image/*">--}}
+                                        {{--                                            <input type="button" value="{{ __('titles.upload_avatar') }}"--}}
+                                        {{--                                                   onclick="document.getElementById('avatar').click();"/>--}}
+                                        {{--                                            <input type="button" id="cancel" value="{{ __('titles.cancel_avatar') }}"--}}
+                                        {{--                                                   onclick="backAvatar()" hidden=""/>--}}
+                                        {{--                                            <input type="text" id="cancel-value" name="cancel_value" hidden=""--}}
+                                        {{--                                                   value="cancel" disabled=""/>--}}
+                                        {{--                                            <input type="button" id="delete" name="delete"--}}
+                                        {{--                                                   value="{{ __('titles.delete_avatar') }}" onclick="deleteAvatar()"/>--}}
+                                        {{--                                            <input type="text" id="delete-value" name="delete_value" hidden=""--}}
+                                        {{--                                                   value="delete" disabled=""/>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                        <img class="userimg" id="current-avatar"--}}
+                                        {{--                                             src="{{ str_replace('public/', '', asset($selectedUser->avatar)) }}">--}}
+                                        {{--                                        <br>--}}
+                                        {{--                                        <br>--}}
                                         <div class="form-group">
-                                            {{ Form::label('avatar', __('titles.update_avatar'), ['class' => 'control-label']) }}
-                                            <br>
-                                            {{ Form::file('avatar', ['id' => 'avatar', 'onchange' => 'readURL(this)']) }}
-                                            <input type="button" value="{{ __('titles.upload_avatar') }}"
-                                                   onclick="document.getElementById('avatar').click();"/>
-                                            <input type="button" id="cancel" value="{{ __('titles.cancel_avatar') }}"
-                                                   onclick="backAvatar()" hidden=""/>
-                                            <input type="text" id="cancel-value" name="cancel_value" hidden=""
-                                                   value="cancel" disabled=""/>
-                                            <input type="button" id="delete" name="delete"
-                                                   value="{{ __('titles.delete_avatar') }}" onclick="deleteAvatar()"/>
-                                            <input type="text" id="delete-value" name="delete_value" hidden=""
-                                                   value="delete" disabled=""/>
+                                            <label>Upload Image</label>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file upload-avatar-btn">
+                                                        Browse… <input type="file" id="imgInp" name="avatar">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly>
+                                            </div>
+                                            Current Image
+                                            <img id='current-img'
+                                                 src="{{ str_replace('public', '', asset($selectedUser->avatar)) }}"/>
+                                            &emsp;&emsp;New Image
+                                            <img id='img-upload'/>
+                                            &emsp;&emsp;<button class="btn btn-default btn-file" id="button-redo-avatar" style="display: none">Redo Avatar</button>
+                                            <button class="btn btn-default btn-file"id="button-delete-avatar">Delete Avatar</button>
                                         </div>
-                                        <img class="userimg" id="current-avatar"
-                                             src="{{ str_replace('public/', '', asset($selectedUser->avatar)) }}">
-                                        <br>
-                                        <br>
                                         <div class="form-group">
                                             {{ Form::label('personal_info', __('titles.detail'), ['class' => 'control-label']) }}
                                             {{ Form::textarea('personal_info', null, ['class' => 'form-control', 'id' => 'personal-info', 'rows' => 5, 'cols' => 30]) }}
                                         </div>
                                         @if ($selectedUser->role == 1)
                                             <div class="form-group">
-                                                {{ Form::label('working_place', __('titles.working_place'), ['class' => 'control-label']) }}
+                                                {{ Form::label('working_place' . ' *', __('titles.working_place'), ['class' => 'control-label']) }}
                                                 <div @if ($errors->has('working_place')) class="error-input" @endif>
                                                     {{ Form::text('working_place', null, ['class' => 'form-control', 'id' => 'working_place', 'readonly' => '']) }}
                                                 </div>
@@ -266,6 +318,58 @@
         });
         $('select#select-grade').change(function () {
             $('#grade').val($('#select-grade option:selected').text());
+        });
+
+        $(document).on('change', '#upload-avatar-btn :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('#upload-avatar-btn :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+        });
+
+        $('#button-redo-avatar').on('click', function (e) {
+            e.preventDefault();
+            {{--var userAvatar = '{{ $selectedUser->avatar }}';--}}
+            {{--userAvatar = userAvatar.replace(--}}
+            {{--    "images/",--}}
+            {{--    "http://127.0.0.1:8000/images/"--}}
+            {{--);--}}
+            $('#img-upload').attr('src', '');
+            $('#button-redo-avatar').fadeOut(300);
+        })
+
+        $('#button-delete-avatar').on('click', function (e) {
+            e.preventDefault();
+            $('#img-upload').attr('src', 'http://127.0.0.1:8000/images/default_avatar/default_avatar.jpg');
+            $('#button-delete-avatar').fadeOut(300);
+        })
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+            $('#button-redo-avatar').fadeIn(300);
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
         });
     </script>
 @endsection

@@ -23,7 +23,7 @@ class DiscussionController extends Controller
         $createdDiscussion = $this->modelDiscussion->orderBy('created_at', 'desc')->limit(1)->first();
         $createdDiscussionId = $createdDiscussion->id;
 
-        if($result) {
+        if ($result) {
             event(new GetDiscussionFromPusherEvent($data['content'], $data['userId'], $createdDiscussionId));
 
             return 201;

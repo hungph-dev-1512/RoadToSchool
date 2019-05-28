@@ -62,7 +62,7 @@
                                 </aside>
                             </div>
                             <div class="ads-details-info col-md-8">
-                                <p class="mb15">{{ $selectedInstructor->personal_info }}</p>
+                                <p class="mb15">{!! $selectedInstructor->personal_info !!}</p>
                                 <ul class="list-circle">
                                     <li><i class="fa fa-envelope"></i><strong>&ensp;
                                             Email: </strong> {{ $selectedInstructor->email }}</li>
@@ -92,7 +92,8 @@
                                 <div class="item">
                                     <div class="product-item">
                                         <div class="carousel-thumb">
-                                            <img src="{{ str_replace('public/', '', asset($course->course_avatar)) }}" style="height:142px"
+                                            <img src="{{ str_replace('public/', '', asset($course->course_avatar)) }}"
+                                                 style="height:142px"
                                                  alt="">
                                             <div class="overlay">
                                                 <a href="{{ route('courses.show', $course->id) }}"><i
@@ -108,10 +109,11 @@
                             @endforeach
                         </div>
                         @if($instructorCoursesCount > 5)
-                        <a class="btn btn-search btn-block" href="{{ route('courses.index', ['user_id' => $selectedInstructor->id]) }}"
-                           style="width: max-content;margin: 0 auto" ;><strong
-                                    style="color: #3498db">{{ __('titles.see_more') }}</strong></a>
-                            @endif
+                            <a class="btn btn-search btn-block"
+                               href="{{ route('courses.index', ['user_id' => $selectedInstructor->id]) }}"
+                               style="width: max-content;margin: 0 auto" ;><strong
+                                        style="color: #3498db">{{ __('titles.see_more') }}</strong></a>
+                        @endif
                     </div>
                 </div>
             </div>

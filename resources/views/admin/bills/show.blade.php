@@ -16,7 +16,8 @@
                     <div class="p-v-5 p-h-10 border bottom print-invisible">
                         <ul class="list-unstyle list-inline text-right">
                             <li class="list-inline-item">
-                                <a href="#" class="btn text-gray text-hover display-block p-10 m-b-0" onclick="window.print();">
+                                <a href="#" class="btn text-gray text-hover display-block p-10 m-b-0"
+                                   onclick="window.print();">
                                     <i class="ti-printer text-info p-r-5"></i>
                                     <b>Print</b>
                                 </a>
@@ -33,7 +34,8 @@
                         <ul class="nav wizard wizard-gradient-info">
                             @foreach(\App\Models\Bill::$status as $key => $value)
                                 <li class="nav-item">
-                                    <a class="nav-link status-map @if($key < $bill->status) completed @elseif($key == $bill->status) active @endif" href="#" id="status-map-{{ $key }}"></a>
+                                    <a class="nav-link status-map @if($key < $bill->status) completed @elseif($key == $bill->status) active @endif"
+                                       href="#" id="status-map-{{ $key }}"></a>
                                     <div class="nav-title">{{ $value }}</div>
                                 </li>
                             @endforeach
@@ -41,7 +43,8 @@
                         <div class="p-h-30">
                             <div class="m-t-15">
                                 <div class="inline-block">
-                                    <img class="img-fluid" src="{{ asset('assets/admin/images/logo/logo.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/admin/images/logo/logo.jpg') }}"
+                                         alt="">
                                     <address class="p-l-10 m-t-20">
                                         <b class="text-dark">R2S Inc.</b><br>
                                         <span>1 Dai Co Viet Road</span><br>
@@ -52,8 +55,10 @@
                                 </div>
                                 <div class="pull-right">
                                     <h2>BILL DETAIL #{{ $bill->id }}</h2>
-                                    <h3 id="bill-status">Bill Status: {{ \App\Models\Bill::$status[$bill->status] }}</h3>
-                                    <a href="#" id="edit-status" data-id="{{ $bill->id }}" data-status="{{ $bill->status }}">Change Bill Status</a>
+                                    <h3 id="bill-status">Bill
+                                        Status: {{ \App\Models\Bill::$status[$bill->status] }}</h3>
+                                    <a href="#" id="edit-status" data-id="{{ $bill->id }}"
+                                       data-status="{{ $bill->status }}">Change Bill Status</a>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -71,9 +76,12 @@
                                         <div class="text-dark text-uppercase d-inline-block"><b>Bill No :</b></div>
                                         <div class="pull-right">#{{ $bill->id }}</div>
                                     </div>
-                                    <div class="text-dark text-uppercase d-inline-block"><b> {{ __('titles.date') }} :</b></div>
-                                    <div class="pull-right">{{ $bill->created_at->toDateString() }}</div><br>
-                                    <div class="text-dark text-uppercase d-inline-block"><b> {{ __('titles.time') }} :</b></div>
+                                    <div class="text-dark text-uppercase d-inline-block"><b> {{ __('titles.date') }}
+                                            :</b></div>
+                                    <div class="pull-right">{{ $bill->created_at->toDateString() }}</div>
+                                    <br>
+                                    <div class="text-dark text-uppercase d-inline-block"><b> {{ __('titles.time') }}
+                                            :</b></div>
                                     <div class="pull-right">{{ $bill->created_at->toTimeString() }}</div>
                                 </div>
                             </div>
@@ -108,18 +116,19 @@
                                         </div>
                                     </div>
                                     {{--<div class="row m-t-30">--}}
-                                        {{--<div class="col-sm-12">--}}
-                                            {{--<div class="border top bottom p-v-20">--}}
-                                                {{--<p class="text-opacity"><small>In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.</small></p>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
+                                    {{--<div class="col-sm-12">--}}
+                                    {{--<div class="border top bottom p-v-20">--}}
+                                    {{--<p class="text-opacity"><small>In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.</small></p>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
                                     {{--</div>--}}
                                     <div class="row m-v-20">
                                         <div class="col-sm-6">
-                                            <img class="img-fluid text-opacity m-t--5" width="100" src="{{ asset('assets/admin/images/logo/logo.jpg') }}" alt="">
+                                            <img class="img-fluid text-opacity m-t--5" width="100"
+                                                 src="{{ asset('assets/admin/images/logo/logo.jpg') }}" alt="">
                                         </div>
                                         <div class="col-sm-6 text-right">
-                                            <small><b>Phone:</b> (+84) 965 818 552 </small>
+                                            <small><b>Phone:</b> (+84) 965 818 552</small>
                                             <br>
                                             <small>hungph.dev.ict@gmail.com</small>
                                         </div>
@@ -172,40 +181,38 @@
                     },
                     success: function () {
                         $('#edit-status-modal').modal('hide');
-                        $('#edit-status').data('status', statusId)
+                        $('#edit-status').data('status', statusId);
+                        console.log(statusId);
                         var statusBillElement = $('#bill-status');
                         statusBillElement.html();
                         $('.status-map').removeClass();
                         $('#status-map-' + statusId).addClass('nav-link status-map active');
-                        for(var i=0; i<5; i++) {
-                            if(i < statusId) {
+                        for (var i = 0; i < 5; i++) {
+                            if (i < statusId) {
                                 $('#status-map-' + i).addClass('nav-link status-map completed');
                             } else if (i > statusId) {
                                 $('#status-map-' + i).addClass('nav-link status-map');
                             }
                         }
                         switch (statusId) {
-                            case '0':
-                            {
+                            case '0': {
                                 statusBillElement.html('Bill Status: Pending');
                                 break;
                             }
-                            case '1':
-                            {
+                            case '1': {
                                 statusBillElement.html('Bill Status: Transporting');
                                 break;
                             }
-                            case '2':
-                            {
+                            case '2': {
                                 statusBillElement.html('Bill Status: Already Paid');
                                 break;
                             }
-                            case '3':
-                            {
+                            case '3': {
                                 statusBillElement.html('Bill Status: Activated');
+                                break;
                             }
-                            case '4':
-                            {
+                            case '4': {
+                                console.log('44444444');
                                 statusBillElement.html('Bill Status: Canceled');
                                 break;
                             }

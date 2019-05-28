@@ -24,7 +24,7 @@
                         <a href="{{ route('admins.categories.index') }}" class="breadcrumb-item">
                             {{ __('categories') }}
                         </a>
-                    <span class="breadcrumb-item active">{{ $category->title }}</span>
+                        <span class="breadcrumb-item active">{{ $category->title }}</span>
                     </nav>
                 </div>
             </div>
@@ -35,35 +35,35 @@
                 <div class="card-body">
                     {{ Form::model($category, ['route' => ['admins.categories.update', $category->id], 'method' => 'put']) }}
 
-                        @foreach ($errors->all() as $error)
-                            <p class="alert alert-danger fix-alert">{{ $error }}</p>
-                        @endforeach
+                    @foreach ($errors->all() as $error)
+                        <p class="alert alert-danger fix-alert">{{ $error }}</p>
+                    @endforeach
 
-                        <div class="row">
-                            <div class="col-sm-10 offset-sm-1">
-                                <div class="row">
-                                    <div class="col-sm-8 offset-sm-2">
-                                        <form class="m-t-45">
+                    <div class="row">
+                        <div class="col-sm-10 offset-sm-1">
+                            <div class="row">
+                                <div class="col-sm-8 offset-sm-2">
+                                    <form class="m-t-45">
+                                        <div class="form-group">
+                                            {!! Form::label('title', __('title'), ['class' => 'control-label']) !!}
+                                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                        </div>
+                                        @if ($category->parent_id !== 0)
                                             <div class="form-group">
-                                                {!! Form::label('title', __('title'), ['class' => 'control-label']) !!}
-                                                {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('parent_id', __('parent category'), ['class' => 'control-label']) !!}
+                                                {!! Form::select('parent_id', $parentCategories, $category->parent_id, ['class' => 'form-control']) !!}
                                             </div>
-                                            @if ($category->parent_id !== 0) 
-                                                <div class="form-group">
-                                                    {!! Form::label('parent_id', __('parent category'), ['class' => 'control-label']) !!}
-                                                    {!! Form::select('parent_id', $parentCategories, $category->parent_id, ['class' => 'form-control']) !!}
-                                                </div>
-                                            @endif
-                                            <div class="form-group">
-                                                <div class="text-sm-right">
-                                                    {{ Form::submit(__('update'), ['class' => 'btn btn-gradient-success m-b-20']) }}
-                                                </div>
+                                        @endif
+                                        <div class="form-group">
+                                            <div class="text-sm-right">
+                                                {{ Form::submit(__('update'), ['class' => 'btn btn-gradient-success m-b-20']) }}
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {{ Form::close() }}
                 </div>
             </div>
@@ -72,8 +72,8 @@
 @endsection
 
 @section('inline_scripts')
-    <script>    
-        $(document).ready(function(){
+    <script>
+        $(document).ready(function () {
             $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         })
     </script>

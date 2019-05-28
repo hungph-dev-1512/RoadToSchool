@@ -11,12 +11,12 @@
                 {{ Form::open() }}
                 <div class="form-group">
                     {{--{{ Form::label('change_status', __('messages.change_bill_status'), ['class' => 'control-label']) }}--}}
-{{--                    {{ Form::select('change_status', \App\Models\Bill::$status, null, ['class' => 'form-control', 'id' => 'm-grade']) }}--}}
+                    {{--                    {{ Form::select('change_status', \App\Models\Bill::$status, null, ['class' => 'form-control', 'id' => 'm-grade']) }}--}}
                     <div class="form-group">
                         <label for="change_status">{{ __('messages.change_bill_status') }}:</label>
                         <select class="form-control" id="change-status-select">
                             @foreach(\App\Models\Bill::$status as $key => $value)
-                            <option value="{{ $key }}"> {{ $value }}</option>
+                                <option value="{{ $key }}"> {{ $value }}</option>
                             @endforeach
                         </select>
                     </div>

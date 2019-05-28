@@ -9,7 +9,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
+                    <h2 class="title-2">
+                        <strong> {{ __('titles.lecture') . ': ' . \App\Models\Lecture::findOrFail($lectureId)->title }} </strong>
+                        @if(!(\Auth::user()->is_admin || \Auth::user()->role == 1))
+                            <b style="float: right; padding-right: 30px;">Your
+                                progress: {{ $learnedLectureCount }}/{{ $allLectureCount }}</b>
+                        @endif
+                    </h2>
+                    <div class="progress" style="height: 20px">
+                        @if(!(\Auth::user()->is_admin || \Auth::user()->role == 1))
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                 aria-valuenow="{{ $learnedLectureCount/$allLectureCount*100 }}"
+                                 aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{ $learnedLectureCount/$allLectureCount*100 }}%">
+                                {{ round($learnedLectureCount/$allLectureCount*100, 2) }}%
+                            </div>
+                        @endif
+                    </div>
                     {!! $embed->code !!}
+                    <div id="timer" style="display: none;">
+                        <p class="text-center" style="font-weight: bold">Redirect to next lecture
+                            <i>{{ \App\Models\Lecture::findOrFail($lectureId + 1)->title }}</i> in <span
+                                    id="timer-text"></span>s</p>
+                    </div>
                     <div class="author">
                         <div class="inner-box">
                             <div class="author-img">
@@ -62,7 +84,8 @@
                                             </div>
                                         </div>
                                         <br>
-                                        <div class="reply-comment" style="display: none" id="reply-comment-{{ $comment->id }}">
+                                        <div class="reply-comment" style="display: none"
+                                             id="reply-comment-{{ $comment->id }}">
                                             <form>
                                                 <div class="row">
                                                     @csrf
@@ -71,10 +94,14 @@
                                                         <div class=" col-md-10 pull-right">
                                                             <div class="form-group">
                         <textarea id="content-{{ $comment->id }}" class="form-control" name="content" cols="30"
-                                  rows="1" placeholder="Write a reply...">@if($comment->user->name !== \Auth::user()->name) {{ $comment->user->name }} @endif</textarea>
+                                  rows="1"
+                                  placeholder="Write a reply...">@if($comment->user->name !== \Auth::user()->name) {{ $comment->user->name }} @endif</textarea>
                                                             </div>
-                                                            <input type="hidden" name="taggedUser" id="tagged-user-{{ $comment->id }}">
-                                                            <button type="submit" id="submit" class="btn btn-sm btn-common submit-reply-comment" data-parent="{{ $comment->id }}">
+                                                            <input type="hidden" name="taggedUser"
+                                                                   id="tagged-user-{{ $comment->id }}">
+                                                            <button type="submit" id="submit"
+                                                                    class="btn btn-sm btn-common submit-reply-comment"
+                                                                    data-parent="{{ $comment->id }}">
                                                                 Reply
                                                             </button>
                                                         </div>
@@ -87,34 +114,46 @@
                                                 <li>
                                                     <div class="media">
                                                         <div class="thumb-left">
-                                                            <a  href="{{ route('users.show', $comment->user->id) }}">
-                                                                <img alt="{{ $child_comment->user->name }}" style="height: 75px; width: 75px" src="{{ str_replace('public/', '', asset($child_comment->user->avatar)) }}"/>
+                                                            <a href="{{ route('users.show', $comment->user->id) }}">
+                                                                <img alt="{{ $child_comment->user->name }}"
+                                                                     style="height: 75px; width: 75px"
+                                                                     src="{{ str_replace('public/', '', asset($child_comment->user->avatar)) }}"/>
                                                             </a>
                                                         </div>
                                                         <div class="info-body">
                                                             <div class="media-heading">
                                                                 <h4 class="name">{{ $child_comment->user->name }}</h4> |
                                                                 <span class="comment-date">{{ $child_comment->updated_at }}</span>
-                                                                <a class="reply-link" data-id="{{ $comment->id }}" data-tagged="{{ $child_comment->user->id }}" data-child="{{ $child_comment->id }}"><i class="fa fa-reply-all"></i> Reply </a>
+                                                                <a class="reply-link" data-id="{{ $comment->id }}"
+                                                                   data-tagged="{{ $child_comment->user->id }}"
+                                                                   data-child="{{ $child_comment->id }}"><i
+                                                                            class="fa fa-reply-all"></i> Reply </a>
                                                             </div>
                                                             <p>{!! $child_comment->content !!} </p>
                                                         </div>
                                                     </div>
                                                 </li>
                                                 <br>
-                                                <div class="reply-comment" style="display: none" id="reply-comment-{{ $comment->id }}-from-{{ $child_comment->id }}">
+                                                <div class="reply-comment" style="display: none"
+                                                     id="reply-comment-{{ $comment->id }}-from-{{ $child_comment->id }}">
                                                     <form>
                                                         <div class="row">
                                                             @csrf
-                                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                            <input type="hidden" name="user_id"
+                                                                   value="{{ Auth::user()->id }}">
                                                             <div class="row">
                                                                 <div class=" col-md-12 pull-right">
                                                                     <div class="form-group">
                         <textarea id="content-{{ $child_comment->id }}" class="form-control" name="content" cols="30"
-                                  rows="1" placeholder="Write a reply...">@if($child_comment->user->name !== \Auth::user()->name) {{ $child_comment->user->name }} @endif</textarea>
+                                  rows="1"
+                                  placeholder="Write a reply...">@if($child_comment->user->name !== \Auth::user()->name) {{ $child_comment->user->name }} @endif</textarea>
                                                                     </div>
-                                                                    <input type="hidden" name="taggedUser" id="tagged-user-{{ $child_comment->user->id }}">
-                                                                    <button type="submit" id="submit" class="btn btn-sm btn-common submit-reply-child-comment" data-child="{{ $child_comment->id }}" data-parent="{{ $comment->id }}">
+                                                                    <input type="hidden" name="taggedUser"
+                                                                           id="tagged-user-{{ $child_comment->user->id }}">
+                                                                    <button type="submit" id="submit"
+                                                                            class="btn btn-sm btn-common submit-reply-child-comment"
+                                                                            data-child="{{ $child_comment->id }}"
+                                                                            data-parent="{{ $comment->id }}">
                                                                         Reply
                                                                     </button>
                                                                 </div>
@@ -129,7 +168,8 @@
                             </ol>
 
                             <div id="respond">
-                                <h2 class="respond-title">Write a comment for lecture <b> {{ \App\Models\Lecture::findOrFail($lectureId)->title }} </b></h2>
+                                <h2 class="respond-title">Write a comment for lecture
+                                    <b> {{ \App\Models\Lecture::findOrFail($lectureId)->title }} </b></h2>
                                 <form>
                                     <div class="row">
                                         <input type="hidden" id="comment-lecture-id" value="{{ $lectureId }}">
@@ -162,23 +202,32 @@
                                 <button class="btn btn-sm" id="active-all-lecture"
                                         onclick="openTab('all-lecture')"> {{ __('titles.all_lecture') }} </button>
                                 <button class="btn btn-sm" id="active-discussion" style="background-color: #7cbde9"
-                                        onclick="openTab('discussion')"> {{ __('titles.discussion') . ' (' . $discussionsList->count() . ')' }} </button>
+                                        onclick="openTab('discussion')"> {!! __('titles.discussion') . ' (<span id="discussion-count">' . $discussionsList->count() . '</span>)' !!}</button>
                             </div>
                             <div class="categories-list tab" id="all-lecture">
-                                <ul>
-                                    @foreach($lectures as $lecture)
-                                        <li>
-                                            <a class="@if($lecture->id == $lectureId) selected @endif"
-                                               href="{{ url('/courses/' . $id . '/lectures/' . $lecture->id) }}">
-                                                <i class="fa fa-cutlery"></i> {{ $lecture->title }}
-                                                <span class="category-counter"> {{ $lecture->duration }} </span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                @for($i = 0; $i < $maxWeek; $i++)
+                                    <br>
+                                    <h4>Week {{ $i + 1 }}</h4>
+                                    <ul>
+                                        @foreach($lectureOutline[$i] as $lecture)
+                                            <li>
+                                                <a class="@if($lecture->id == $lectureId) selected @endif"
+                                                   href="{{ (\App\Models\QuizResult::where('lecture_id', $lecture->id)->where('user_id', \Auth::user()->id)->first()) ? url('/courses/' . $id . '/lectures/' . $lecture->id . '/getResult') : url('/courses/' . $id . '/lectures/' . $lecture->id) }}">
+                                                    <i class="fa {{ $lecture->status ? 'fa-star' : 'fa-star-o' }}"></i>
+                                                    @if($lecture->id == $lectureId)
+                                                        {!! '<span><strong>' . $lecture->title . '</strong></span>' !!}
+                                                    @else
+                                                        {{ $lecture->title }}
+                                                    @endif
+                                                    <span class="category-counter"> {{ $lecture->duration }} </span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endfor
                             </div>
                             <div class="categories-list tab" id="discussion" style="display: none">
-                                <div class="panel-body" id="discussion-scroll">
+                                <div class="panel-body-chat" id="discussion-scroll">
                                     <ul class="chat" id="discussions-list">
                                         @if($discussionsList->count() != 0)
                                             @foreach($discussionsList as $discussion)
@@ -204,62 +253,8 @@
                                                 </li>
                                             @endforeach
                                         @else
-                                            {{ __('titles.no_discussion') }}
+                                            <p id="no-discussion">{{ __('titles.no_discussion') }}</p>
                                         @endif
-                                        {{--                                        <li class="right clearfix"><span class="chat-img pull-right">--}}
-                                        {{--                                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar"--}}
-                                        {{--                                                 class="img-circle"/>--}}
-                                        {{--                                            </span>--}}
-                                        {{--                                            <div class="chat-body clearfix">--}}
-                                        {{--                                                <div class="header">--}}
-                                        {{--                                                    <small class=" text-muted"><span--}}
-                                        {{--                                                                class="glyphicon glyphicon-time"></span>13 mins ago--}}
-                                        {{--                                                    </small>--}}
-                                        {{--                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                                <p>--}}
-                                        {{--                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur--}}
-                                        {{--                                                    bibendum ornare--}}
-                                        {{--                                                    dolor, quis ullamcorper ligula sodales.--}}
-                                        {{--                                                </p>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </li>--}}
-                                        {{--                                        <li class="left clearfix"><span class="chat-img pull-left">--}}
-                                        {{--                                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar"--}}
-                                        {{--                                                 class="img-circle"/>--}}
-                                        {{--                                            </span>--}}
-                                        {{--                                            <div class="chat-body clearfix">--}}
-                                        {{--                                                <div class="header">--}}
-                                        {{--                                                    <strong class="primary-font">Jack Sparrow</strong>--}}
-                                        {{--                                                    <small class="pull-right text-muted">--}}
-                                        {{--                                                        <span class="glyphicon glyphicon-time"></span>14 mins ago--}}
-                                        {{--                                                    </small>--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                                <p>--}}
-                                        {{--                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur--}}
-                                        {{--                                                    bibendum ornare--}}
-                                        {{--                                                    dolor, quis ullamcorper ligula sodales.--}}
-                                        {{--                                                </p>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </li>--}}
-                                        {{--                                        <li class="right clearfix"><span class="chat-img pull-right">--}}
-                                        {{--                                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar"--}}
-                                        {{--                                                 class="img-circle"/>--}}
-                                        {{--                                            </span>--}}
-                                        {{--                                            <div class="chat-body clearfix">--}}
-                                        {{--                                                <div class="header">--}}
-                                        {{--                                                    <small class=" text-muted"><span--}}
-                                        {{--                                                                class="glyphicon glyphicon-time"></span>15 mins ago--}}
-                                        {{--                                                    </small>--}}
-                                        {{--                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                                <p>--}}
-                                        {{--                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur--}}
-                                        {{--                                                    bibendum ornare--}}
-                                        {{--                                                    dolor, quis ullamcorper ligula sodales.--}}
-                                        {{--                                                </p>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </li>--}}
                                     </ul>
                                 </div>
                                 <div class="panel-footer">
@@ -335,6 +330,9 @@
 
             // Bind a function to a Event (the full Laravel class)
             channel.bind('App\\Events\\GetDiscussionFromPusherEvent', function (data) {
+                if ($('#no-discussion').length) {
+                    $('#no-discussion').hide();
+                }
                 var discussionArea = $('#discussions-list');
                 var userImage = data.userAvatar;
                 var newDiscussionHtml = '<li class="left clearfix"><span class="chat-img pull-left"><img style="height: 50px; width: 50px" src="'
@@ -354,6 +352,10 @@
                     clearInterval(myTimer);
                     myTimer = setInterval(updateTime, 3000);
                 });
+
+                // Discussion count up 1
+                var oldCount = $('#discussion-count').text();
+                $('#discussion-count').text(parseInt(oldCount) + 1);
             });
 
             //test area
@@ -399,7 +401,7 @@
                     '">Reply </button> </div> </div> </div> </form></div><ul id="reply-comment-'
                     + createdLectureComment.id +
                     '-list"></ul></li>';
-                comments.append(newCommentHtml).ready(function() {
+                comments.append(newCommentHtml).ready(function () {
                     $('.reply-link').css({'cursor': 'pointer'});
                 });
             });
@@ -416,7 +418,7 @@
                 var createdComment = jQuery.parseJSON(data.createdComment);
                 var replyUser = '';
                 var currentUserId = '{{ \Auth::user()->id }}';
-                if(commentedUser.id != currentUserId) {
+                if (commentedUser.id != currentUserId) {
                     replyUser = commentedUser.name;
                 }
                 var newLectureCommentHtml = '<li> <div class="media"><div class="thumb-left"><img alt="'
@@ -427,27 +429,27 @@
                     + commentedUser.name +
                     '</h4><span class="comment-date">'
                     + createdComment.updated_at +
-                    '</span><a class="reply-link" data-id="' + data.parentCommentId +'" data-child="' + createdComment.id +'" data-tagged="'
+                    '</span><a class="reply-link" data-id="' + data.parentCommentId + '" data-child="' + createdComment.id + '" data-tagged="'
                     + createdComment.user_id +
                     '"><i class="fa fa-reply-all"></i> Reply</a></div>'
                     + data.content +
-                    '</div></div><br><div class="reply-comment" style="display: none" id="reply-comment-' + data.parentCommentId +'-from-'
+                    '</div></div><br><div class="reply-comment" style="display: none" id="reply-comment-' + data.parentCommentId + '-from-'
                     + createdComment.id
-                    +'"><form><div class="row">@csrf<div class="row"><div class=" col-md-12 pull-right"><div class="form-group"><textarea id="content-'
+                    + '"><form><div class="row">@csrf<div class="row"><div class=" col-md-12 pull-right"><div class="form-group"><textarea id="content-'
                     + createdComment.id
-                    + '" class="form-control" name="content" cols="30" rows="1" placeholder="Write a reply...">' + replyUser +'</textarea></div><input type="hidden" name="taggedUser" id="tagged-user-'
+                    + '" class="form-control" name="content" cols="30" rows="1" placeholder="Write a reply...">' + replyUser + '</textarea></div><input type="hidden" name="taggedUser" id="tagged-user-'
                     + createdComment.id
-                    +'"><button type="submit" id="submit" class="btn btn-sm btn-common submit-reply-comment" data-id="'
+                    + '"><button type="submit" id="submit" class="btn btn-sm btn-common submit-reply-comment" data-id="'
                     + createdComment.id
-                    +'" data-parent="'
+                    + '" data-parent="'
                     + data.parentCommentId
-                    +'">Reply</button></div></div></div></form></div></li>';
-                replyLectureComments.append(newLectureCommentHtml).ready(function() {
+                    + '">Reply</button></div></div></div></form></div></li>';
+                replyLectureComments.append(newLectureCommentHtml).ready(function () {
                     $('.reply-link').css({'cursor': 'pointer'});
                 });
             });
 
-            $('#comments').on('click', '#submit-comment', function () {
+            $('#comments').on('click', '#submit-comment', function (event) {
                 event.preventDefault();
                 $.ajaxSetup({
                     headers: {
@@ -504,12 +506,12 @@
                 var firstChildComment = true;
                 var prevCommentId = 0;
 
-                if($(this).data('id') != undefined) {
+                if ($(this).data('id') != undefined) {
                     contentComment = $('#content-' + $(this).data('id')).val();
                     firstChildComment = false;
                     prevCommentId = $(this).data('id');
                 } else {
-                    if($(this).data('child') != undefined) {
+                    if ($(this).data('child') != undefined) {
                         contentComment = $('#content-' + $(this).data('child')).val();
                         firstChildComment = false;
                         prevCommentId = $(this).data('child');
@@ -534,7 +536,7 @@
                     success: function (data) {
                         var responseData = jQuery.parseJSON(data);
                         // if not first child comment, get prev comment
-                        if(responseData.prevCommentId != null) {
+                        if (responseData.prevCommentId != null) {
                             $('#content-' + responseData.prevCommentId).val('');
 
                             $('#reply-comment-' + responseData.parentCommentId + '-from-' + responseData.prevCommentId).hide();
@@ -588,5 +590,95 @@
 
             });
         };
+
+
+        // Get end of youtube video
+        $('iframe').attr('id', 'player');
+        var old = $('iframe').attr('src');
+        $('iframe').attr('src', old + '&enablejsapi=1');
+
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '370',
+                width: '750',
+                videoId: 'M7lc1UVf-VE',
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                }
+            });
+        }
+
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should play for six seconds and then stop.
+        var done = false;
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                var lectureId = '{{ $lectureId }}';
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: '/lectures/' + lectureId + '/user/' + $('#comment-user-id').val() + '/changeProcessStatus',
+                    type: 'post',
+                    success: function (data) {
+                        var responseData = jQuery.parseJSON(data);
+                        if (responseData.isLastLecture == 1) {
+                            $.notify({
+                                // options
+                                message: 'Congratulations ! You have completed this course.'
+                            }, {
+                                // settings
+                                type: 'success',
+                                placement: {
+                                    from: "bottom",
+                                    align: "right"
+                                },
+                            });
+                        } else if (responseData.isLastLecture == 0) {
+                            var redirectUrl = '/courses/' + responseData.inCourseId + '/lectures/' + responseData.nextLecture.id;
+                            $.notify({
+                                // options
+                                message: 'You have completed this lecture. Redirect to next lecture: <b>' + responseData.nextLecture.title + '</b>',
+                                url: redirectUrl,
+                                target: "_self"
+                            }, {
+                                // settings
+                                type: 'success',
+                                placement: {
+                                    from: "bottom",
+                                    align: "right"
+                                },
+                                delay: 10000
+                            });
+                            $('#timer').show();
+                            setTimeout(function () {
+                                window.location.replace(redirectUrl);
+                            }, 10000);
+                            var timer = 11;
+                            setInterval(function () {
+                                timer = timer - 1;
+                                $oldText = $
+                                $('#timer-text').text(timer);
+                            }, 1000)
+                        }
+                    }
+                });
+            }
+        }
     </script>
 @endsection

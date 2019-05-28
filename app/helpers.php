@@ -18,14 +18,14 @@ function setActive($path)
 //        return Request::is($path) ? ' class=active' :  '';
 //    }
 
-    return Request::is($path) ? ' class=active' :  '';
+    return Request::is($path) ? ' class=active' : '';
 }
 
 function setOpen($path)
 {
-    if($path === 'admin') {
-        return Request::is($path) ? ' open' :  '';
+    if ($path === 'admin') {
+        return Request::is($path) ? ' open' : '';
     }
 
-    return Request::is($path . '*') ? ' open' :  '';
+    return Request::is($path . '*') ? ' open' : '';
 }
