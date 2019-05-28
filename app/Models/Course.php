@@ -28,6 +28,24 @@ class Course extends Model
 
     protected $table = 'courses';
 
+    protected $fillable = [
+        'title',
+        'course_avatar',
+        'course_avatar_2',
+        'course_avatar_3',
+        'description',
+        'origin_price',
+        'promotion_price',
+        'lecture_numbers',
+        'duration',
+        'seller',
+        'level',
+        'course_rate',
+        'is_accepted',
+        'category_id',
+        'user_id',
+    ];
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
@@ -61,11 +79,11 @@ class Course extends Model
         $builder = Course::orderBy('updated_at', 'DESC')->where('is_accepted', 1);
 
         if (isset($params['filter_option']) && $params['filter_option']) {
-             $filterCondition = $params['filter_option'];
-             $partOfVerticalBar = explode("|", $filterCondition, 2);
-             $fieldSearch = $partOfVerticalBar[0];
-             $sortOption = $partOfVerticalBar[1];
-             $builder->orderBy($fieldSearch, $sortOption);
+            $filterCondition = $params['filter_option'];
+            $partOfVerticalBar = explode("|", $filterCondition, 2);
+            $fieldSearch = $partOfVerticalBar[0];
+            $sortOption = $partOfVerticalBar[1];
+            $builder->orderBy($fieldSearch, $sortOption);
         }
         if (isset($params['course_rate']) && $params['course_rate']) {
             $builder->where('course_rate', '>=', $params['course_rate']);
@@ -105,5 +123,22 @@ class Course extends Model
         $selectedCategoryId = Course::findOrFail($id)->category_id;
 
         return Course::where('is_accepted', 1)->where('category_id', $selectedCategoryId)->get()->count();
+    }
+
+    public function createNewCourse($data)
+    {
+        $courseAvatarList = $data['image'];
+        $data['course_avatar'] = 'public/images/dummy_image/' . $courseAvatarList[0];
+        $data['course_avatar_2'] = 'public/images/dummy_image/' . $courseAvatarList[1];
+        $data['course_avatar_3'] = 'public/images/dummy_image/' . $courseAvatarList[2];
+        $data['origin_price'] = 0;
+        $data['lecture_numbers'] = 0;
+        $data['duration'] = 0;
+        $data['seller'] = 0;
+        $data['course_rate'] = 0;
+        $data['is_accepted'] = 0;
+        $data['user_id'] = \Auth::user()->id;
+
+        return Course::create($data);
     }
 }

@@ -95,6 +95,17 @@ $("#new-products").owlCarousel({
     itemsTablet: [600, 1],
     itemsMobile: [479, 1]
 });
+$("#best-products").owlCarousel({
+    navigation: true,
+    pagination: true,
+    slideSpeed: 1000,
+    stopOnHover: true,
+    autoPlay: true,
+    items: 5,
+    itemsDesktopSmall: [1024, 3],
+    itemsTablet: [600, 1],
+    itemsMobile: [479, 1]
+});
 $(".touch-slider").owlCarousel({
     navigation: false,
     pagination: true,
@@ -116,6 +127,12 @@ $("#new-products")
     .find(".owl-prev")
     .html('<i class="fa fa-angle-left"></i>');
 $("#new-products")
+    .find(".owl-next")
+    .html('<i class="fa fa-angle-right"></i>');
+$("#best-products")
+    .find(".owl-prev")
+    .html('<i class="fa fa-angle-left"></i>');
+$("#best-products")
     .find(".owl-next")
     .html('<i class="fa fa-angle-right"></i>');
 var owl;
@@ -205,7 +222,7 @@ $(".grid").click(function (e) {
 
 // check 404 page
 var pageTitle = $("title").text();
-if(pageTitle.includes('404 Error')) {
+if (pageTitle.includes('404 Error')) {
     $('#top-nav-area').hide();
 }
 
@@ -229,7 +246,8 @@ $("#notification-area").on("click", ".notification-detail", function () {
             }
         });
         // Comment in course
-        if ($(this).data("course") != 'undefined') {
+        if ($(this).data('lecturecommentcourseid') == undefined) {
+            console.log(123);
             $.ajax({
                 url: "/notifications/" + $(this).data("id") + "/changeStatus",
                 type: "post",
@@ -265,7 +283,6 @@ $("#notification-area").on("click", ".notification-detail", function () {
                     commentId: $(this).data("comment")
                 },
                 success: function (responseData) {
-                    console.log(responseData);
                     if (responseData.parentCommentId == null) {
                         window.location.replace(
                             "/courses/" +
@@ -292,7 +309,7 @@ $("#notification-area").on("click", ".notification-detail", function () {
         var parentCommentId = $(this).data("parent");
         var lectureCommentCourseId = $(this).data("lectureCommentCourseId");
         if (!parentCommentId) {
-            if ($(this).data('lecturecommentcourseid') != undefined) {
+            if ($(this).data('lecturecommentcourseid') != 'undefined') {
                 window.location.replace(
                     "/courses/" +
                     $(this).data('lecturecommentcourseid') +
@@ -310,7 +327,7 @@ $("#notification-area").on("click", ".notification-detail", function () {
                 );
             }
         } else {
-            if ($(this).data('lecturecommentcourseid') != undefined) {
+            if ($(this).data('lecturecommentcourseid') != 'undefined') {
                 window.location.replace(
                     "/courses/" +
                     $(this).data('lecturecommentcourseid') +
@@ -429,17 +446,33 @@ notificationChannel.bind(
             clearInterval(myTimer);
             myTimer = setInterval(updateTime, 3000);
         });
-        $.notify({
-            // options
-            message: data.commentContent
-        },{
-            // settings
-            type: 'info',
-            placement: {
-                from: "bottom",
-                align: "left"
-            },
-        });
+        if (data.dataLectureCommentCourseId != undefined) {
+            $.notify({
+                // options
+                message: data.commentContent,
+                url: '/courses/' + data.dataLectureCommentCourseId + '/lectures/' + createdComment.lecture_id + '#li-comment-' + createdComment.id,
+            }, {
+                // settings
+                type: 'info',
+                placement: {
+                    from: "bottom",
+                    align: "left"
+                }
+            });
+        } else if (createdComment.course_id != undefined) {
+            $.notify({
+                // options
+                message: data.commentContent,
+                url: '/courses/' + createdComment.course_id + '#li-comment-' + createdComment.id,
+            }, {
+                // settings
+                type: 'info',
+                placement: {
+                    from: "bottom",
+                    align: "left"
+                }
+            });
+        }
     }
 );
 
@@ -523,4 +556,118 @@ function getNotificationId(currentUserId, createNotificationIdArray) {
 
     return false;
 }
+
+$(function () {
+    $("#open-chat-with-admin").click(function (event) {
+        event.preventDefault();
+        $('#qnimate').addClass('popup-box-on');
+        $(this).fadeOut(200);
+    });
+
+    $("#removeClass").click(function () {
+        $('#qnimate').removeClass('popup-box-on');
+        $("#open-chat-with-admin").fadeIn(300);
+    });
+})
+
+$(document).on('keypress', function (e) {
+    if (e.which == 13) {
+        var senderId = $('#sender-id').val();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
+        $.ajax({
+            url: "/conversations/store",
+            type: "post",
+            data: {
+                user_sender_id: senderId,
+                content: $('#status_message').val(),
+            },
+            success: function (responseData) {
+                // var response = jQuery.parseJSON(responseData);
+                // var createdConversation = response.createdConversation;
+                // var createdMessage = response.message;
+                // var sender = response.sender;
+                // var senderAvatar = sender.avatar;
+                // var createdTime = response.created_time;
+                // senderAvatar = senderAvatar.replace(
+                //     "images/",
+                //     "http://127.0.0.1:8000/images/"
+                // );
+                $('#status_message').val('');
+                // var conversationList = $('#conversation-list');
+                // var newConversationHtml = '            <!-- Message. Default to the left -->\n' +
+                //     '            <div class="direct-chat-msg doted-border">\n' +
+                //     '                <div class="direct-chat-info clearfix">\n' +
+                //     '                    <span class="direct-chat-name pull-left">'
+                //     + sender.name +
+                //     '</span>\n' +
+                //     '                </div>\n' +
+                //     '                <!-- /.direct-chat-info -->\n' +
+                //     '                <img alt="iamgurdeeposahan"\n' +
+                //     '                     src="' +
+                //     senderAvatar +
+                //     '"\n' +
+                //     '                     class="direct-chat-img"><!-- /.direct-chat-img -->\n' +
+                //     '                <div class="direct-chat-text">\n' +
+                //     createdMessage.content +
+                //     '                </div>\n' +
+                //     '                <div class="direct-chat-info clearfix">\n' +
+                //     '                    <span class="direct-chat-timestamp pull-right">' +
+                //     createdTime +
+                //     '</span>\n' +
+                //     '                </div>';
+                // conversationList.append(newConversationHtml)
+            }
+        });
+    }
+});
+
+// Conversation area
+document.getElementById('popup-messages').scrollTop = 9999999;
+// custom notification
+var pusher = new Pusher("f2b354d9cdae3999c31d", {
+    encrypted: true,
+    cluster: "ap1"
+});
+
+var conversationMessageChannel = pusher.subscribe("conversation-message");
+
+conversationMessageChannel.bind(
+    "App\\Events\\GetConversationMessageFromPusherEvent",
+    function (data) {
+        var currentUserId = $("#current-user").val();
+        if (data.toUser.id == currentUserId) {
+            var userAvatar = data.fromUser.avatar;
+            userAvatar = userAvatar.replace(
+                "images/",
+                "http://127.0.0.1:8000/images/"
+            );
+            var newMessageHtml = '<div class="direct-chat-msg doted-border">\n' +
+                '                        <div class="direct-chat-info clearfix">\n' +
+                '                            <span class="direct-chat-name pull-left">' + data.fromUser.name +
+                '</span>\n' +
+                '                        </div>\n' +
+                '                        <!-- /.direct-chat-info -->\n' +
+                '                        <img alt="' + data.fromUser.name +
+                '"\n' +
+                '                             src="' + userAvatar +
+                '"\n' +
+                '                             class="direct-chat-img"><!-- /.direct-chat-img -->\n' +
+                '                        <div class="direct-chat-text">\n' + data.message.content +
+                '                            \n' +
+                '                        </div>\n' +
+                '                        <div class="direct-chat-info clearfix">\n' +
+                '                            <span class="direct-chat-timestamp pull-right">' + data.createdTime +
+                '</span>\n' +
+                '                        </div>\n' +
+                '                    </div>';
+            var conversationList = $('#conversation-list');
+            conversationList.append(newMessageHtml);
+            document.getElementById('popup-messages').scrollTop = 9999999;
+        }
+    }
+);
 

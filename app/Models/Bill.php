@@ -7,6 +7,20 @@ use Auth;
 
 class Bill extends Model
 {
+    protected $table = 'bills';
+    protected $fillable = [
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'customer_address',
+        'customer_note',
+        'payment',
+        'get_ads',
+        'status',
+        'total_amount',
+        'user_id'
+    ];
+
     const PAYMENT_BY_CARD = 1;
     const CASH_ON_DELIVERY = 2;
 
@@ -27,19 +41,6 @@ class Bill extends Model
         self::ALREADY_PAID => 'Already Paid',
         self::ACTIVATED => 'Activated',
         self::CANCELED => 'Canceled',
-    ];
-    protected $table = 'bills';
-    protected $fillable = [
-        'customer_name',
-        'customer_email',
-        'customer_phone',
-        'customer_address',
-        'customer_note',
-        'payment',
-        'get_ads',
-        'status',
-        'total_amount',
-        'user_id'
     ];
 
     public function addBill($data)

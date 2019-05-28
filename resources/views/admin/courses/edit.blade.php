@@ -5,7 +5,8 @@
 @endsection
 
 @section('inline_styles')
-    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/datatables/media/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet"
+          href="{{ asset('assets/admin/vendor/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/admin/css/admin-custom.css') }}">
 @endsection
 
@@ -26,7 +27,7 @@
                         <span class="breadcrumb-item active">{{ $course->title }}</span>
                     </nav>
                 </div>
-            </div>  
+            </div>
             <div class="card">
                 <div class="card-header border bottom">
                     <h4 class="card-title">{{ $course->title }}</h4>
@@ -47,7 +48,8 @@
                             <div class="p-h-10">
                                 <div class="form-group">
                                     {{ Form::label('user', __('created by'), ['class' => 'control-label']) }}
-                                    <a href="{{ route('admins.users.show', $course->user->id) }}" class="form-control">{{ $course->user->name }}</a>
+                                    <a href="{{ route('admins.users.show', $course->user->id) }}"
+                                       class="form-control">{{ $course->user->name }}</a>
                                 </div>
                             </div>
                         </div>
@@ -57,25 +59,31 @@
                                     <label class="control-label">{{ __('avatar') }}</label>
                                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="0"
+                                                class="active"></li>
                                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                         </ol>
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
-                                                <img class="d-block w-100" src="{{ asset($course->course_avatar) }}" alt="First slide">
+                                                <img class="d-block w-100" src="{{ asset($course->course_avatar) }}"
+                                                     alt="First slide">
                                             </div>
                                             <div class="carousel-item">
-                                                <img class="d-block w-100" src="{{ asset($course->course_avatar_2) }}" alt="Second slide">
+                                                <img class="d-block w-100" src="{{ asset($course->course_avatar_2) }}"
+                                                     alt="Second slide">
                                             </div>
                                             <div class="carousel-item">
-                                                <img class="d-block w-100" src="{{ asset($course->course_avatar_3) }}" alt="Third slide">
+                                                <img class="d-block w-100" src="{{ asset($course->course_avatar_3) }}"
+                                                     alt="Third slide">
                                             </div>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                           data-slide="prev">
                                             <span class="mdi mdi-chevron-left font-size-35" aria-hidden="true"></span>
                                         </a>
-                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                           data-slide="next">
                                             <span class="mdi mdi-chevron-right font-size-35" aria-hidden="true"></span>
                                         </a>
                                     </div>
@@ -101,7 +109,7 @@
                                     <p class="error">{{ $errors->first('duration') }}</p>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{ Form::label('level', __('level'), ['class' => 'control-label']) }}
@@ -162,7 +170,7 @@
                             <div class="text-sm-right">
                                 {{ Form::submit(__('update'), ['class' => 'btn btn-gradient-success']) }}
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     {{ Form::close() }}
                 </div>
@@ -172,28 +180,28 @@
                     <h4 class="card-title">{{ __('joined people list') }}</h4>
                 </div>
                 <div class="card-body">
-                        <div class="table-overflow">
-                            <table id="dt-opt" class="table table-hover table-xl">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>{{ __('name') }}</th>
-                                        <th>{{ __('role') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($course->users as $person)
-                                        <tr id="person{{ $person->id }}">
-                                            <td>{{ $person->id }}</td>
-                                            <td>
-                                                <a href="{{ route('admins.users.show', $person->id) }}">{{ $person->name }}</a>
-                                            </td>
-                                            <td>{{ \App\Models\User::$roles[$person->role] }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div> 
+                    <div class="table-overflow">
+                        <table id="dt-opt" class="table table-hover table-xl">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ __('name') }}</th>
+                                <th>{{ __('role') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($course->users as $person)
+                                <tr id="person{{ $person->id }}">
+                                    <td>{{ $person->id }}</td>
+                                    <td>
+                                        <a href="{{ route('admins.users.show', $person->id) }}">{{ $person->name }}</a>
+                                    </td>
+                                    <td>{{ \App\Models\User::$roles[$person->role] }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,8 +213,8 @@
     <script src="{{ asset('assets/admin/vendor/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/tables/data-table.js') }}"></script>
     <script>
-        $.fn.stars = function() {
-            return $(this).each(function() {
+        $.fn.stars = function () {
+            return $(this).each(function () {
                 // Get the value
                 var val = parseFloat($(this).html());
                 // Make sure that the value is in 0 - 5 range, multiply to get width
@@ -217,7 +225,7 @@
                 $(this).html($span);
             });
         }
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('span.stars').stars();
             $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         })

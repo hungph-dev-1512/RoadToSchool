@@ -28,8 +28,8 @@ class GetLectureCommentFromPusherEvent implements ShouldBroadcast
     public function __construct(Request $request, $createdLectureComment)
     {
         $data = $request->all();
-        $this->content  = $data['content'];
-        $this->user  = json_encode(Auth::user());
+        $this->content = $data['content'];
+        $this->user = json_encode(Auth::user());
         $this->createdLectureComment = json_encode($createdLectureComment);
     }
 

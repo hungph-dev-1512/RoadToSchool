@@ -1,12 +1,12 @@
 @extends('admin.layouts.default')
 
 @section('title')
-    {{ __('R2S Admin Dashboard') }}
+    {{ __('titles.r2s_admin_dashboard') }}
 @endsection
 
 @section('page_style')
     {{-- page css --}}
-    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/jvectormap-master/jquery-jvectormap-2.0.3.css') }}") />
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/jvectormap-master/jquery-jvectormap-2.0.3.css') }}" )/>
 @endsection
 @section('content')
     <!-- Content Wrapper START -->
@@ -46,9 +46,9 @@
                     <div class="card">
                         <div class="row no-gutters">
                             {{--<div class="col-md-8">--}}
-                                {{--<div class="card-body border right border-hide-md">--}}
-                                    {{--<div class="map-400" id="map"></div>--}}
-                                {{--</div>--}}
+                            {{--<div class="card-body border right border-hide-md">--}}
+                            {{--<div class="map-400" id="map"></div>--}}
+                            {{--</div>--}}
                             {{--</div>--}}
                             <div class="col-md-12">
                                 <div class="card-header">
@@ -63,7 +63,8 @@
                                             <span>%</span>
                                         </div>
                                         <div class="progress m-t-15">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 38%"
+                                                 aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                     <div class="m-t-40">
@@ -74,7 +75,8 @@
                                             <span>%</span>
                                         </div>
                                         <div class="progress m-t-15">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 26%" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 26%"
+                                                 aria-valuenow="26" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                     <div class="m-t-40">
@@ -85,7 +87,8 @@
                                             <span>%</span>
                                         </div>
                                         <div class="progress m-t-15">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 36%" aria-valuenow="36" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 36%"
+                                                 aria-valuenow="36" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                     <div class="m-t-40">
@@ -137,7 +140,7 @@
                         <div class="card-header">
                             <h4 class="card-title">User Statistic</h4>
                             {{--<a href="{{ route('admin.users.index') }}"><span class="arrow pull-right">--}}
-                                {{--<i class="mdi mdi-chevron-right"></i>--}}
+                            {{--<i class="mdi mdi-chevron-right"></i>--}}
                             {{--</span></a>--}}
                             <div class="card-toolbar">
                                 <ul>
@@ -196,7 +199,7 @@
                             <div class="card-toolbar">
                                 <ul>
                                     <li>
-                                        <a class="text-gray" href="javascript:void(0)">
+                                        <a class="text-gray" href="{{ route('admin.instructor_ranking') }}">
                                             <i class="mdi mdi-dots-vertical font-size-20"></i>
                                         </a>
                                     </li>
@@ -204,21 +207,22 @@
                             </div>
                         </div>
                         <ul class="list-media m-b-20">
-                            @foreach($excellentInstructors as $instructor)
-                            <li class="list-item">
-                                <div class="p-v-15 p-h-20">
-                                    <div class="media-img">
-                                        <img src="{{ str_replace('public/', '', asset($instructor->avatar)) }}" alt="">
-                                    </div>
-                                    <div class="info">
-                                        <span class="title text-semibold font-size-15">{{ $instructor->name }}</span>
-                                        <span class="sub-title">{{ $instructor->instructor_rate }}</span>
-                                        <div class="float-item">
-                                            <span class="font-size-16 text-success">TODO</span>
+                            @foreach($excellentInstructors as $key => $instructor)
+                                <li class="list-item">
+                                    <div class="p-v-15 p-h-20">
+                                        <div class="media-img">
+                                            <img src="{{ str_replace('public/', '', asset($instructor->avatar)) }}"
+                                                 alt="">
+                                        </div>
+                                        <div class="info">
+                                            <span class="title text-semibold font-size-15">{{ $instructor->name }}</span>
+                                            <span class="sub-title">{{ $instructor->instructor_rate }}</span>
+                                            <div class="float-item">
+                                                <span class="font-size-16 text-success"> #{{ ($key + 1) }} </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -252,13 +256,14 @@
                                 </thead>
                                 <tbody>
                                 @foreach($newestBills as $bill)
-                                <tr>
-                                    <td><a href="{{ route('admin.bills.show', $bill->id) }}">#{{ $bill->id }}</a></td>
-                                    <td> {{ \App\Models\Bill::$status[$bill->status] }}</td>
-                                    <td>{{ $bill->customer_name }}</td>
-                                    <td>{{ $bill->created_at->toDateString() }}</td>
-                                    <td>${{ $bill->total_amount }}</td>
-                                </tr>
+                                    <tr>
+                                        <td><a href="{{ route('admin.bills.show', $bill->id) }}">#{{ $bill->id }}</a>
+                                        </td>
+                                        <td> {{ \App\Models\Bill::$status[$bill->status] }}</td>
+                                        <td>{{ $bill->customer_name }}</td>
+                                        <td>{{ $bill->created_at->toDateString() }}</td>
+                                        <td>${{ $bill->total_amount }}</td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -268,11 +273,11 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Product stats</h4>
+                            <h4 class="card-title">Course stats</h4>
                             <div class="card-toolbar">
                                 <ul>
                                     <li>
-                                        <a class="text-gray" href="javascript:void(0)">
+                                        <a class="text-gray" href="{{ route('admin.courses.index') }}">
                                             <i class="mdi mdi-dots-vertical font-size-20"></i>
                                         </a>
                                     </li>
@@ -283,81 +288,34 @@
                             <table class="table table-lg">
                                 <thead>
                                 <tr class="bg-gray">
-                                    <td class="text-dark text-semibold p-v-10">Product</td>
-                                    <td class="text-dark text-semibold p-v-10">Prices</td>
+                                    <td class="text-dark text-semibold p-v-10">Title</td>
+                                    <td class="text-dark text-semibold p-v-10">Price</td>
                                     <td class="text-dark text-semibold p-v-10">Sales</td>
-                                    <td class="text-dark text-semibold p-v-10">Views</td>
+                                    <td class="text-dark text-semibold p-v-10">Rate</td>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="list-media">
-                                            <div class="list-item">
-                                                <div class="media-img">
-                                                    <img src="assets/images/avatars/thumb-24.jpg" alt="">
-                                                </div>
-                                                <div class="info">
-                                                    <span class="title p-t-10 text-semibold">Beat Solo 2 Headphone</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$229,90</td>
-                                    <td>764</td>
-                                    <td>180</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="list-media">
-                                            <div class="list-item">
-                                                <div class="media-img">
-                                                    <img src="assets/images/avatars/thumb-25.jpg" alt="">
-                                                </div>
-                                                <div class="info">
-                                                    <span class="title p-t-10 text-semibold">Stylish Backpack</span>
+                                @foreach($mostSellerCourseList as $course)
+                                    <tr>
+                                        <td>
+                                            <div class="list-media">
+                                                <div class="list-item">
+                                                    <div class="media-img">
+                                                        <img src="{{ asset(str_replace('public', '', $course->course_avatar)) }}"
+                                                             alt="">
+                                                    </div>
+                                                    <div class="info">
+                                                        <span class="title p-t-10 text-semibold">{{ $course->title }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>$482,90</td>
-                                    <td>523</td>
-                                    <td>1252</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="list-media">
-                                            <div class="list-item">
-                                                <div class="media-img">
-                                                    <img src="assets/images/avatars/thumb-26.jpg" alt="">
-                                                </div>
-                                                <div class="info">
-                                                    <span class="title p-t-10 text-semibold">Adidas Sneaker</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$432,90</td>
-                                    <td>841</td>
-                                    <td>253</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="list-media">
-                                            <div class="list-item">
-                                                <div class="media-img">
-                                                    <img class="rounded-0" src="assets/images/avatars/thumb-27.jpg" alt="">
-                                                </div>
-                                                <div class="info">
-                                                    <span class="title p-t-10 text-semibold">Play Station 4 Slim</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$333,90</td>
-                                    <td>1852</td>
-                                    <td>8432</td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            ${{ $course->promotion_price ? $course->promotion_price : $course->origin_price}}</td>
+                                        <td>{{ $course->seller }}</td>
+                                        <td>{{ $course->course_rate }}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -38,9 +38,9 @@
                     <p style="color: red" id="error-m-personal-info" hidden=""></p>
                 </div>
                 <div class="form-group">
-                {{ Form::label('working_place', __('titles.working_place'), ['class' => 'control-label']) }}
-                {{ Form::textarea('working_place', null, ['class' => 'form-control', 'id' => 'm-working-place', 'rows' => 2, 'cols' => 54, 'style' => 'resize:none']) }}
-                <p style="color: red" id="error-m-working-place" hidden=""></p>
+                    {{ Form::label('working_place', __('titles.working_place'), ['class' => 'control-label']) }}
+                    {{ Form::textarea('working_place', null, ['class' => 'form-control', 'id' => 'm-working-place', 'rows' => 2, 'cols' => 54, 'style' => 'resize:none']) }}
+                    <p style="color: red" id="error-m-working-place" hidden=""></p>
                 </div>
                 <div class="form-group">
                     {{ Form::label('grade', __('titles.grade'), ['class' => 'control-label']) }}

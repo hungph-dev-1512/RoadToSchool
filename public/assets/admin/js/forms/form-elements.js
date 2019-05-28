@@ -9,6 +9,16 @@
 		dropdownParent: 'body'
 	});
 
+	$('#selectize-dropdown-2').selectize({
+		create: false,
+		sortField: {
+			field: 'text',
+			direction: 'asc'
+		},
+		dropdownParent: 'body'
+	});
+
+
 	$('#selectize-tags-1').selectize({
 	    delimiter: ',',
 	    persist: false,

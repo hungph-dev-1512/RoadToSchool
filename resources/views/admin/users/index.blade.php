@@ -5,8 +5,10 @@
 @endsection
 
 @section('inline_styles')
-    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/datatables/media/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet"
+          href="{{ asset('assets/admin/vendor/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
 @endsection
 
 @section('content')
@@ -26,64 +28,64 @@
                         <span class="breadcrumb-item active">{{ __('titles.all_users') }}</span>
                     </nav>
                 </div>
-            </div>  
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="table-overflow">
                         <table id="dt-opt" class="table table-hover table-xl">
                             <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>{{ __('titles.name') }}</th>
-                                    <th>{{ __('titles.email') }}</th>
-                                    <th>{{ __('titles.role') }}</th>
-                                    <th>{{ __('titles.action') }}</th>
-                                </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ __('titles.name') }}</th>
+                                <th>{{ __('titles.email') }}</th>
+                                <th>{{ __('titles.role') }}</th>
+                                <th>{{ __('titles.action') }}</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
-                                    <tr id="user{{ $user->id }}">
-                                        <td>{{ $user->id }}</td>
-                                        <td><a href="{{ route('admin.users.show', $user->id) }}">
+                            @foreach ($users as $user)
+                                <tr id="user{{ $user->id }}">
+                                    <td>{{ $user->id }}</td>
+                                    <td><a href="{{ route('admin.users.show', $user->id) }}">
                                             {{ $user->name }}
                                         </a></td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            @if($user->is_admin == 1)
-                                                Admin
-                                            @else
-                                                @if($user->role === 1)
-                                                    Teacher
-                                                @elseif ($user->role === 2)
-                                                    Student
-                                                @endif
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        @if($user->is_admin == 1)
+                                            Admin
+                                        @else
+                                            @if($user->role === 1)
+                                                Teacher
+                                            @elseif ($user->role === 2)
+                                                Student
                                             @endif
-                                        </td>
-                                        <td class="text-center font-size-18">
+                                        @endif
+                                    </td>
+                                    <td class="text-center font-size-18">
+                                        <a class="text-gray" data-toggle="modal"
+                                           data-target="#detail-modal"
+                                           data-url="{{ route('admin.users.show', $user->id) }}">
+                                            <i class="ti-info"></i>
+                                        </a>&ensp;
+                                        <a class="text-gray edit-user" data-user="{{ $user }}" data-toggle="modal"
+                                           data-target="#edit-modal">
+                                            <i class="ti-pencil"></i>
+                                        </a>&ensp;
+                                        @if(Auth::user()->id !== $user->id)
                                             <a class="text-gray" data-toggle="modal"
-                                               data-target="#detail-modal"
-                                               data-url="{{ route('admin.users.show', $user->id) }}">
-                                                <i class="ti-info"></i>
-                                            </a>&ensp;
-                                            <a class="text-gray edit-user" data-user="{{ $user }}"  data-toggle="modal"
-                                               data-target="#edit-modal">
-                                                <i class="ti-pencil"></i>
-                                            </a>&ensp;
-                                            @if(Auth::user()->id !== $user->id)
-                                            <a class="text-gray" data-toggle="modal" 
-                                                data-target="#delete-modal"
-                                                data-url="{{ route('admin.users.destroy', $user->id) }}">
+                                               data-target="#delete-modal"
+                                               data-url="{{ route('admin.users.destroy', $user->id) }}">
                                                 <i class="ti-trash"></i>
                                             </a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
-                    </div> 
-                </div>       
-            </div>   
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -94,13 +96,14 @@
 @section('inline_scripts')
     <script src="{{ asset('assets/admin/vendor/datatables/media/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/admin/vendor/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('assets/admin/js/tables/data-table.js') }}"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.datepicker').datepicker();
 
-            $('#edit-modal').on('show.bs.modal', function(e){
+            $('#edit-modal').on('show.bs.modal', function (e) {
                 var url = $(e.relatedTarget).data('url');
                 $('#form-edit').attr('action', url);
                 var user = $(this).data('user')
@@ -119,7 +122,7 @@
                 $('#m-role').val(user.role);
             });
 
-            $('#update-user-info').on('click', function() {
+            $('#update-user-info').on('click', function () {
                 var id = $(this).data('id');
                 console.log(id);
                 $.ajaxSetup({
@@ -137,12 +140,12 @@
                         birthday: $('#m-birthday').val(),
                         address: $('#m-address').val(),
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#edit-profile-modal').modal('hide');
                         $.notify({
                             // options
                             message: ' {{ __('update_user_success') }} '
-                        },{
+                        }, {
                             // settings
                             type: 'success'
                         });
@@ -158,7 +161,7 @@
                         $('#m-address').val(data.address);
                         flag = 1;
                     },
-                    error: function(response) {
+                    error: function (response) {
                         errors = response.responseJSON.errors;
                         if (errors.working_place != null) {
                             $('#error-m-working-place').removeAttr('hidden');
@@ -196,11 +199,11 @@
                 }, 'json');
             })
 
-            $('#delete-modal').on('show.bs.modal', function(e){
+            $('#delete-modal').on('show.bs.modal', function (e) {
                 var url = $(e.relatedTarget).data('url');
                 $('#form-delete').attr('action', url);
             });
-            
+
             $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         })
     </script>

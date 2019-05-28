@@ -23,7 +23,7 @@
             </div>
         </div>
     </section>
-{{--    {{ dd(\Auth::user()) }}--}}
+    {{--    {{ dd(\Auth::user()) }}--}}
 @endsection
 
 @section('inline_scripts')

@@ -2715,7 +2715,7 @@ button.disabled, button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .status.online, .status.success { border-color: #24d5d8; }
 
-.status.busy, .status.danger { border-color: #fd3259; }
+.status.busy, .status.danger { border-color: #60FD32; }
 
 .status.away, .status.warning { border-color: #fecd2f; }
 

@@ -108,9 +108,16 @@
     </div>
 </footer>
 
+@if(\Auth::user())
+<a href="#" class="chat-with-admin" id="open-chat-with-admin">
+    <i class="fa fa-weixin" style="margin-left: 15px"></i><span style="color: azure;font-weight: bold">&emsp;&emsp;&emsp;Chat with Admin</span>
+</a>
+@endif
+
 <a href="#" class="back-to-top">
     <i class="fa fa-angle-up"></i>
 </a>
+
 <script src="//js.pusher.com/3.1/pusher.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery-min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -129,3 +136,4 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery.themepunch.tools.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
+<script src="{{ asset('js/share.js') }}"></script>

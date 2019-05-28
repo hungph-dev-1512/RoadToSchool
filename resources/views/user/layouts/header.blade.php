@@ -12,22 +12,6 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right" id="top-nav-area">
-                    {{--
-                    <li class="nav-item dropdown">
-                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                       {{ __('titles.categories') }}
-                       </a>
-                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="">
-                          TODO1
-                          </a>
-                          <br>
-                          <a class="dropdown-item" href="">
-                          TODO2
-                          </a>
-                       </div>
-                    </li>
-                    --}}
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -55,7 +39,7 @@
                                 }
                             @endphp
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false"><i class="fa fa-shopping-cart"></i> Cart <span
+                               aria-expanded="false"><i class="fa fa-shopping-cart"></i> {{ __('titles.cart') }} <span
                                         class="badge"> {{ $cartItemsCount }} </span></a>
                             <ul class="dropdown-menu dropdown-cart" role="menu">
                                 @if($cartItems->isEmpty())
@@ -113,49 +97,80 @@
                                 @endif
                             </ul>
                         </li>
-                        {{--Notification--}}
+                        {{-- Notification --}}
                         @php
                             $notificationsList = \App\Models\Notification::where('user_id', \Auth::user()->id)->orderBy('created_at', 'desc');
                             $notifications = $notificationsList->limit(8)->get()
                         @endphp
+{{--                    {{ dd(\Session::all()) }}--}}
                         <li class="dropdown" id="notification-area">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false"><i class="fa fa-shopping-cart"></i> Notification <span
-                                        class="badge" id="notification-count"> {{ $notificationsList->where('status', 0)->count() }} </span></a>
-                            <ul class="dropdown-menu dropdown-cart" id="notification-list" role="menu" style="width: 350px">
+                               aria-expanded="false"><i class="fa fa-shopping-cart"></i> {{ __('titles.u_notification') }} <span
+                                        class="badge"
+                                        id="notification-count"> {{ $notificationsList->where('status', 0)->count() }} </span></a>
+                            <ul class="dropdown-menu dropdown-cart" id="notification-list" role="menu"
+                                style="width: 350px">
                                 @if($notifications->isEmpty())
                                     <li class="text-center" id="none-dock">
                                         <h4> {{ __('messages.you_are_no_notification') }}</h4>
                                     </li>
                                 @else
                                     @foreach($notifications as $notification)
-                                        <li class="notification-detail" data-id="{{ $notification->id }}" data-status="{{ $notification->status }}" style="cursor: pointer; {{ $notification->status ? '' : 'background: #CECEF6' }}" data-type="{{ $notification->type }}" data-course="{{ $notification->course_id }}"
-                                            data-comment="{{ $notification->comment_id }}"
-                                            data-parent="{{ $notification->course_id ? \App\Models\Comment::findOrFail($notification->comment_id)->parent_comment : \App\Models\LectureComment::findOrFail($notification->comment_id)->parent_comment }}"
-                                            data-lectureCommentCourseId="{{ $notification->course_id ? 'undefined' : \App\Models\Lecture::findOrFail($notification->lecture_id)->course->id }}"
-                                            data-lectureCommentLectureId="{{ $notification->course_id ? 'undefined' : $notification->lecture_id }}">
-                                            <span class="item">
-                                                <span class="item-left">
-                                                    @if($notification->type == \App\Models\Notification::WELCOME)
-                                                        <img src="/assets/img/logo-short.png"
-                                                             style="height: 45px; width: 45px"
-                                                             alt=""/>
-                                                    @elseif($notification->type == \App\Models\Notification::COMMENT || $notification->type == \App\Models\Notification::LECTURE_COMMENT)
-                                                        <img src="{{ $notification->type == \App\Models\Notification::COMMENT ? str_replace('public/', '', asset(\App\Models\Comment::findOrFail($notification->comment_id)->user->avatar)) : str_replace('public/', '', asset(\App\Models\LectureComment::findOrFail($notification->comment_id)->user->avatar)) }}"
-                                                             style="height: 45px; width: 45px" alt=""/>
-                                                    @endif
-                                                   <span class="item-info">
-                                                      <span> {!! (strlen($notification->content) >= 24) ? substr($notification->content, 0, 30) . '...' : $notification->content !!} </span>
-                                                   <span class="diff-time" id="diff-time-{{ $notification->id }}" data-time="{{ strtotime($notification->created_at) }}">
-                                                         @php
-                                                             $diffTime = \Carbon\Carbon::parse($notification->created_at)->diffForHumans();
-                                                         @endphp
-                                                          {{ $diffTime }}
-                                                      </span>
-                                                   </span>
+                                        @if($notification->type == 1 || $notification->type == 2)
+                                            <li class="notification-detail" data-id="{{ $notification->id }}"
+                                                data-status="{{ $notification->status }}"
+                                                style="cursor: pointer; {{ $notification->status ? '' : 'background: #CECEF6' }}"
+                                                data-type="{{ $notification->type }}"
+                                                data-course="{{ $notification->course_id }}"
+                                                data-comment="{{ $notification->comment_id }}"
+                                                data-parent="{{ $notification->course_id ? \App\Models\Comment::findOrFail($notification->comment_id)->parent_comment : \App\Models\LectureComment::findOrFail($notification->comment_id)->parent_comment }}"
+                                                data-lectureCommentCourseId="{{ $notification->course_id ? 'undefined' : \App\Models\Lecture::findOrFail($notification->lecture_id)->course->id }}"
+                                                data-lectureCommentLectureId="{{ $notification->course_id ? 'undefined' : $notification->lecture_id }}">
+                                                <span class="item">
+                                                    <span class="item-left">
+                                                        @if($notification->type == \App\Models\Notification::WELCOME)
+                                                            <img src="/assets/img/logo-short.png"
+                                                                 style="height: 45px; width: 45px"
+                                                                 alt=""/>
+                                                        @elseif($notification->type == \App\Models\Notification::COMMENT || $notification->type == \App\Models\Notification::LECTURE_COMMENT)
+                                                            <img src="{{ $notification->type == \App\Models\Notification::COMMENT ? str_replace('public/', '', asset(\App\Models\Comment::findOrFail($notification->comment_id)->user->avatar)) : str_replace('public/', '', asset(\App\Models\LectureComment::findOrFail($notification->comment_id)->user->avatar)) }}"
+                                                                 style="height: 45px; width: 45px" alt=""/>
+                                                        @endif
+                                                       <span class="item-info">
+                                                          <span> {!! (strlen($notification->content) >= 24) ? substr($notification->content, 0, 30) . '...' : $notification->content !!} </span>
+                                                       <span class="diff-time" id="diff-time-{{ $notification->id }}"
+                                                             data-time="{{ strtotime($notification->created_at) }}">
+                                                             @php
+                                                                 $diffTime = \Carbon\Carbon::parse($notification->created_at)->diffForHumans();
+                                                             @endphp
+                                                           {{ $diffTime }}
+                                                          </span>
+                                                       </span>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                        </li>
+                                            </li>
+                                        @elseif($notification->type == 0)
+                                            <li class="notification-detail"
+                                                style="cursor: pointer; {{ $notification->status ? '' : 'background: #CECEF6' }}">
+                                                <span class="item">
+                                                    <span class="item-left">
+                                                            <img src="/assets/img/logo-short.png"
+                                                                 style="height: 45px; width: 45px"
+                                                                 alt=""/>
+                                                       <span class="item-info">
+                                                          <span> {!! (strlen($notification->content) >= 24) ? substr($notification->content, 0, 30) . '...' : $notification->content !!} </span>
+                                                       <span class="diff-time" id="diff-time-{{ $notification->id }}"
+                                                             data-time="{{ strtotime($notification->created_at) }}">
+                                                             @php
+                                                                 $diffTime = \Carbon\Carbon::parse($notification->created_at)->diffForHumans();
+                                                             @endphp
+                                                           {{ $diffTime }}
+                                                          </span>
+                                                       </span>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        @endif
                                     @endforeach
                                     <li class="divider"></li>
                                     <li class="text-center">
@@ -164,6 +179,23 @@
                                     </li>
                                 @endif
                             </ul>
+                        </li>
+                        {{-- Language--}}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ __('titles.language') }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{!! route('user.change-language', ['en']) !!}"
+                                   style="display: block;">
+                                    {{ __('titles.english') }}
+                                </a>
+                                <a class="dropdown-item" href="{!! route('user.change-language', ['vi']) !!}"
+                                   style="display: block;">
+                                    {{ __('titles.vietnamese') }}
+                                </a>
+                            </div>
                         </li>
                         {{--Account--}}
                         <li class="nav-item dropdown">
@@ -181,12 +213,22 @@
                                        style="display: block;">
                                         {{ __('titles.r2s_admin') }}
                                     </a>
+                                @elseif(Auth::user()->role == 1)
+                                    <a class="dropdown-item" href="{{ route('instructor.dashboard') }}"
+                                       style="display: block;">
+                                        {{ __('titles.r2s_instructor') }}
+                                    </a>
+                                @elseif(Auth::user()->role == 2)
+                                    <a class="dropdown-item" href="{{ route('courses.my_course', Auth::user()->id) }}"
+                                       style="display: block;">
+                                        {{ __('titles.my_course') }}
+                                    </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                {{ Form::open(['method' => 'post', 'url' => 'logout', 'id' => 'logout-form']) }}
+                                {{ Form::open(['method' => 'post', 'url' => 'logout', 'id' => 'logout-form', 'style' => 'display: none;']) }}
                                 {{ Form::close() }}
                             </div>
                         </li>
@@ -212,10 +254,10 @@
         </ul>
     </div>
 </div>
-<div class="tbtn wow pulse" id="menu" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas"
-     data-target=".navmenu">
-    <p><i class="fa fa-file-text-o"></i> {{ __('titles.all_pages') }} </p>
-</div>
+{{--<div class="tbtn wow pulse" id="menu" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas"--}}
+{{--     data-target=".navmenu">--}}
+{{--    <p><i class="fa fa-file-text-o"></i> {{ __('titles.all_pages') }} </p>--}}
+{{--</div>--}}
 </div>
 </div>
 </div>

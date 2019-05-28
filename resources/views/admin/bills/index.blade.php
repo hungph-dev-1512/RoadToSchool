@@ -17,7 +17,8 @@
                 <h2 class="header-title">{{ __('titles.all_bills') }}</h2>
                 <div class="header-sub-title">
                     <nav class="breadcrumb breadcrumb-dash">
-                        <a href="#" class="breadcrumb-item"><i class="ti-home p-r-5"></i>{{ __('titles.r2s_dashboard') }}</a>
+                        <a href="#" class="breadcrumb-item"><i
+                                    class="ti-home p-r-5"></i>{{ __('titles.r2s_dashboard') }}</a>
                         <a class="breadcrumb-item" href="#">{{ __('titles.bills') }}</a>
                         <span class="breadcrumb-item active">{{ __('titles.all_bills') }}</span>
                     </nav>
@@ -67,7 +68,7 @@
                                     <td class="text-center font-size-18">
                                         <a href="#" class="text-gray m-r-15 edit-status" data-id="{{ $bill->id }}"
                                            data-status="{{ $bill->status }}"><i class="ti-exchange-vertical"></i></a>
-{{--                                        <a href="{{ route('admin.bills.show', $bill->id) }}" class="text-gray m-r-15"><i class="ti-info"></i></a>--}}
+                                        {{--                                        <a href="{{ route('admin.bills.show', $bill->id) }}" class="text-gray m-r-15"><i class="ti-info"></i></a>--}}
                                         {{--<a href="#" class="text-gray"><i class="ti-trash"></i></a>--}}
                                     </td>
                                 </tr>
@@ -120,31 +121,27 @@
                         var statusBillElement = $('#bill-status-' + billId).children();
                         statusBillElement.removeClass();
                         switch (statusId) {
-                            case '0':
-                            {
+                            case '0': {
                                 statusBillElement.addClass('badge badge-pill badge-gradient-warning');
                                 statusBillElement.html('Pending');
                                 break;
                             }
-                            case '1':
-                            {
+                            case '1': {
                                 statusBillElement.addClass('badge badge-pill badge-gradient-info');
                                 statusBillElement.html('Transporting');
                                 break;
                             }
-                            case '2':
-                            {
+                            case '2': {
                                 statusBillElement.addClass('badge badge-pill badge-gradient-primary');
                                 statusBillElement.html('Already Paid');
                                 break;
                             }
-                            case '3':
-                            {
+                            case '3': {
                                 statusBillElement.addClass('badge badge-pill badge-gradient-success');
                                 statusBillElement.html('Activated');
+                                break;
                             }
-                            case '4':
-                            {
+                            case '4': {
                                 statusBillElement.addClass('badge badge-pill badge-gradient-danger');
                                 statusBillElement.html('Canceled');
                                 break;

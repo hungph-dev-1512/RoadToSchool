@@ -51,9 +51,12 @@
                                             <span class="category"> {{ __('titles.level') . $selectedCourse->level }}  </span>
                                             -
                                             <span class="item-location"><i class="fa fa-map-book"></i> {{ $selectedCourse->lecture_numbers . ' ' . __('titles.lectures') . ' ' . __('titles.in') . ' ' . $selectedCourse->duration . ' ' . __('titles.hours') }} </span>
-                                            <h3 class="price">@if($selectedCourse->promotion_price !== $selectedCourse->origin_price)<b
-                                                        style="color:red">{{ $selectedCourse->promotion_price }}$ </b><strike> {{ $selectedCourse->origin_price }}$</strike>@else {{ $selectedCourse->origin_price }}
-                                                $@endif</h3>
+                                            <h3 class="price">@if($selectedCourse->promotion_price !== $selectedCourse->origin_price)
+                                                    <b
+                                                            style="color:red">{{ $selectedCourse->promotion_price }}
+                                                        $ </b><strike> {{ $selectedCourse->origin_price }}
+                                                        $</strike>@else {{ $selectedCourse->origin_price }}
+                                                    $@endif</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +66,8 @@
                                        data-id="{{ $selectedCourse->id }}"><i
                                                 class=" fa fa-cart-plus"></i><span> {{ __('titles.add_to_cart') }} </span></a>
                                     <a class="btn btn-sm btn-danger add-to-wishlist" href=""
-                                       data-id="{{ $selectedCourse->id }}" title="{{ __('titles.add_to_wishlist') }}" style="height:  26px"><i
+                                       data-id="{{ $selectedCourse->id }}" title="{{ __('titles.add_to_wishlist') }}"
+                                       style="height:  26px"><i
                                                 class="fa fa-heart"></i></a>
                                 </div>
                             </div>
@@ -75,12 +79,12 @@
                         </ul>
                     </div>
                     {{--@if (Auth::user()->role == 1)--}}
-                        {{--<div class="post-promo text-center">--}}
-                            {{--<h2> {{ __('titles.create_course_p1') }} </h2>--}}
-                            {{--<h5> {{ __('titles.create_course_p2') }} </h5>--}}
-                            {{--<a href="post-ads.html"--}}
-                               {{--class="btn btn-post btn-danger">  {{ __('titles.create_course_p3') }} </a>--}}
-                        {{--</div>--}}
+                    {{--<div class="post-promo text-center">--}}
+                    {{--<h2> {{ __('titles.create_course_p1') }} </h2>--}}
+                    {{--<h5> {{ __('titles.create_course_p2') }} </h5>--}}
+                    {{--<a href="post-ads.html"--}}
+                    {{--class="btn btn-post btn-danger">  {{ __('titles.create_course_p3') }} </a>--}}
+                    {{--</div>--}}
                     {{--@endif--}}
                 </div>
             </div>

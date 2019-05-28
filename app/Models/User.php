@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-    const ROLE_ADMIN= 0;
+    const ROLE_ADMIN = 0;
     const ROLE_TEACHER = 1;
     const ROLE_STUDENT = 2;
 
@@ -87,6 +88,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\CartItem');
     }
 
+    public function permission_users()
+    {
+        return $this->hasMany('App\Models\PermissionUser');
+    }
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
@@ -114,6 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function updateUser($data, $id)
     {
+
         $selectedUser = User::find($id);
 
         if (isset($data['update_info'])) {
@@ -122,7 +129,10 @@ class User extends Authenticatable implements MustVerifyEmail
             } elseif (isset($data['delete_value'])) {
                 $data['avatar'] = 'images/avatar/basic-avatar.png';
             } else {
-                $data['avatar'] = 'images/avatar/' . $data['avatar'];
+                $file = $data['avatar'];
+                $file->store($file->getClientOriginalName());
+                $file->move('images/dummy_image', $file->getClientOriginalName());
+                $data['avatar'] = 'images/dummy_image/' . $file->getClientOriginalName();
             }
         }
 
@@ -150,14 +160,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function updateInstructorRate()
     {
         $allInstructors = User::where('role', 1)->get();
-        foreach($allInstructors as $instructor) {
+        foreach ($allInstructors as $instructor) {
             $avgRate = round(Course::where('is_accepted', 1)->where('user_id', $instructor->id)->avg('course_rate'), 2);
-            if($avgRate === 0) {
+            if ($avgRate === 0) {
                 $avgRate = 0;
             }
 
             $updateResult = $instructor->update(['instructor_rate' => $avgRate]);
-            if(!$updateResult) {
+            if (!$updateResult) {
                 return false;
             }
         }
@@ -166,11 +176,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    public static function ordinal($number) {
-        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-        if ((($number % 100) >= 11) && (($number%100) <= 13))
-            return $number. 'th';
+    public static function ordinal($number)
+    {
+        $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+        if ((($number % 100) >= 11) && (($number % 100) <= 13))
+            return $number . 'th';
         else
-            return $number. $ends[$number % 10];
+            return $number . $ends[$number % 10];
+    }
+
+    public function createInstructor($data)
+    {
+        $data['avatar'] = 'images/default_avatar/teacher.jpg';
+        $data['role'] = self::ROLE_TEACHER;
+        $data['is_admin'] = 0;
+        $data['password'] = Hash::make($data['password']);
+
+        return User::create($data);
     }
 }

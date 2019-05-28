@@ -37,7 +37,7 @@ class GetNotificationFromPusherEvent implements ShouldBroadcast
         $this->userAvatar = $userAvatar;
         $this->diffTime = $diffTime;
         $this->createNotificationIdList = $createNotificationIdList;
-        if($createdComment->lecture_id) {
+        if ($createdComment->lecture_id) {
             $this->dataLectureCommentCourseId = \App\Models\Lecture::findOrFail($createdComment->lecture_id)->course->id;
         }
     }

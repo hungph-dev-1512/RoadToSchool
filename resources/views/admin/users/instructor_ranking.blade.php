@@ -25,6 +25,7 @@
                 <div class="card-header border bottom">
                     <h4 class="card-title">Instructor Ranking Table</h4>
                 </div>
+                @include('flash::message')
                 <div class="card-body">
                     <div class="table-overflow">
                         <table class="table table-xl border">
@@ -39,22 +40,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($orderRankingInstructors as $instructor)
+                            @foreach($orderRankingInstructors as $instructor)
                                 <tr>
                                     <td>
                                         <div class="list-media">
                                             <div class="list-item">
                                                 @if($instructor->ranking === 1)
-                                                <div class="media-img">
-                                                    <img class="rounded" style="width: 20px; height: 20px" src="{{ asset('assets/admin/images/others/1st.png') }}" alt="">
-                                                </div>
+                                                    <div class="media-img">
+                                                        <img class="rounded" style="width: 20px; height: 20px"
+                                                             src="{{ asset('assets/admin/images/others/1st.png') }}"
+                                                             alt="">
+                                                    </div>
                                                 @elseif($instructor->ranking === 2)
                                                     <div class="media-img">
-                                                        <img class="rounded" style="width: 20px; height: 20px" src="{{ asset('assets/admin/images/others/2nd.png') }}" alt="">
+                                                        <img class="rounded" style="width: 20px; height: 20px"
+                                                             src="{{ asset('assets/admin/images/others/2nd.png') }}"
+                                                             alt="">
                                                     </div>
                                                 @elseif($instructor->ranking === 3)
                                                     <div class="media-img">
-                                                        <img class="rounded" style="width: 20px; height: 20px" src="{{ asset('assets/admin/images/others/3rd.png') }}" alt="">
+                                                        <img class="rounded" style="width: 20px; height: 20px"
+                                                             src="{{ asset('assets/admin/images/others/3rd.png') }}"
+                                                             alt="">
                                                     </div>
                                                 @endif
                                                 <div class="info" style="padding-left: 30px">
@@ -83,7 +90,9 @@
                                         <div class="list-media">
                                             <div class="list-item">
                                                 <div class="media-img">
-                                                    <img class="rounded" src="{{ str_replace('public/', '', asset($instructor->avatar)) }}" alt="">
+                                                    <img class="rounded"
+                                                         src="{{ str_replace('public/', '', asset($instructor->avatar)) }}"
+                                                         alt="">
                                                 </div>
                                                 <div class="info">
                                                     <span class="title">{{ $instructor->name }}</span>
@@ -103,7 +112,7 @@
                                         </span></td>
                                     <td>{{ $instructor->instructor_rate }}</td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

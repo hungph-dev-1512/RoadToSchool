@@ -24,7 +24,7 @@ class CartItemController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  User $users
+     * @param User $users
      * @return void
      */
     public function __construct(CartItem $cartItem, Bill $bill, CourseUser $courseUser, BillCourse $billCourse)
