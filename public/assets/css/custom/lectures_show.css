@@ -1,0 +1,13 @@
+.author-img {
+    margin-right: 0px !important;
+}
+
+#teacher-avatar {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+button {
+    background: #3498db;
+}

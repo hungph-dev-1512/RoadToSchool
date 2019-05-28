@@ -19,6 +19,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+//        \Illuminate\Session\Middleware\StartSession::class,
+//        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     ];
 
     /**
@@ -60,5 +62,10 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // Custom area
+        'access_lecture' => '\App\Http\Middleware\CheckUserToLecture',
+        'is_admin' => '\App\Http\Middleware\CheckIsAdmin',
+        'access_page' => '\App\Http\Middleware\CheckPermissionToAccessPage',
+        'locale' => '\App\Http\Middleware\Locale',
     ];
 }

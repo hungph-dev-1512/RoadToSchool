@@ -17,4 +17,11 @@ class Category extends Model
     {
         return Category::all();
     }
+
+    public function getParentCategoryById($id)
+    {
+        $parentCategory = Category::findOrFail($id);
+
+        return $parentCategory;
+    }
 }

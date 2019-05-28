@@ -17,7 +17,7 @@ class UserController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  User $users
+     * @param User $users
      * @return void
      */
     public function __construct(User $users)
@@ -68,15 +68,13 @@ class UserController extends Controller
         $instructorCoursesCount = Course::where('is_accepted', 1)->where('user_id', $id)->get()->count();
         $instructorRating = round(Course::where('is_accepted', 1)->where('user_id', $id)->avg('course_rate'), 2);
         $bestCoursesInstructor = Course::where('is_accepted', 1)->where('user_id', $id)->orderBy('seller', 'desc')->limit(5)->get();
-        $coursesInstructorCount = Course::where('is_accepted', 1)->where('user_id', $id)->get()->count();
 
         return view('user.users.instructor_info', compact(
             'selectedInstructor',
             'instructorStudentsCount',
             'instructorCoursesCount',
             'instructorRating',
-            'bestCoursesInstructor',
-            'coursesInstructorCount'
+            'bestCoursesInstructor'
         ));
     }
 }

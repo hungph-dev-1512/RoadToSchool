@@ -26,6 +26,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'super_admin',
             'email' => 'super_admin@gmail.com',
+            'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
             'password' => Hash::make('123456'),
             'phone' => '+84965818552',
             'birthday' => '1996-12-15',
@@ -40,6 +41,7 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => 'admin' . $temp,
                 'email' => 'admin' . $temp . '@gmail.com',
+                'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
                 'password' => Hash::make('123456'),
                 'phone' => $faker->e164PhoneNumber,
                 'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),
@@ -54,6 +56,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'instructor',
             'email' => 'instructor@gmail.com',
+            'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
             'password' => Hash::make('123456'),
             'phone' => '+84965818552',
             'birthday' => '1996-12-15',
@@ -65,10 +68,26 @@ class UsersTableSeeder extends Seeder
             'working_place' => 'Hanoi University of Science and Technology 1 Dai Co Viet Road, Ha Noi, Viet Nam Tel: 043 869 2222 - Fax: 043 869 200'
         ]);
 
-        for ($temp = 12; $temp <= 99; $temp++) {
+        User::create([
+            'name' => 'Andrew Ng',
+            'email' => 'andrew_ng@gmail.com',
+            'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
+            'password' => Hash::make('123456'),
+            'phone' => '+84965818552',
+            'birthday' => '1976-12-15',
+            'address' => 'Ha Noi',
+            'avatar' => 'images/default_avatar/andrew_ng.jpeg',
+            'role' => 1,
+            'is_admin' => '0',
+            'personal_info' => '<p>Andrew Ng is Co-founder of Coursera, an and Adjunct Professor of Computer Science at Stanford University. His machine learning course is the MOOC that had led to the founding of Coursera!<br>In 2011, he led the development of Stanford University’s main MOOC (Massive Open Online Courses) platform and also taught an online Machine Learning class to over 100,000 students, thus helping launch the MOOC movement and also leading to the founding of Coursera.<br>Ng also works on machine learning, with an emphasis on deep learning. He had founded and led the “Google Brain” project, which developed massive-scale deep learning algorithms. This resulted in the famous “Google cat” result, in which a massive neural network with 1 billion parameters learned from unlabeled YouTube videos to detect cats. Until recently, he led Baidu\'s ~1300 person AI Group, which developed technologies in deep learning, speech, computer vision, NLP, and other areas.</p>',
+            'working_place' => 'CEO/Founder Landing AI; Co-founder, Coursera; Adjunct Professor, Stanford University;'
+        ]);
+
+        for ($temp = 12; $temp <= 30; $temp++) {
             User::create([
                 'name' => $faker->name,
                 'email' => 'instructor' . $temp . '@gmail.com',
+                'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
                 'password' => Hash::make('123456'),
                 'phone' => $faker->e164PhoneNumber,
                 'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),
@@ -84,6 +103,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'student',
             'email' => 'student@gmail.com',
+            'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
             'password' => Hash::make('123456'),
             'phone' => '+84965818552',
             'birthday' => '1996-12-15',
@@ -95,10 +115,11 @@ class UsersTableSeeder extends Seeder
             'working_place' => 'Hanoi University of Science and Technology 1 Dai Co Viet Road, Ha Noi, Viet Nam Tel: 043 869 2222 - Fax: 043 869 200'
         ]);
 
-        for ($temp = 1001; $temp <= 9999; $temp++) {
+        for ($temp = 31; $temp <= 100; $temp++) {
             User::create([
                 'name' => $faker->name,
                 'email' => 'student' . $temp . '@gmail.com',
+                'email_verified_at' => \Carbon::now()->format('Y-m-d H:i:s'),
                 'password' => Hash::make('123456'),
                 'phone' => $faker->e164PhoneNumber,
                 'birthday' => $faker->date($format = 'Y-m-d', $max = 'now'),

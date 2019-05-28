@@ -66,7 +66,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <div class="list-group list-group-horizontal">
                 @foreach($categoryList as $category)
-                    <a href="{{ route('courses.index', ['sub_category_id' => $category->id]) }}" class="list-group-item {{ (isset($activeCategoryId) && (int)$activeCategoryId === $category->id) ? 'active' : '' }}"><strong>{{ $category->title . ' (' . App\Models\Course::where('is_accepted', 1)->where('category_id', $category->id)->count() . ')' }}</strong></a>
+                    <a href="{{ route('courses.index', ['sub_category_id' => $category->id]) }}"
+                       class="list-group-item {{ (isset($activeCategoryId) && (int)$activeCategoryId === $category->id) ? 'active' : '' }}"><strong>{{ $category->title . ' (' . App\Models\Course::where('is_accepted', 1)->where('category_id', $category->id)->count() . ')' }}</strong></a>
                 @endforeach
             </div>
         </div>
@@ -74,19 +75,22 @@
             .list-group-horizontal .list-group-item {
                 display: inline-block;
             }
+
             .list-group-horizontal .list-group-item {
                 margin-top: 10px;
                 margin-bottom: 0;
-                margin-left:-4px;
+                margin-left: -4px;
                 margin-right: 0;
             }
+
             .list-group-horizontal .list-group-item:first-child {
-                border-top-right-radius:0;
-                border-bottom-left-radius:4px;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 4px;
             }
+
             .list-group-horizontal .list-group-item:last-child {
-                border-top-right-radius:4px;
-                border-bottom-left-radius:0;
+                border-top-right-radius: 4px;
+                border-bottom-left-radius: 0;
             }
         </style>
     </div>

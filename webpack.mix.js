@@ -13,3 +13,4 @@ const mix = require('laravel-mix');
 
 mix.copyDirectory('resources/assets/RoadToSchool-css', 'public/assets');
 mix.copyDirectory('resources/assets/RoadToSchool-js', 'public/assets');
+mix.copyDirectory('resources/assets/r2s-admin-assets', 'public/assets/admin');

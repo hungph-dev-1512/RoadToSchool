@@ -1,11 +1,11 @@
 @extends('user.layouts.default')
 
 @section('title')
-    {{ __('titles.home') }}
+    {{ __('titles.road_to_school_home_page') }}
 @endsection
 
 @section('content')
-
+    {{--    {{ dd(config('app.locale')) }}--}}
     <section id="intro" class="section-intro">
         <div class="overlay">
             <div class="container">
@@ -27,7 +27,7 @@
                                         <label class="styled-select">
                                             <select class="dropdown-product selectpicker" name="filter_option">
                                                 <option value="0"> {{ __('titles.select_filter_option') }} </option>
-                                                @foreach (App\Models\Course::$filter_options as $key =>     $value)
+                                                @foreach (App\Models\Course::$filter_options as $key => $value)
                                                     <option value="{{ $key }}">
                                                         {{ $value }}
                                                     </option>
@@ -52,7 +52,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
-                                    <input class="btn btn-common btn-search btn-block" type="submit" value="submit">
+                                    <input class="btn btn-common btn-search btn-block" type="submit"
+                                           value="{{ __('titles.submit') }}">
                                 </div>
                             </form>
                         </div>
@@ -63,12 +64,11 @@
     </section>
 
     <div class="wrapper">
-
         <section id="categories-homepage">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="section-title">Browse Courses from {{ App\Models\Category::where('parent_id', '<>', 0)->count() }} Categories</h3>
+                        <h3 class="section-title"> {{ __('titles.browse_course_from') . ' ' . App\Models\Category::where('parent_id', '<>', 0)->count() . ' ' . __('titles.l_categories') }}</h3>
                     </div>
                     @foreach(\App\Models\Category::where('parent_id', 0)->get() as $category)
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -83,12 +83,13 @@
                                     <ul>
                                         @foreach(\App\Models\Category::where('parent_id', $category->id)->limit(6)->get() as $subCategory)
                                             <li>
-                                                <a href="{{ route('courses.index', ['sub_category_id' => $subCategory->id]) }}">{{ $subCategory->title }}</a>
+                                                <a href="{{ route('courses.index', ['sub_category_id' => $subCategory->id]) }}">{{ config('app.locale') == 'en' ? $subCategory->title : $subCategory->vi_title }}</a>
                                                 <span class="category-counter"> {{ \App\Models\Course::where('is_accepted', 1)->where('category_id', $subCategory->id)->count() }} </span>
                                             </li>
                                         @endforeach
                                         <li>
-                                            <a href="{{ route('courses.index', ['category_id' => $category->id]) }}">View all subcategories →</a>
+                                            <a href="{{ route('courses.index', ['category_id' => $category->id]) }}">View
+                                                all subcategories →</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -103,23 +104,27 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                        <h3 class="section-title">Most Seller Course</h3>
+                        <h3 class="section-title">{{ __('titles.recommended_courses') }}</h3>
                         <div id="new-products" class="owl-carousel">
-                            @foreach(\App\Models\Course::orderBy('seller', 'desc')->where('is_accepted', 1)->limit(20)->get() as $trendCourse)
+                            @foreach($recommmendCourseList as $trendCourse)
                                 <div class="item">
                                     <div class="product-item">
                                         <div class="carousel-thumb">
-                                            <img src="{{ str_replace('public/', '', asset($trendCourse->course_avatar)) }}" style="height:142px"
+                                            <img src="{{ str_replace('public/', '', asset($trendCourse->course_avatar)) }}"
+                                                 style="height:142px"
                                                  alt="">
                                             <div class="overlay">
                                                 <a href="{{ route('courses.show', $trendCourse->id) }}"><i
                                                             class="fa fa-info-circle"></i></a>
                                             </div>
                                         </div>
-                                        <a href="{{ route('courses.show', $trendCourse->id) }}" class="item-name"> {{ $trendCourse->title }} </a>
-                                        <span class="price">@if($trendCourse->promotion_price === $trendCourse->origin_price)<b
-                                                    style="color:red">{{ $trendCourse->promotion_price }}$ </b><strike> {{ $trendCourse->origin_price }}$</strike>@else {{ $trendCourse->origin_price }}
-                                            $@endif</span>
+                                        <a href="{{ route('courses.show', $trendCourse->id) }}"
+                                           class="item-name"> {{ $trendCourse->title }} </a>
+                                        <span class="price">@if($trendCourse->promotion_price === $trendCourse->origin_price)
+                                                <b
+                                                        style="color:red">{{ $trendCourse->promotion_price }}$ </b>
+                                                <strike> {{ $trendCourse->origin_price }}$</strike>@else {{ $trendCourse->origin_price }}
+                                                $@endif</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -129,6 +134,39 @@
             </div>
         </section>
 
+        <section class="featured-lis">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
+                        <h3 class="section-title">{{ __('titles.most_seller_courses') }}</h3>
+                        <div id="best-products" class="owl-carousel">
+                            @foreach(\App\Models\Course::orderBy('seller', 'desc')->where('is_accepted', 1)->limit(20)->get() as $trendCourse)
+                                <div class="item">
+                                    <div class="product-item">
+                                        <div class="carousel-thumb">
+                                            <img src="{{ str_replace('public/', '', asset($trendCourse->course_avatar)) }}"
+                                                 style="height:142px"
+                                                 alt="">
+                                            <div class="overlay">
+                                                <a href="{{ route('courses.show', $trendCourse->id) }}"><i
+                                                            class="fa fa-info-circle"></i></a>
+                                            </div>
+                                        </div>
+                                        <a href="{{ route('courses.show', $trendCourse->id) }}"
+                                           class="item-name"> {{ $trendCourse->title }} </a>
+                                        <span class="price">@if($trendCourse->promotion_price === $trendCourse->origin_price)
+                                                <b
+                                                        style="color:red">{{ $trendCourse->promotion_price }}$ </b>
+                                                <strike> {{ $trendCourse->origin_price }}$</strike>@else {{ $trendCourse->origin_price }}
+                                                $@endif</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <div class="features">
             <div class="container">
@@ -281,7 +319,6 @@
                 </div>
             </div>
         </div>
-
 
         <section class="location">
             <div class="container">

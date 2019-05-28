@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateCategoriesTable extends Migration
 {
     /**
@@ -19,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->softDeletes();
         });
     }
+
     /**
      * Reverse the migrations.
      *

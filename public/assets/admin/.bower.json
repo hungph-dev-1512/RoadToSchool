@@ -1,0 +1,26 @@
+{
+  "name": "r2s-admin-assets",
+  "authors": [
+    "HungPhamHoang"
+  ],
+  "description": "r2s admin assets directory",
+  "main": "/",
+  "keywords": [
+    "fonticons"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hungph-dev-1512/r2s-admin-assets.git",
+  "ignore": [
+    "README.md"
+  ],
+  "_release": "90a3bd2f11",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "90a3bd2f11814d8e49c64dc593285c9611f64db8"
+  },
+  "_source": "https://github.com/hungph-dev-1512/r2s-admin-assets.git",
+  "_target": "*",
+  "_originalSource": "r2s-admin-assets",
+  "_direct": true
+}
