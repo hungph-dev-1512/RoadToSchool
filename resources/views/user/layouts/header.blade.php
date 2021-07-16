@@ -150,7 +150,8 @@
                                                 </span>
                                             </li>
                                         @elseif($notification->type == 0)
-                                            <li class="notification-detail"
+                                            <li class="notification-detail" data-id="{{ $notification->id }}"
+                                                data-status="{{ $notification->status }}"
                                                 style="cursor: pointer; {{ $notification->status ? '' : 'background: #CECEF6' }}">
                                                 <span class="item">
                                                     <span class="item-left">

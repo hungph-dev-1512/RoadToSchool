@@ -236,6 +236,7 @@ $("#notification-area").on("click", ".notification-detail", function () {
     $("#notification-count").text(
         parseInt($("#notification-count").text()) - 1
     );
+
     if ($(this).data("status") == 0) {
         $(this).css({
             background: ""
@@ -247,7 +248,6 @@ $("#notification-area").on("click", ".notification-detail", function () {
         });
         // Comment in course
         if ($(this).data('lecturecommentcourseid') == undefined) {
-            console.log(123);
             $.ajax({
                 url: "/notifications/" + $(this).data("id") + "/changeStatus",
                 type: "post",

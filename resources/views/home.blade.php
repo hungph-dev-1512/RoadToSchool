@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-    {{--    {{ dd(config('app.locale')) }}--}}
     <section id="intro" class="section-intro">
         <div class="overlay">
             <div class="container">
