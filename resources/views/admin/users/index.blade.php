@@ -124,7 +124,6 @@
 
             $('#update-user-info').on('click', function () {
                 var id = $(this).data('id');
-                console.log(id);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -139,15 +138,20 @@
                         phone: $('#m-phone').val(),
                         birthday: $('#m-birthday').val(),
                         address: $('#m-address').val(),
+                        role: $('#m-role').val()
                     },
                     success: function (data) {
                         $('#edit-profile-modal').modal('hide');
                         $.notify({
                             // options
-                            message: ' {{ __('update_user_success') }} '
+                            message: ' {{ __('titles.update_user_success') }} '
                         }, {
                             // settings
-                            type: 'success'
+                            type: 'success',
+                            placement: {
+                                from: "bottom",
+                                align: "right"
+                            },
                         });
                         $('#working-place').next().text($('#m-working-place').val());
                         $('#phone').next().text($('#m-phone').val());
@@ -159,6 +163,9 @@
                         $('#m-phone').val(data.phone);
                         $('#m-birthday').val(data.birthday);
                         $('#m-address').val(data.address);
+                        $('#m-role').val(data.role);
+                        $('#edit-modal').modal('toggle');
+                        $("#dt-opt").load(" #dt-opt");
                         flag = 1;
                     },
                     error: function (response) {

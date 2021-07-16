@@ -32,7 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'is_admin',
         'grade',
-        'instructor_rate'
+        'instructor_rate',
+        'working_place'
     ];
 
     const GRADE_0 = 0;

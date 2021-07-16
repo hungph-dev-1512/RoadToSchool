@@ -75,7 +75,8 @@ class PermissionsTableSeeder extends Seeder
             'View all users',
             'View instructor ranking',
             'Create new instructor',
-            'Check and reply all conversation waiting'
+            'Check and reply all conversation waiting',
+            'Update an user'
         ];
 
         foreach ($adminPermissionList as $permission) {

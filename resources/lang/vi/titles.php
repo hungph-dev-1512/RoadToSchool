@@ -212,4 +212,5 @@ return [
     'browse_course_from' => 'Tất cả các khóa học với',
     'most_seller_courses' => 'Các khóa học nhiều người mua nhất',
     'recommended_courses' => 'Các khóa học đề xuất',
+    'update_user_success' => 'Cập nhật user thành công'
 ];

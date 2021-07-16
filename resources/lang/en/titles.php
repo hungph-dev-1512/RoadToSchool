@@ -195,7 +195,6 @@ return [
     'result' => 'Result',
     'last_update_at' => 'Last update at',
     'waiting_conversations' => 'Waiting Conversations',
-    'my_course' => 'My Course',
     'go_to_course' => 'Go to Course',
     'process' => 'My Process',
     'add_new_course' => 'Add new Course',
@@ -211,5 +210,6 @@ return [
     'browse_course_from' => 'Browse Courses from',
     'most_seller_courses' => 'Most Seller Courses',
     'recommended_courses' => 'Recommended Courses',
-    'lecture_request_list' => 'Lecture Request List'
+    'lecture_request_list' => 'Lecture Request List',
+    'update_user_success' => 'Update user successfully'
 ];

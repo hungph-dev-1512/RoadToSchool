@@ -36,6 +36,7 @@ class CheckPermissionToAccessPage
             'admin.instructor_ranking' => 'View instructor ranking',
             'admin.users.create_instructor' => 'Create new instructor',
             'admin.conversations.waiting' => 'Check and reply all conversation waiting',
+            'admin.users.update' => 'Update an user',
             'instructor.courses.index' => 'Show instructor\'s course',
             'instructor.dashboard' => 'Access instructor dashboard',
             'instructor.courses.show' => 'Show a instructor\'s course',
@@ -46,7 +47,7 @@ class CheckPermissionToAccessPage
         ];
 
         foreach ($permissionDefine as $key => $value) {
-            $permissionId = Permission::where('content', $value)->first()->id;
+            $permissionId = Permission::where('content', $value)->first()['id'];
             $permissionDefine[$key] = $permissionId;
         }
 
