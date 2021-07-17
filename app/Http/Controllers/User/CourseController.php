@@ -109,19 +109,19 @@ class CourseController extends Controller
             $availableCourse = $this->modelCourseUser->where('course_id', $selectedCourse->id)->where('user_id', Auth::user()->id)->first();
         }
 
-        if (!(\Auth::user()->is_admin || \Auth::user()->role == 1)) {
-            // Get process
-            $allLectureCount = $allLectures->count();
-            $learnedLectureCount = 0;
-            if ($availableCourse) {
-                foreach ($allLectures as $lecture) {
-                    $learnStatus = $this->modelProcess->where('lecture_id', $lecture->id)->where('user_id', \Auth::user()->id)->first()->status;
-                    if ($learnStatus) {
-                        $learnedLectureCount++;
-                    }
+        // if (!(\Auth::user()->is_admin || \Auth::user()->role == 1)) {
+        // Get process
+        $allLectureCount = $allLectures->count();
+        $learnedLectureCount = 0;
+        if ($availableCourse) {
+            foreach ($allLectures as $lecture) {
+                $learnStatus = $this->modelProcess->where('lecture_id', $lecture->id)->where('user_id', \Auth::user()->id)->first()->status;
+                if ($learnStatus) {
+                    $learnedLectureCount++;
                 }
             }
         }
+        // }
 
         $mostRelatedCourse = $this->modelCourse->findMostRelatedCourse($id);
         $relatedCourseCount = $this->modelCourse->findRelatedCourseCount($id);
