@@ -43,7 +43,8 @@ class CheckPermissionToAccessPage
             'instructor.courses.lectures.create' => 'Create a lecture in course',
             'instructor.courses.lectures.store' => 'Create a lecture in course',
             'instructor.courses.create' => 'Create a course',
-            'instructor.courses.store' => 'Create a course'
+            'instructor.courses.store' => 'Create a course',
+            'admin.active-course' => 'Active a course'
         ];
 
         foreach ($permissionDefine as $key => $value) {
