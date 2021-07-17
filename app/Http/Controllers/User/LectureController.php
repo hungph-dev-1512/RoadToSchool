@@ -93,6 +93,7 @@ class LectureController extends Controller
                 $lectureOutline[$i] = $result;
 
             }
+            // dd($lectureOutline);
 
             // if (!(\Auth::user()->is_admin || \Auth::user()->role == 1)) {
             // Get process
@@ -112,7 +113,6 @@ class LectureController extends Controller
             foreach ($lectureComments as $lectureComment) {
                 $lectureComment->child_comments = $this->modelLectureComment->where('parent_comment', $lectureComment->id)->orderBy('updated_at', 'asc')->get();
             }
-
 
             return view('user.lectures.show', compact(
                 'embed',

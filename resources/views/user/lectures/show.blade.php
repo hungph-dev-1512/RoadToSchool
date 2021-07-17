@@ -27,11 +27,13 @@
                         @endif
                     </div>
                     {!! $embed->code !!}
+                    @if (\App\Models\Lecture::find($lectureId + 1))
                     <div id="timer" style="display: none;">
                         <p class="text-center" style="font-weight: bold">Redirect to next lecture
-                            <i>{{ \App\Models\Lecture::findOrFail($lectureId + 1)->title }}</i> in <span
+                            <i>{{ \App\Models\Lecture::findOrFirst($lectureId + 1)->title }}</i> in <span
                                     id="timer-text"></span>s</p>
                     </div>
+                    @endif
                     <div class="author">
                         <div class="inner-box">
                             <div class="author-img">
@@ -284,7 +286,8 @@
         $(document).ready(function () {
             $('iframe').attr('width', 750);
             $('iframe').attr('height', 370);
-            $('iframe').attr('src', $('iframe').attr('src').replace('feature=oembed', 'autoplay=1'));
+            // $('iframe').attr('src', $('iframe').attr('src').replace('feature=oembed', 'autoplay=1'));
+            $('iframe').attr('src', $('iframe').attr('src').replace('&enablejsapi=1', ''));
             $('#btn-chat').on('click', function (event) {
                 event.preventDefault();
 
