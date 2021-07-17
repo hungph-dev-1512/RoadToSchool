@@ -94,17 +94,17 @@ class LectureController extends Controller
 
             }
 
-            if (!(\Auth::user()->is_admin || \Auth::user()->role == 1)) {
-                // Get process
-                $allLectureCount = $lectures->count();
-                $learnedLectureCount = 0;
-                foreach ($lectures as $lecture) {
-                    $learnStatus = $this->modelProcess->where('lecture_id', $lecture->id)->where('user_id', \Auth::user()->id)->first()->status;
-                    if ($learnStatus) {
-                        $learnedLectureCount++;
-                    }
+            // if (!(\Auth::user()->is_admin || \Auth::user()->role == 1)) {
+            // Get process
+            $allLectureCount = $lectures->count();
+            $learnedLectureCount = 0;
+            foreach ($lectures as $lecture) {
+                $learnStatus = $this->modelProcess->where('lecture_id', $lecture->id)->where('user_id', \Auth::user()->id)->first()->status;
+                if ($learnStatus) {
+                    $learnedLectureCount++;
                 }
             }
+            // }
 
             // Get all discussions in lecture
             $discussionsList = $this->modelDiscussion->where('lecture_id', $lectureId)->orderBy('created_at')->get();
