@@ -100,8 +100,7 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        $result = $this->modelCourse->createNewCourse($data);
+        $result = $this->modelCourse->createNewCourse($request);
 
         if ($result) {
             flash(__('messages.create_course_successfully'))->success();

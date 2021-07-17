@@ -122,7 +122,8 @@
                     <p>Please input <code> course information </code> and <code> wait for admin approve </code>
                         for create new course.</p>
                     @include('flash::message')
-                    <form action="{{ route('instructor.courses.store') }}" method="post">
+                    <!-- <form action="{{ route('instructor.courses.store') }}" method="post" enctype="multipart/form-data"> -->
+                    {!! Form::open(['route' => 'instructor.courses.store', 'method' => 'post', 'files' => true]) !!} 
                         @csrf
                         <div class="row m-t-30">
                             <div class="col-md-4">
@@ -182,15 +183,21 @@
                                 <fieldset class="form-group">
                                     <label class="control-label" for="button-upload">Upload Course Image <3 images>
                                         *</label><br>
-                                    <a href="javascript:void(0)" id="button-upload" onclick="$('#pro-image').click()">Upload
+                                    <!-- <a href="javascript:void(0)" id="button-upload" onclick="$('#pro-image').click()">Upload
                                         Image</a>
                                     <input type="file" id="pro-image" name="image[]" style="display: none;"
                                            class="form-control" multiple>
                                     <input type="hidden" name="course_avatar" id="input-course-avatar">
                                     <input type="hidden" name="course_avatar_2" id="input-course-avatar-2">
-                                    <input type="hidden" name="course_avatar_3" id="input-course-avatar-3">
+                                    <input type="hidden" name="course_avatar_3" id="input-course-avatar-3"> -->
+                                    <!-- File upload chap nhap type Image -->
+                                    {!! Form::file('course_avatar', ['accept' => 'image/*']) !!} <br>
+                                    <!-- File upload chap nhap type Image -->
+                                    {!! Form::file('course_avatar_2', ['accept' => 'image/*']) !!} <br>
+                                    <!-- File upload chap nhap type Image -->
+                                    {!! Form::file('course_avatar_3', ['accept' => 'image/*']) !!} <br>
                                 </fieldset>
-                                <div class="preview-images-zone">
+                                <!-- <div class="preview-images-zone">
                                     <div class="preview-image preview-show-1" style="margin-left: 10px">
                                         <div class="image-cancel" data-no="1">x</div>
                                         <div class="image-zone"><img id="pro-img-1"
@@ -218,7 +225,7 @@
                                                                          class="btn btn-light btn-edit-image">Edit</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md-4" style="padding-top: 10px">
                                 <div class="m-t-15">
@@ -234,7 +241,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    <!-- </form> -->
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -266,16 +274,16 @@
                 $('#input-course-level').prop('selectedIndex', 0);
                 $('#input-course-level').prop('selectedIndex', 0);
             })
-            document.getElementById('pro-image').addEventListener('change', readImage, false);
+            // document.getElementById('pro-image').addEventListener('change', readImage, false);
 
-            $(".preview-images-zone").sortable();
+            // $(".preview-images-zone").sortable();
 
-            $(document).on('click', '.image-cancel', function () {
-                let no = $(this).data('no');
-                $(".preview-image.preview-show-" + no).remove();
-                flag = flag - 1;
-                num = num - 1;
-            });
+            // $(document).on('click', '.image-cancel', function () {
+            //     let no = $(this).data('no');
+            //     $(".preview-image.preview-show-" + no).remove();
+            //     flag = flag - 1;
+            //     num = num - 1;
+            // });
 
             $('#note-editing-area').mouseleave(function () {
                 $('#input-course-description').val($('#summernote').summernote('code'));

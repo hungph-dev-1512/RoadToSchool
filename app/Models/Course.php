@@ -125,12 +125,27 @@ class Course extends Model
         return Course::where('is_accepted', 1)->where('category_id', $selectedCategoryId)->get()->count();
     }
 
-    public function createNewCourse($data)
+    public function createNewCourse($request)
     {
-        $courseAvatarList = $data['image'];
-        $data['course_avatar'] = 'public/images/dummy_image/' . $courseAvatarList[0];
-        $data['course_avatar_2'] = 'public/images/dummy_image/' . $courseAvatarList[1];
-        $data['course_avatar_3'] = 'public/images/dummy_image/' . $courseAvatarList[2];
+        $data = $request->all();
+        $fileExtension = $request->file('course_avatar')->getClientOriginalExtension(); // Lấy . của file
+        $fileName = time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
+        $uploadPath = public_path('/images/course_avatar/');
+        $request->file('course_avatar')->move($uploadPath, $fileName);
+        $data['course_avatar'] = 'public/images/course_avatar/' . $fileName;
+
+        $fileExtension = $request->file('course_avatar_2')->getClientOriginalExtension(); // Lấy . của file
+        $fileName = time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
+        $uploadPath = public_path('/images/course_avatar/');
+        $request->file('course_avatar_2')->move($uploadPath, $fileName);
+        $data['course_avatar_2'] = 'public/images/course_avatar/' . $fileName;
+
+        $fileExtension = $request->file('course_avatar_3')->getClientOriginalExtension(); // Lấy . của file
+        $fileName = time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
+        $uploadPath = public_path('/images/course_avatar/');
+        $request->file('course_avatar_3')->move($uploadPath, $fileName);
+        $data['course_avatar_3'] = 'public/images/course_avatar/' . $fileName;
+
         $data['origin_price'] = 0;
         $data['lecture_numbers'] = 0;
         $data['duration'] = 0;
