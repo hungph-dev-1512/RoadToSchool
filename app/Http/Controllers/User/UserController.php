@@ -36,7 +36,7 @@ class UserController extends Controller
         $selectedUser = $this->modelUser->findUser($id);
 
         // Get difftime from last login to now.
-        // $diffTime = \Carbon\Carbon::parse($selectedUser->last_login)->diffForHumans();
+        $diffTime = \Carbon\Carbon::parse($selectedUser->last_login)->diffForHumans();
         // Get all province from database.
         $selectProvince = \App\Models\Province::all()->pluck('name', 'id');
 
